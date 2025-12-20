@@ -1,4 +1,4 @@
-.btn-primary {
+.btn_primary {
   width: 100%;
   padding: 16px;
   font-size: 16px;
@@ -50,12 +50,12 @@
     pointer-events: none;
   }
 
-  .btn-text {
+  .btn_text {
     position: relative;
     z-index: 1;
   }
 
-  .btn-loader {
+  .btn_loader {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -72,7 +72,7 @@
   }
 }
 
-.btn-secondary {
+.btn_secondary {
   padding: 12px 24px;
   font-size: 14px;
   font-weight: 600;
@@ -97,7 +97,7 @@
   }
 }
 
-.btn-link {
+.btn_link {
   background: none;
   border: none;
   color: $primary;
@@ -120,7 +120,7 @@
   }
 }
 
-.link-primary {
+.link_primary {
   color: $primary;
   text-decoration: none;
   font-weight: 600;
@@ -132,7 +132,7 @@
   }
 }
 
-.back-button {
+.back_button {
   position: absolute;
   left: 0;
   top: 0;
@@ -160,4 +160,8 @@
     color: $text-primary;
     transform: translateX(-2px);
   }
+}
+
+.hidden {
+  display: none;
 }

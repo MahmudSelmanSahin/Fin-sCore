@@ -4,27 +4,27 @@
     ViewData["Title"] = "Ek Güvenlik";
 }
 
-<div class="security-container">
-    <div class="security-card">
-        <div class="security-header">
-            <div class="security-icon">
+<div class="security_container">
+    <div class="security_card">
+        <div class="security_header">
+            <div class="security_icon">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <h1 class="security-title">Ek Güvenlik Gerekli</h1>
-            <p class="security-subtitle">Güvenliğiniz için ek doğrulama gerekmektedir</p>
+            <h1 class="security_title">Ek Güvenlik Gerekli</h1>
+            <p class="security_subtitle">Güvenliğiniz için ek doğrulama gerekmektedir</p>
         </div>
 
-        <div class="security-content">
-            <p class="security-message">
+        <div class="security_content">
+            <p class="security_message">
                 Maksimum deneme hakkınıza ulaştınız. Devam etmek için aşağıdaki seçeneklerden birini kullanabilirsiniz:
             </p>
 
-            <div class="security-options">
-                <div class="security-option">
-                    <div class="option-icon">
+            <div class="security_options">
+                <div class="security_option">
+                    <div class="option_icon">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
                             <path d="M3 8L12 13L21 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -32,13 +32,13 @@
                     </div>
                     <h3>E-posta ile Doğrulama</h3>
                     <p>Kayıtlı e-posta adresinize doğrulama kodu gönderilir</p>
-                    <button type="button" class="btn-secondary" id="emailVerifyBtn">
+                    <button type="button" class="btn_secondary" id="email_verify_btn">
                         E-posta ile Devam Et
                     </button>
                 </div>
 
-                <div class="security-option">
-                    <div class="option-icon">
+                <div class="security_option">
+                    <div class="option_icon">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22 16.92V19.92C22 20.52 21.52 21 20.92 21H3.08C2.48 21 2 20.52 2 19.92V16.92" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M2 7.08V4.08C2 3.48 2.48 3 3.08 3H20.92C21.52 3 22 3.48 22 4.08V7.08" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -48,28 +48,28 @@
                     </div>
                     <h3>CAPTCHA Doğrulama</h3>
                     <p>Robot olmadığınızı doğrulamak için CAPTCHA çözün</p>
-                    <button type="button" class="btn-secondary" id="captchaBtn">
+                    <button type="button" class="btn_secondary" id="captcha_btn">
                         CAPTCHA ile Devam Et
                     </button>
                 </div>
 
-                <div class="security-option">
-                    <div class="option-icon">
+                <div class="security_option">
+                    <div class="option_icon">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
                     <h3>Müşteri Hizmetleri</h3>
                     <p>Destek ekibimizle iletişime geçin</p>
-                    <button type="button" class="btn-secondary" id="supportBtn">
+                    <button type="button" class="btn_secondary" id="support_btn">
                         Destek ile İletişime Geç
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="security-footer">
-            <button type="button" class="btn-link" onclick="history.back()">
+        <div class="security_footer">
+            <button type="button" class="btn_link" onclick="history.back()">
                 ← Geri Dön
             </button>
         </div>
@@ -79,18 +79,17 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            $('#emailVerifyBtn').on('click', function() {
+            $('#email_verify_btn').on('click', function() {
                 alert('E-posta doğrulama özelliği yakında eklenecek.');
             });
 
-            $('#captchaBtn').on('click', function() {
+            $('#captcha_btn').on('click', function() {
                 alert('CAPTCHA doğrulama özelliği yakında eklenecek.');
             });
 
-            $('#supportBtn').on('click', function() {
+            $('#support_btn').on('click', function() {
                 window.location.href = 'tel:08501234567';
             });
         });
     </script>
 }
-

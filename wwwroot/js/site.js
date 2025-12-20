@@ -14,15 +14,15 @@ $(document).ready(function() {
     // Add loading states to forms
     $('form').on('submit', function() {
         const $form = $(this);
-        const $submitBtn = $form.find('button[type="submit"]');
+        const $submit_btn = $form.find('button[type="submit"]');
         
-        if (!$submitBtn.hasClass('loading')) {
-            $submitBtn.prop('disabled', true);
+        if (!$submit_btn.hasClass('loading')) {
+            $submit_btn.prop('disabled', true);
         }
     });
 
     // Input focus animations
-    $('.form-input, .code-input').on('focus', function() {
+    $('.form_input, .code_input').on('focus', function() {
         $(this).parent().addClass('focused');
     }).on('blur', function() {
         $(this).parent().removeClass('focused');
@@ -42,4 +42,3 @@ $(document).ready(function() {
         }
     });
 });
-

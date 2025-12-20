@@ -1,20 +1,20 @@
-.sms-code-container {
+.sms_code_container {
   margin-bottom: 32px;
 }
 
-.sms-single-input {
+.sms_single_input {
   text-align: center;
   font-size: 20px;
   font-weight: 600;
   letter-spacing: 8px;
-  padding-left: 16px !important;
+  padding-left: 16px;
 }
 
-.sms-info {
+.sms_info {
   text-align: center;
   margin-bottom: 24px;
 
-  .attempt-info {
+  .attempt_info {
     font-size: 14px;
     color: $text-secondary;
     margin-bottom: 12px;
@@ -26,20 +26,59 @@
   }
 }
 
-.sms-alternatives {
+.sms_alternatives {
   margin-top: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
+
+  .separator {
+    margin: 0 8px;
+    color: #9ca3af;
+  }
+
+  .inline_form {
+    display: inline;
+  }
 }
 
-.demo-otp-notice {
-  code {
+.demo_otp_notice {
+  margin-top: 20px;
+  padding: 12px;
+  background: #f0f9ff;
+  border: 1px solid #0ea5e9;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+
+  .otp_code {
     font-family: 'Courier New', monospace;
     padding: 4px 8px;
     background: white;
     border-radius: 4px;
+    font-weight: bold;
+    color: #0ea5e9;
+  }
+}
+
+// Alert styles
+.alert {
+  margin-bottom: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+
+  &.alert_error {
+    background: #fee2e2;
+    border: 1px solid #ef4444;
+    color: #991b1b;
+  }
+
+  &.alert_success {
+    background: #d1fae5;
+    border: 1px solid #10b981;
+    color: #065f46;
   }
 }

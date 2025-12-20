@@ -352,6 +352,9 @@ h1, h2, h3, h4, h5, h6 {
 .form_input.error:focus {
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
+.form_input::-moz-placeholder {
+  color: #9ca3af;
+}
 .form_input::placeholder {
   color: #9ca3af;
 }
@@ -384,7 +387,9 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   position: relative;
   padding-left: 36px;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .kvkk_checkbox input[type=checkbox] {
   position: absolute;
@@ -841,6 +846,4 @@ h1, h2, h3, h4, h5, h6 {
 *:focus-visible {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
-}
-
-/*# sourceMappingURL=site.css.map */
+}/*# sourceMappingURL=main.css.map */

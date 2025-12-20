@@ -1,16 +1,16 @@
-.login-container,
-.sms-container,
-.signup-container,
-.security-container {
+.login_container,
+.sms_container,
+.signup_container,
+.security_container {
   width: 100%;
   max-width: 480px;
   animation: fadeIn 0.6s ease-out;
 }
 
-.login-card,
-.sms-card,
-.signup-card,
-.security-card {
+.login_card,
+.sms_card,
+.signup_card,
+.security_card {
   background: $bg-primary;
   border-radius: 24px;
   padding: 48px 40px;
@@ -37,20 +37,20 @@
   }
 }
 
-.login-header,
-.sms-header,
-.signup-header {
+.login_header,
+.sms_header,
+.signup_header {
   text-align: center;
   margin-bottom: 40px;
   position: relative;
 }
 
-.logo-container {
+.logo_container {
   margin-bottom: 24px;
   display: inline-block;
   animation: fadeIn 0.8s ease-out, float 3s ease-in-out infinite 1s;
 
-  .logo-icon {
+  .logo_icon {
     width: 48px;
     height: 48px;
     color: $primary;
@@ -64,9 +64,9 @@
   }
 }
 
-.login-title,
-.sms-title,
-.signup-title {
+.login_title,
+.sms_title,
+.signup_title {
   font-size: 32px;
   font-weight: 700;
   color: $text-primary;
@@ -77,24 +77,24 @@
   background-clip: text;
 }
 
-.login-subtitle,
-.sms-subtitle,
-.signup-subtitle {
+.login_subtitle,
+.sms_subtitle,
+.signup_subtitle {
   font-size: 16px;
   color: $text-secondary;
   margin-top: 8px;
 }
 
-.login-form,
-.sms-form,
-.signup-form {
+.login_form,
+.sms_form,
+.signup_form {
   animation: slideIn 0.6s ease-out 0.2s both;
 }
 
-.login-footer,
-.sms-footer,
-.signup-footer,
-.security-footer {
+.login_footer,
+.sms_footer,
+.signup_footer,
+.security_footer {
   text-align: center;
   margin-top: 32px;
   padding-top: 24px;
@@ -104,14 +104,14 @@
 }
 
 // Login Type Selector
-.login-type-selector {
+.login_type_selector {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 24px;
 }
 
-.type-option {
+.type_option {
   cursor: pointer;
   position: relative;
 
@@ -120,7 +120,7 @@
     opacity: 0;
     cursor: pointer;
 
-    &:checked ~ .type-label {
+    &:checked ~ .type_label {
       background: $primary;
       color: white;
       border-color: $primary;
@@ -128,7 +128,7 @@
     }
   }
 
-  .type-label {
+  .type_label {
     display: flex;
     align-items: center;
     justify-content: center;

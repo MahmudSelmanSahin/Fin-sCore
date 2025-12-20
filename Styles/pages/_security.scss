@@ -1,9 +1,9 @@
-.security-header {
+.security_header {
   text-align: center;
   margin-bottom: 40px;
 }
 
-.security-icon {
+.security_icon {
   width: 56px;
   height: 56px;
   margin: 0 auto 24px;
@@ -17,23 +17,23 @@
   }
 }
 
-.security-title {
+.security_title {
   font-size: 28px;
   font-weight: 700;
   color: $text-primary;
   margin-bottom: 8px;
 }
 
-.security-subtitle {
+.security_subtitle {
   font-size: 16px;
   color: $text-secondary;
 }
 
-.security-content {
+.security_content {
   margin-bottom: 32px;
 }
 
-.security-message {
+.security_message {
   font-size: 15px;
   color: $text-secondary;
   line-height: 1.6;
@@ -44,12 +44,12 @@
   border-radius: 12px;
 }
 
-.security-options {
+.security_options {
   display: grid;
   gap: 20px;
 }
 
-.security-option {
+.security_option {
   padding: 24px;
   border: 2px solid $border-color;
   border-radius: 16px;
@@ -63,7 +63,7 @@
     box-shadow: $shadow-md;
   }
 
-  .option-icon {
+  .option_icon {
     width: 40px;
     height: 40px;
     margin: 0 auto 16px;

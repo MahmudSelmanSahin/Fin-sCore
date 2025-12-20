@@ -18,30 +18,30 @@
 
 // 5. Responsive
 @media (max-width: 640px) {
-  .login-card,
-  .sms-card,
-  .signup-card {
+  .login_card,
+  .sms_card,
+  .signup_card {
     padding: 32px 24px;
     border-radius: 20px;
   }
 
-  .form-row {
+  .form_row {
     grid-template-columns: 1fr;
   }
 
-  .code-inputs {
+  .code_inputs {
     gap: 8px;
   }
 
-  .code-input {
+  .code_input {
     font-size: 18px;
     width: 45px;
     height: 45px;
   }
 
-  .login-title,
-  .sms-title,
-  .signup-title {
+  .login_title,
+  .sms_title,
+  .signup_title {
     font-size: 28px;
   }
 }

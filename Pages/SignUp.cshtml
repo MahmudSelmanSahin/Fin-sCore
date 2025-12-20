@@ -4,139 +4,139 @@
     ViewData["Title"] = "Üye Ol";
 }
 
-<div class="signup-container">
-    <div class="signup-card">
-        <div class="signup-header">
-            <button class="back-button" onclick="history.back()">
+<div class="signup_container">
+    <div class="signup_card">
+        <div class="signup_header">
+            <button class="back_button" onclick="history.back()">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            <h1 class="signup-title">Üye Ol</h1>
-            <p class="signup-subtitle">Hesabınızı oluşturun ve başlayın</p>
+            <h1 class="signup_title">Üye Ol</h1>
+            <p class="signup_subtitle">Hesabınızı oluşturun ve başlayın</p>
         </div>
 
-        <form id="signupForm" class="signup-form" method="post">
-            <div class="form-row">
-                <div class="input-group">
-                    <label class="input-label">Ad</label>
+        <form id="signup_form" class="signup_form" method="post">
+            <div class="form_row">
+                <div class="input_group">
+                    <label class="input_label">Ad</label>
                     <input type="text" 
-                           id="firstName" 
+                           id="first_name" 
                            name="firstName" 
-                           class="form-input" 
+                           class="form_input" 
                            placeholder="Adınız"
                            required />
-                    <span class="input-error" id="firstNameError"></span>
+                    <span class="input_error" id="first_name_error"></span>
                 </div>
 
-                <div class="input-group">
-                    <label class="input-label">Soyad</label>
+                <div class="input_group">
+                    <label class="input_label">Soyad</label>
                     <input type="text" 
-                           id="lastName" 
+                           id="last_name" 
                            name="lastName" 
-                           class="form-input" 
+                           class="form_input" 
                            placeholder="Soyadınız"
                            required />
-                    <span class="input-error" id="lastNameError"></span>
+                    <span class="input_error" id="last_name_error"></span>
                 </div>
             </div>
 
-            <div class="input-group">
-                <label class="input-label">TC Kimlik No</label>
+            <div class="input_group">
+                <label class="input_label">TC Kimlik No</label>
                 <input type="text" 
                        id="tckno" 
                        name="tckno" 
-                       class="form-input" 
+                       class="form_input" 
                        placeholder="11 haneli TC Kimlik No"
                        maxlength="11"
                        required />
-                <span class="input-error" id="tcknoError"></span>
+                <span class="input_error" id="tckno_error"></span>
             </div>
 
-            <div class="input-group">
-                <label class="input-label">GSM Numarası</label>
+            <div class="input_group">
+                <label class="input_label">GSM Numarası</label>
                 <input type="text" 
                        id="gsm" 
                        name="gsm" 
-                       class="form-input" 
+                       class="form_input" 
                        placeholder="05XX XXX XX XX"
                        maxlength="11"
                        required />
-                <span class="input-error" id="gsmError"></span>
+                <span class="input_error" id="gsm_error"></span>
             </div>
 
-            <div class="input-group">
-                <label class="input-label">E-posta</label>
+            <div class="input_group">
+                <label class="input_label">E-posta</label>
                 <input type="email" 
                        id="email" 
                        name="email" 
-                       class="form-input" 
+                       class="form_input" 
                        placeholder="ornek@email.com"
                        required />
-                <span class="input-error" id="emailError"></span>
+                <span class="input_error" id="email_error"></span>
             </div>
 
-            <div class="input-group">
-                <label class="input-label">Şifre</label>
-                <div class="input-wrapper password-wrapper">
+            <div class="input_group">
+                <label class="input_label">Şifre</label>
+                <div class="input_wrapper password_wrapper">
                     <input type="password" 
                            id="password" 
                            name="password" 
-                           class="form-input" 
+                           class="form_input" 
                            placeholder="En az 8 karakter"
                            required />
-                    <button type="button" class="password-toggle" id="passwordToggle">
-                        <svg class="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <button type="button" class="password_toggle" id="password_toggle">
+                        <svg class="eye_icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2"/>
                             <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
                         </svg>
                     </button>
                 </div>
-                <span class="input-error" id="passwordError"></span>
+                <span class="input_error" id="password_error"></span>
             </div>
 
-            <div class="input-group">
-                <label class="input-label">Şifre Tekrar</label>
-                <div class="input-wrapper password-wrapper">
+            <div class="input_group">
+                <label class="input_label">Şifre Tekrar</label>
+                <div class="input_wrapper password_wrapper">
                     <input type="password" 
-                           id="passwordConfirm" 
+                           id="password_confirm" 
                            name="passwordConfirm" 
-                           class="form-input" 
+                           class="form_input" 
                            placeholder="Şifrenizi tekrar giriniz"
                            required />
-                    <button type="button" class="password-toggle" id="passwordConfirmToggle">
-                        <svg class="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <button type="button" class="password_toggle" id="password_confirm_toggle">
+                        <svg class="eye_icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2"/>
                             <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
                         </svg>
                     </button>
                 </div>
-                <span class="input-error" id="passwordConfirmError"></span>
+                <span class="input_error" id="password_confirm_error"></span>
             </div>
 
-            <div class="kvkk-container">
-                <label class="kvkk-checkbox">
-                    <input type="checkbox" id="kvkkAccept" name="kvkkAccept" required />
+            <div class="kvkk_container">
+                <label class="kvkk_checkbox">
+                    <input type="checkbox" id="kvkk_accept" name="kvkkAccept" required />
                     <span class="checkmark"></span>
-                    <span class="kvkk-text">
-                        <a href="#" class="kvkk-link">KVKK Aydınlatma Metni</a>'ni okudum, anladım ve kabul ediyorum.
+                    <span class="kvkk_text">
+                        <a href="#" class="kvkk_link">KVKK Aydınlatma Metni</a>'ni okudum, anladım ve kabul ediyorum.
                     </span>
                 </label>
             </div>
 
-            <div class="kvkk-container">
-                <label class="kvkk-checkbox">
-                    <input type="checkbox" id="termsAccept" name="termsAccept" required />
+            <div class="kvkk_container">
+                <label class="kvkk_checkbox">
+                    <input type="checkbox" id="terms_accept" name="termsAccept" required />
                     <span class="checkmark"></span>
-                    <span class="kvkk-text">
-                        <a href="#" class="kvkk-link">Kullanım Koşulları</a>'nı okudum ve kabul ediyorum.
+                    <span class="kvkk_text">
+                        <a href="#" class="kvkk_link">Kullanım Koşulları</a>'nı okudum ve kabul ediyorum.
                     </span>
                 </label>
             </div>
 
-            <button type="submit" class="btn-primary" id="signupBtn">
-                <span class="btn-text">Üye Ol</span>
-                <span class="btn-loader" style="display: none;">
+            <button type="submit" class="btn_primary" id="signup_btn">
+                <span class="btn_text">Üye Ol</span>
+                <span class="btn_loader hidden">
                     <svg class="spinner" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
                         <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
@@ -145,8 +145,8 @@
             </button>
         </form>
 
-        <div class="signup-footer">
-            <p>Zaten hesabınız var mı? <a href="/" class="link-primary">Giriş Yap</a></p>
+        <div class="signup_footer">
+            <p>Zaten hesabınız var mı? <a href="/" class="link_primary">Giriş Yap</a></p>
         </div>
     </div>
 </div>
@@ -154,148 +154,154 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
+            var $tckno = $('#tckno');
+            var $gsm = $('#gsm');
+            var $password = $('#password');
+            var $password_confirm = $('#password_confirm');
+            var $signup_form = $('#signup_form');
+            var $signup_btn = $('#signup_btn');
+
             // TCKNO validation
-            $('#tckno').on('input', function() {
+            $tckno.on('input', function() {
                 let value = $(this).val().replace(/\D/g, '');
                 $(this).val(value);
-                validateTCKNO(value);
+                validate_tckno(value);
             });
 
             // GSM validation
-            $('#gsm').on('input', function() {
+            $gsm.on('input', function() {
                 let value = $(this).val().replace(/\D/g, '');
                 if (value && !value.startsWith('0')) {
                     value = '0' + value;
                 }
                 $(this).val(value);
-                validateGSM(value);
+                validate_gsm(value);
             });
 
             // Password toggle
-            $('#passwordToggle, #passwordConfirmToggle').on('click', function() {
-                const input = $(this).siblings('input');
-                const type = input.attr('type') === 'password' ? 'text' : 'password';
-                input.attr('type', type);
+            $('#password_toggle, #password_confirm_toggle').on('click', function() {
+                const $input = $(this).siblings('input');
+                const type = $input.attr('type') === 'password' ? 'text' : 'password';
+                $input.attr('type', type);
                 $(this).toggleClass('active');
             });
 
             // Password confirmation validation
-            $('#passwordConfirm').on('input', function() {
-                const password = $('#password').val();
+            $password_confirm.on('input', function() {
+                const password = $password.val();
                 const confirm = $(this).val();
                 
                 if (confirm && password !== confirm) {
-                    showError('passwordConfirm', 'Şifreler eşleşmiyor');
+                    show_error('password_confirm', 'Şifreler eşleşmiyor');
                 } else {
-                    clearError('passwordConfirm');
+                    clear_error('password_confirm');
                 }
             });
 
             // Form submission
-            $('#signupForm').on('submit', function(e) {
-                e.preventDefault();
-
-                let isValid = true;
+            $signup_form.on('submit', function(e) {
+                let is_valid = true;
 
                 // Validate all fields
-                if (!validateTCKNO($('#tckno').val())) isValid = false;
-                if (!validateGSM($('#gsm').val())) isValid = false;
-                if (!validateEmail($('#email').val())) isValid = false;
-                if (!validatePassword($('#password').val())) isValid = false;
+                if (!validate_tckno($tckno.val())) is_valid = false;
+                if (!validate_gsm($gsm.val())) is_valid = false;
+                if (!validate_email($('#email').val())) is_valid = false;
+                if (!validate_password($password.val())) is_valid = false;
                 
-                const password = $('#password').val();
-                const passwordConfirm = $('#passwordConfirm').val();
-                if (password !== passwordConfirm) {
-                    showError('passwordConfirm', 'Şifreler eşleşmiyor');
-                    isValid = false;
+                const password = $password.val();
+                const password_confirm = $password_confirm.val();
+                if (password !== password_confirm) {
+                    show_error('password_confirm', 'Şifreler eşleşmiyor');
+                    is_valid = false;
                 }
 
-                if (!$('#kvkkAccept').is(':checked')) {
-                    showError('kvkkAccept', 'KVKK metnini kabul etmelisiniz');
-                    isValid = false;
+                if (!$('#kvkk_accept').is(':checked')) {
+                    show_error('kvkk_accept', 'KVKK metnini kabul etmelisiniz');
+                    is_valid = false;
                 }
 
-                if (!$('#termsAccept').is(':checked')) {
-                    showError('termsAccept', 'Kullanım koşullarını kabul etmelisiniz');
-                    isValid = false;
+                if (!$('#terms_accept').is(':checked')) {
+                    show_error('terms_accept', 'Kullanım koşullarını kabul etmelisiniz');
+                    is_valid = false;
                 }
 
-                if (!isValid) return;
+                if (!is_valid) {
+                    e.preventDefault();
+                    return false;
+                }
 
                 // Show loading
-                $('#signupBtn').addClass('loading');
-                $('.btn-text').hide();
-                $('.btn-loader').show();
+                $signup_btn.addClass('loading');
+                $signup_btn.find('.btn_text').hide();
+                $signup_btn.find('.btn_loader').removeClass('hidden').show();
+                $signup_btn.prop('disabled', true);
 
-                // Simulate API call
-                setTimeout(function() {
-                    window.location.href = '/SmsVerification?identifier=' + encodeURIComponent($('#gsm').val());
-                }, 1500);
+                // Allow form to submit
+                return true;
             });
 
-            function validateTCKNO(value) {
+            function validate_tckno(value) {
                 if (!value) {
-                    showError('tckno', 'TC Kimlik No giriniz');
+                    show_error('tckno', 'TC Kimlik No giriniz');
                     return false;
                 }
                 if (value.length !== 11) {
-                    showError('tckno', 'TC Kimlik No 11 haneli olmalıdır');
+                    show_error('tckno', 'TC Kimlik No 11 haneli olmalıdır');
                     return false;
                 }
-                clearError('tckno');
+                clear_error('tckno');
                 return true;
             }
 
-            function validateGSM(value) {
+            function validate_gsm(value) {
                 if (!value) {
-                    showError('gsm', 'GSM numarası giriniz');
+                    show_error('gsm', 'GSM numarası giriniz');
                     return false;
                 }
                 if (!/^05\d{9}$/.test(value)) {
-                    showError('gsm', 'Geçerli bir GSM numarası giriniz (05XX XXX XX XX)');
+                    show_error('gsm', 'Geçerli bir GSM numarası giriniz (05XX XXX XX XX)');
                     return false;
                 }
-                clearError('gsm');
+                clear_error('gsm');
                 return true;
             }
 
-            function validateEmail(value) {
-                const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            function validate_email(value) {
+                const email_regex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
                 if (!value) {
-                    showError('email', 'E-posta adresi giriniz');
+                    show_error('email', 'E-posta adresi giriniz');
                     return false;
                 }
-                if (!emailRegex.test(value)) {
-                    showError('email', 'Geçerli bir e-posta adresi giriniz');
+                if (!email_regex.test(value)) {
+                    show_error('email', 'Geçerli bir e-posta adresi giriniz');
                     return false;
                 }
-                clearError('email');
+                clear_error('email');
                 return true;
             }
 
-            function validatePassword(value) {
+            function validate_password(value) {
                 if (!value) {
-                    showError('password', 'Şifre giriniz');
+                    show_error('password', 'Şifre giriniz');
                     return false;
                 }
                 if (value.length < 8) {
-                    showError('password', 'Şifre en az 8 karakter olmalıdır');
+                    show_error('password', 'Şifre en az 8 karakter olmalıdır');
                     return false;
                 }
-                clearError('password');
+                clear_error('password');
                 return true;
             }
 
-            function showError(fieldId, message) {
-                $('#' + fieldId + 'Error').text(message).addClass('show');
-                $('#' + fieldId).addClass('error');
+            function show_error(field_id, message) {
+                $('#' + field_id + '_error').text(message).addClass('show');
+                $('#' + field_id).addClass('error');
             }
 
-            function clearError(fieldId) {
-                $('#' + fieldId + 'Error').text('').removeClass('show');
-                $('#' + fieldId).removeClass('error');
+            function clear_error(field_id) {
+                $('#' + field_id + '_error').text('').removeClass('show');
+                $('#' + field_id).removeClass('error');
             }
         });
     </script>
 }
-
