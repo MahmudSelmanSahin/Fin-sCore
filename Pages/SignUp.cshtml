@@ -164,6 +164,9 @@
             // TCKNO validation
             $tckno.on('input', function() {
                 let value = $(this).val().replace(/\D/g, '');
+                if (value.length > 11) {
+                    value = value.substring(0, 11);
+                }
                 $(this).val(value);
                 validate_tckno(value);
             });
@@ -173,6 +176,9 @@
                 let value = $(this).val().replace(/\D/g, '');
                 if (value && !value.startsWith('0')) {
                     value = '0' + value;
+                }
+                if (value.length > 11) {
+                    value = value.substring(0, 11);
                 }
                 $(this).val(value);
                 validate_gsm(value);

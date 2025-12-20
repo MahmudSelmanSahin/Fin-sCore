@@ -19,28 +19,16 @@
         </div>
 
         <form id="login_form" class="login_form" method="post">
-            <div class="login_type_selector">
-                <label class="type_option">
-                    <input type="radio" name="login_type" value="gsm" checked />
-                    <span class="type_label">GSM ile Giriş</span>
-                </label>
-                <label class="type_option">
-                    <input type="radio" name="login_type" value="tckn" />
-                    <span class="type_label">TC Kimlik ile Giriş</span>
-                </label>
-            </div>
-
             <div class="input_group">
-                <label class="input_label" id="identifier_label">GSM Numarası</label>
+                <label class="input_label">TC Kimlik No</label>
                 <div class="input_wrapper">
                     <input type="text" 
-                           id="identifier" 
-                           name="identifier" 
+                           id="tckno" 
+                           name="tckno" 
                            class="form_input" 
-                           placeholder="05XX XXX XX XX"
+                           placeholder="11 haneli TC Kimlik No"
                            maxlength="11"
-                           autocomplete="off"
-                           required />
+                           autocomplete="off" />
                     <span class="input_icon">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2"/>
@@ -48,8 +36,31 @@
                         </svg>
                     </span>
                 </div>
-                <span class="input_error" id="identifier_error"></span>
+                <span class="input_error" id="tckno_error"></span>
             </div>
+
+            <div class="input_group">
+                <label class="input_label">GSM Numarası</label>
+                <div class="input_wrapper">
+                    <input type="text" 
+                           id="gsm" 
+                           name="gsm" 
+                           class="form_input" 
+                           placeholder="05XX XXX XX XX"
+                           maxlength="11"
+                           autocomplete="off" />
+                    <span class="input_icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 16.92V19.92C22 20.52 21.52 21 20.92 21H3.08C2.48 21 2 20.52 2 19.92V16.92" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7 2H17V10H7V2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 14V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </div>
+                <span class="input_error" id="gsm_error"></span>
+            </div>
+
+            <p class="login_info">TC Kimlik No veya GSM Numarası ile giriş yapabilirsiniz</p>
 
             @if (!Model.HasKvkkConsent)
             {
@@ -84,72 +95,94 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            var $identifier_input = $('#identifier');
-            var $identifier_label = $('#identifier_label');
+            var $tckno_input = $('#tckno');
+            var $gsm_input = $('#gsm');
             var $login_form = $('#login_form');
             var $login_btn = $('#login_btn');
-            var login_type = 'gsm';
 
             console.log('Login form initialized');
 
-            // Handle login type change
-            $('input[name="login_type"]').on('change', function() {
-                login_type = $(this).val();
-                $identifier_input.val('');
-                clear_error('identifier');
-                console.log('Login type changed to:', login_type);
-
-                if (login_type === 'gsm') {
-                    $identifier_label.text('GSM Numarası');
-                    $identifier_input.attr('placeholder', '05XX XXX XX XX');
-                    $identifier_input.attr('maxlength', '11');
-                } else {
-                    $identifier_label.text('TC Kimlik No');
-                    $identifier_input.attr('placeholder', '11 haneli TC Kimlik No');
-                    $identifier_input.attr('maxlength', '11');
-                }
-            });
-
-            // Input formatting
-            $identifier_input.on('input', function() {
+            // TCKNO input formatting
+            $tckno_input.on('input', function() {
                 let value = $(this).val().replace(/\D/g, '');
                 if (value.length > 11) {
                     value = value.substring(0, 11);
                 }
                 $(this).val(value);
+                if (value) {
+                    clear_error('tckno');
+                }
+            });
+
+            // GSM input formatting
+            $gsm_input.on('input', function() {
+                let value = $(this).val().replace(/\D/g, '');
+                if (value.length > 11) {
+                    value = value.substring(0, 11);
+                }
+                $(this).val(value);
+                if (value) {
+                    clear_error('gsm');
+                }
             });
 
             // Form submission
             $login_form.on('submit', function(e) {
                 console.log('Form submit triggered');
                 
-                const identifier = $identifier_input.val();
+                const tckno = $tckno_input.val();
+                const gsm = $gsm_input.val();
                 const kvkk_checkbox = $('#kvkk_accept');
                 const kvkk_accepted = kvkk_checkbox.length === 0 || kvkk_checkbox.is(':checked');
 
-                console.log('Identifier:', identifier);
-                console.log('Login type:', login_type);
+                console.log('TCKNO:', tckno);
+                console.log('GSM:', gsm);
                 console.log('KVKK accepted:', kvkk_accepted);
 
-                // Validate identifier
-                if (!identifier || identifier.length !== 11) {
+                // Clear all errors first
+                clear_error('tckno');
+                clear_error('gsm');
+
+                let is_valid = true;
+
+                // At least one field must be filled
+                if (!tckno && !gsm) {
                     e.preventDefault();
-                    show_error('identifier', 'Lütfen 11 haneli numara giriniz');
-                    console.log('Validation failed: length');
+                    show_error('tckno', 'TC Kimlik No veya GSM Numarası giriniz');
+                    show_error('gsm', 'TC Kimlik No veya GSM Numarası giriniz');
+                    console.log('Validation failed: both empty');
                     return false;
                 }
 
-                if (login_type === 'gsm' && !identifier.startsWith('05')) {
-                    e.preventDefault();
-                    show_error('identifier', 'GSM numarası 05 ile başlamalıdır');
-                    console.log('Validation failed: GSM format');
-                    return false;
+                // Validate TCKNO if provided
+                if (tckno) {
+                    if (tckno.length !== 11) {
+                        show_error('tckno', 'TC Kimlik No 11 haneli olmalıdır');
+                        is_valid = false;
+                    }
+                }
+
+                // Validate GSM if provided
+                if (gsm) {
+                    if (gsm.length !== 11) {
+                        show_error('gsm', 'GSM numarası 11 haneli olmalıdır');
+                        is_valid = false;
+                    } else if (!gsm.startsWith('05')) {
+                        show_error('gsm', 'GSM numarası 05 ile başlamalıdır');
+                        is_valid = false;
+                    }
                 }
 
                 if (!kvkk_accepted) {
                     e.preventDefault();
-                    show_error('identifier', 'KVKK metnini kabul etmelisiniz');
+                    show_error('tckno', 'KVKK metnini kabul etmelisiniz');
                     console.log('Validation failed: KVKK');
+                    return false;
+                }
+
+                if (!is_valid) {
+                    e.preventDefault();
+                    console.log('Validation failed');
                     return false;
                 }
 
