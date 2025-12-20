@@ -1,10 +1,54 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Fin-sCore - Ana Sayfa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="dashboard_container">
+    <div class="dashboard_header">
+        <h1 class="dashboard_header__title">Hoş Geldiniz</h1>
+        <p class="dashboard_header__subtitle">Ana Servisler</p>
+    </div>
+
+    <div class="dashboard_cards">
+        <a href="/Reports" class="dashboard_card dashboard_card--blue">
+            <div class="dashboard_card__icon">
+                <svg class="dashboard_card__icon_svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/>
+                </svg>
+            </div>
+            <h2 class="dashboard_card__title">Rapor Detayları</h2>
+            <p class="dashboard_card__description">Finansal raporlarınızı görüntüleyin ve analiz edin</p>
+            <span class="dashboard_card__arrow">→</span>
+        </a>
+
+        <a href="/Support" class="dashboard_card dashboard_card--green">
+            <div class="dashboard_card__icon">
+                <svg class="dashboard_card__icon_svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+            </div>
+            <h2 class="dashboard_card__title">Yardım & Destek Merkezi</h2>
+            <p class="dashboard_card__description">Sorularınız için destek alın</p>
+            <span class="dashboard_card__arrow">→</span>
+        </a>
+
+        <a href="/Profile" class="dashboard_card dashboard_card--navy">
+            <div class="dashboard_card__icon">
+                <svg class="dashboard_card__icon_svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </div>
+            <h2 class="dashboard_card__title">Profil & Hesap Ayarları</h2>
+            <p class="dashboard_card__description">Hesap bilgilerinizi yönetin</p>
+            <span class="dashboard_card__arrow">→</span>
+        </a>
+    </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/dashboard.js"></script>
+}

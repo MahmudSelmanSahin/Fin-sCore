@@ -1,0 +1,241 @@
+// Dashboard Page Styles
+.dashboard_container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, $color_dark_navy 0%, #1a1f47 100%);
+    padding: 3rem 1rem;
+}
+
+.dashboard_header {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+ 
+    &__title {
+        font-size: 2.5rem;
+        color: $color_white;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    &__subtitle {
+        font-size: 1.125rem;
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 500;
+    }
+}
+
+.dashboard_cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    perspective: 1000px;
+}
+
+.dashboard_card {
+    background: $color_white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 1px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    transform: translateZ(0) rotateX(0deg) rotateY(0deg);
+    transform-style: preserve-3d;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    &:hover {
+        transform: translateY(-12px) translateZ(50px) scale(1.02);
+        box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.4),
+            0 5px 20px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    &--blue {
+        border-color: $color_primary_blue;
+        background: linear-gradient(135deg, $color_white 0%, #f8fbff 100%);
+
+        .dashboard_card__icon {
+            background: linear-gradient(135deg, $color_light_blue 0%, $color_primary_blue 100%);
+            color: $color_white;
+            box-shadow: 0 4px 12px rgba(46, 109, 248, 0.3);
+        }
+
+        &:hover {
+            box-shadow: 
+                0 20px 60px rgba(46, 109, 248, 0.4),
+                0 5px 20px rgba(46, 109, 248, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+    }
+
+    &--green {
+        border-color: #10B981;
+        background: linear-gradient(135deg, $color_white 0%, #f0fdf4 100%);
+
+        .dashboard_card__icon {
+            background: linear-gradient(135deg, #D1FAE5 0%, #10B981 100%);
+            color: $color_white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        &:hover {
+            box-shadow: 
+                0 20px 60px rgba(16, 185, 129, 0.4),
+                0 5px 20px rgba(16, 185, 129, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+    }
+
+    &--navy {
+        border-color: #818cf8;
+        background: linear-gradient(135deg, $color_white 0%, #f5f7ff 100%);
+
+        .dashboard_card__icon {
+            background: linear-gradient(135deg, #818cf8 0%, $color_dark_navy 100%);
+            color: $color_white;
+            box-shadow: 0 4px 12px rgba(129, 140, 248, 0.3);
+        }
+
+        &:hover {
+            box-shadow: 
+                0 20px 60px rgba(129, 140, 248, 0.4),
+                0 5px 20px rgba(129, 140, 248, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+    }
+
+    &__icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        transform: translateZ(20px);
+    }
+
+    &__icon_svg {
+        width: 36px;
+        height: 36px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $color_dark_navy;
+        margin-bottom: 0.75rem;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    &__description {
+        font-size: 1rem;
+        color: $color_dark_blue;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+
+    &__arrow {
+        font-size: 1.75rem;
+        color: $color_primary_blue;
+        font-weight: 700;
+        align-self: flex-end;
+        transition: all 0.3s ease;
+        text-shadow: 0 2px 4px rgba(46, 109, 248, 0.3);
+    }
+
+    &:hover &__icon {
+        transform: translateZ(30px) scale(1.05);
+    }
+
+    &:hover &__arrow {
+        transform: translateX(8px) translateZ(10px);
+    }
+}
+
+// Confetti Pieces
+.confetti_piece {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+// Card Click Animation
+.dashboard_card.card_clicked {
+    animation: card_success_flash 0.6s ease-out;
+}
+
+@keyframes card_success_flash {
+    0% {
+        transform: translateY(-12px) translateZ(50px) scale(1.02);
+        box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.4),
+            0 5px 20px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+    50% {
+        transform: translateY(-16px) translateZ(60px) scale(1.08);
+        box-shadow: 
+            0 30px 80px rgba(46, 109, 248, 0.6),
+            0 10px 30px rgba(46, 109, 248, 0.4),
+            inset 0 2px 0 rgba(255, 255, 255, 1);
+        filter: brightness(1.2);
+    }
+    100% {
+        transform: translateY(-12px) translateZ(50px) scale(1.02);
+        box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.4),
+            0 5px 20px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .dashboard_header__title {
+        font-size: 2rem;
+    }
+
+    .dashboard_cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .dashboard_card {
+        padding: 1.5rem;
+    }
+}
+
