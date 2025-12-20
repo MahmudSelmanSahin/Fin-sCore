@@ -1,10 +1,178 @@
-﻿@page
+@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "İnteraktif Şube Girişi";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="logo-container">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1 class="login-title">İnteraktif Şube</h1>
+            <p class="login-subtitle">Hoş geldiniz! Devam etmek için giriş yapın</p>
+        </div>
+
+        <form id="loginForm" class="login-form" method="post">
+            <div class="login-type-selector">
+                <label class="type-option">
+                    <input type="radio" name="login_type" value="gsm" checked />
+                    <span class="type-label">GSM ile Giriş</span>
+                </label>
+                <label class="type-option">
+                    <input type="radio" name="login_type" value="tckn" />
+                    <span class="type-label">TC Kimlik ile Giriş</span>
+                </label>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label" id="identifier_label">GSM Numarası</label>
+                <div class="input-wrapper">
+                    <input type="text" 
+                           id="identifier" 
+                           name="identifier" 
+                           class="form-input" 
+                           placeholder="05XX XXX XX XX"
+                           autocomplete="off"
+                           required />
+                    <span class="input-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </span>
+                </div>
+                <span class="input-error" id="identifierError"></span>
+            </div>
+
+            @if (!Model.HasKvkkConsent)
+            {
+                <div class="kvkk-container">
+                    <label class="kvkk-checkbox">
+                        <input type="checkbox" id="kvkkAccept" name="kvkkAccept" required />
+                        <span class="checkmark"></span>
+                        <span class="kvkk-text">
+                            <a href="#" class="kvkk-link">KVKK Aydınlatma Metni</a>'ni okudum, anladım ve kabul ediyorum.
+                        </span>
+                    </label>
+                </div>
+            }
+
+            <button type="submit" class="btn-primary" id="loginBtn">
+                <span class="btn-text">Giriş Yap</span>
+                <span class="btn-loader" style="display: none;">
+                    <svg class="spinner" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
+                        <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                    </svg>
+                </span>
+            </button>
+        </form>
+
+        <div class="login-footer">
+            <p>Hesabınız yok mu? <a href="/SignUp" class="link-primary">Üye Ol</a></p>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            var $identifier_input = $('#identifier');
+            var $identifier_label = $('#identifier_label');
+            var $login_form = $('#loginForm');
+            var $login_btn = $('#loginBtn');
+            var login_type = 'gsm';
+
+            // Handle login type change
+            $('input[name="login_type"]').on('change', function() {
+                login_type = $(this).val();
+                $identifier_input.val('');
+                clearError('identifier');
+
+                if (login_type === 'gsm') {
+                    $identifier_label.text('GSM Numarası');
+                    $identifier_input.attr('placeholder', '05XX XXX XX XX');
+                    $identifier_input.attr('maxlength', '11');
+                } else {
+                    $identifier_label.text('TC Kimlik No');
+                    $identifier_input.attr('placeholder', '11 haneli TC Kimlik No');
+                    $identifier_input.attr('maxlength', '11');
+                }
+            });
+
+            // Input formatting
+            $identifier_input.on('input', function() {
+                let value = $(this).val().replace(/\D/g, '');
+                $(this).val(value);
+                validateIdentifier(value);
+            });
+
+            // Form submission
+            $login_form.on('submit', function(e) {
+                e.preventDefault();
+                
+                const identifier = $identifier_input.val();
+                const kvkk_accepted = $('#kvkkAccept').is(':checked');
+
+                if (!validateIdentifier(identifier)) {
+                    return;
+                }
+
+                if ($('#kvkkAccept').length && !kvkk_accepted) {
+                    showError('identifier', 'KVKK metnini kabul etmelisiniz');
+                    return;
+                }
+
+                // Show loading state
+                $login_btn.addClass('loading');
+                $login_btn.find('.btn-text').hide();
+                $login_btn.find('.btn-loader').show();
+                $login_btn.prop('disabled', true);
+
+                // Submit form to server
+                $login_form.off('submit').submit();
+            });
+
+            function validateIdentifier(value) {
+                if (!value) {
+                    showError('identifier', login_type === 'gsm' ? 'GSM numarası giriniz' : 'TC Kimlik No giriniz');
+                    return false;
+                }
+
+                if (login_type === 'gsm') {
+                    const is_phone = /^05\d{9}$/.test(value);
+                    if (!is_phone) {
+                        showError('identifier', 'Geçerli bir GSM numarası giriniz (05XX XXX XX XX)');
+                        return false;
+                    }
+                } else {
+                    const is_tckno = /^\d{11}$/.test(value);
+                    if (!is_tckno) {
+                        showError('identifier', 'TC Kimlik No 11 haneli olmalıdır');
+                        return false;
+                    }
+                }
+
+                clearError('identifier');
+                return true;
+            }
+
+            function showError(field_id, message) {
+                $('#' + field_id + 'Error').text(message).addClass('show');
+                $('#' + field_id).addClass('error');
+            }
+
+            function clearError(field_id) {
+                $('#' + field_id + 'Error').text('').removeClass('show');
+                $('#' + field_id).removeClass('error');
+            }
+        });
+    </script>
+}
+
