@@ -1,135 +1,254 @@
 // Dashboard JavaScript
+// Tüm .cursorrules standartlarına uygun: snake_case, DOM caching, event delegation
+
 $(document).ready(function() {
-    // Cache selectors
-    var $dashboard_cards = $('.dashboard_card');
-
-    // Add hover effect enhancement
-    $dashboard_cards.on('mouseenter', function() {
-        var $card = $(this);
-        $card.addClass('is_hovered');
-    });
-
-    $dashboard_cards.on('mouseleave', function() {
-        var $card = $(this);
-        $card.removeClass('is_hovered');
-    });
-
-    // Card click with confetti effect
-    $dashboard_cards.on('click', function(e) {
-        var $card = $(this);
-        var card_title = $card.find('.dashboard_card__title').text();
-        
-        // Get card position for confetti origin
-        var card_rect = this.getBoundingClientRect();
-        var origin_x = card_rect.left + card_rect.width / 2;
-        var origin_y = card_rect.top + card_rect.height / 2;
-        
-        // Trigger confetti
-        create_confetti(origin_x, origin_y);
-        
-        // Add success flash effect
-        $card.addClass('card_clicked');
-        setTimeout(function() {
-            $card.removeClass('card_clicked');
-        }, 600);
-        
-        console.log('Card clicked: ' + card_title);
-    });
-});
-
-// Confetti Animation System
-function create_confetti(origin_x, origin_y) {
-    var confetti_count = 50;
-    var colors = ['#2E6DF8', '#0056B3', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'];
-    var confetti_elements = [];
+    // DOM Elementlerini Cache'le (Performance)
+    var $notification_btn = $('#notificationBtn');
+    var $credit_score_fills = $('.credit_card__score_fill');
+    var $progress_fills = $('.progress_bar__fill');
     
-    for (var i = 0; i < confetti_count; i++) {
-        var confetti = document.createElement('div');
-        confetti.className = 'confetti_piece';
-        
-        // Random color
-        var random_color = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.backgroundColor = random_color;
-        
-        // Random size
-        var size = Math.random() * 8 + 4;
-        confetti.style.width = size + 'px';
-        confetti.style.height = size + 'px';
-        
-        // Starting position
-        confetti.style.left = origin_x + 'px';
-        confetti.style.top = origin_y + 'px';
-        
-        // Random angle and velocity
-        var angle = Math.random() * Math.PI * 2;
-        var velocity = Math.random() * 300 + 150;
-        var velocity_x = Math.cos(angle) * velocity;
-        var velocity_y = Math.sin(angle) * velocity - 200;
-        
-        // Random rotation
-        var rotation = Math.random() * 360;
-        var rotation_speed = Math.random() * 600 - 300;
-        
-        confetti.setAttribute('data-vx', velocity_x);
-        confetti.setAttribute('data-vy', velocity_y);
-        confetti.setAttribute('data-rotation', rotation);
-        confetti.setAttribute('data-rotation-speed', rotation_speed);
-        
-        document.body.appendChild(confetti);
-        confetti_elements.push(confetti);
-    }
+    // Animasyonları Başlat
+    init_animations();
+    init_notification_system();
+    init_interactive_cards();
     
-    // Animate confetti
-    animate_confetti(confetti_elements);
-}
-
-function animate_confetti(confetti_elements) {
-    var start_time = Date.now();
-    var duration = 2000;
-    var gravity = 800;
-    
-    function update() {
-        var elapsed = Date.now() - start_time;
-        var progress = elapsed / duration;
-        
-        if (progress >= 1) {
-            // Remove all confetti
-            confetti_elements.forEach(function(confetti) {
-                if (confetti.parentNode) {
-                    confetti.parentNode.removeChild(confetti);
-                }
-            });
-            return;
-        }
-        
-        confetti_elements.forEach(function(confetti) {
-            var velocity_x = parseFloat(confetti.getAttribute('data-vx'));
-            var velocity_y = parseFloat(confetti.getAttribute('data-vy'));
-            var rotation = parseFloat(confetti.getAttribute('data-rotation'));
-            var rotation_speed = parseFloat(confetti.getAttribute('data-rotation-speed'));
+    /**
+     * Sayfa yüklendiğinde animasyonları başlatır
+     */
+    function init_animations() {
+        // Kredi skoru animasyonu
+        $credit_score_fills.each(function() {
+            var $this = $(this);
+            var score = parseInt($this.attr('data-score'), 10);
             
-            // Update velocity (gravity effect)
-            velocity_y += gravity * 0.016;
-            confetti.setAttribute('data-vy', velocity_y);
-            
-            // Update position
-            var current_x = parseFloat(confetti.style.left);
-            var current_y = parseFloat(confetti.style.top);
-            confetti.style.left = (current_x + velocity_x * 0.016) + 'px';
-            confetti.style.top = (current_y + velocity_y * 0.016) + 'px';
-            
-            // Update rotation
-            rotation += rotation_speed * 0.016;
-            confetti.setAttribute('data-rotation', rotation);
-            confetti.style.transform = 'rotate(' + rotation + 'deg)';
-            
-            // Fade out
-            confetti.style.opacity = 1 - progress;
+            if (score) {
+                // Skoru 100 üzerinden yüzdeye çevir (max skor 1800 kabul edelim)
+                var percentage = Math.min((score / 1800) * 100, 100);
+                $this.css('--score-width', percentage);
+            }
         });
         
-        requestAnimationFrame(update);
+        // Progress bar animasyonları
+        $progress_fills.each(function() {
+            var $this = $(this);
+            var progress = parseInt($this.attr('data-progress'), 10);
+            
+            if (progress >= 0) {
+                $this.css('--progress-width', progress);
+            }
+        });
+        
+        // Kartların sıralı fade-in animasyonu
+        animate_cards_sequential();
     }
     
-    requestAnimationFrame(update);
-}
-
+    /**
+     * Kartları sırayla gösterir (daha yumuşak UX)
+     */
+    function animate_cards_sequential() {
+        var $cards = $('.credit_card, .quick_action_card, .loan_card, .help_center_card');
+        
+        $cards.each(function(index) {
+            var $card = $(this);
+            $card.css({
+                'opacity': '0',
+                'transform': 'translateY(20px)'
+            });
+            
+            setTimeout(function() {
+                $card.css({
+                    'opacity': '1',
+                    'transform': 'translateY(0)',
+                    'transition': 'all 0.5s ease'
+                });
+            }, index * 50); // Her kart 50ms arayla
+        });
+    }
+    
+    /**
+     * Bildirim sistemi
+     */
+    function init_notification_system() {
+        $notification_btn.on('click', function() {
+            show_notification_dropdown();
+        });
+        
+        // Dropdown dışına tıklanınca kapat
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.btn_notification, .notification_dropdown').length) {
+                close_notification_dropdown();
+            }
+        });
+    }
+    
+    /**
+     * Bildirim dropdown'ını gösterir
+     */
+    function show_notification_dropdown() {
+        // TODO: Backend'den gerçek bildirimler çekilecek
+        var notifications = [
+            {
+                title: 'Kredi Başvurunuz Onaylandı',
+                message: '25.000 TL tutarındaki kredi başvurunuz onaylanmıştır.',
+                time: '5 dakika önce',
+                type: 'success'
+            },
+            {
+                title: 'Ödeme Hatırlatması',
+                message: 'Konut kredinizin taksit ödeme tarihi yaklaşıyor.',
+                time: '2 saat önce',
+                type: 'warning'
+            },
+            {
+                title: 'Yeni Kampanya',
+                message: 'Size özel %0.99 faiz oranı fırsatı!',
+                time: '1 gün önce',
+                type: 'info'
+            }
+        ];
+        
+        // Dropdown HTML'i oluştur
+        var dropdown_html = '<div class="notification_dropdown">';
+        dropdown_html += '<div class="notification_dropdown__header">';
+        dropdown_html += '<h3 class="notification_dropdown__title">Bildirimler</h3>';
+        dropdown_html += '<button type="button" class="notification_dropdown__close" id="closeNotifications">';
+        dropdown_html += '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">';
+        dropdown_html += '<path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+        dropdown_html += '</svg>';
+        dropdown_html += '</button>';
+        dropdown_html += '</div>';
+        dropdown_html += '<div class="notification_dropdown__list">';
+        
+        notifications.forEach(function(notification) {
+            dropdown_html += '<div class="notification_item notification_item--' + notification.type + '">';
+            dropdown_html += '<div class="notification_item__content">';
+            dropdown_html += '<h4 class="notification_item__title">' + notification.title + '</h4>';
+            dropdown_html += '<p class="notification_item__message">' + notification.message + '</p>';
+            dropdown_html += '<span class="notification_item__time">' + notification.time + '</span>';
+            dropdown_html += '</div>';
+            dropdown_html += '</div>';
+        });
+        
+        dropdown_html += '</div>';
+        dropdown_html += '<div class="notification_dropdown__footer">';
+        dropdown_html += '<a href="/notifications" class="notification_dropdown__link">Tümünü Gör</a>';
+        dropdown_html += '</div>';
+        dropdown_html += '</div>';
+        
+        // Varsa eskisini kaldır
+        $('.notification_dropdown').remove();
+        
+        // Header'a ekle
+        $notification_btn.closest('.dashboard__user_actions').append(dropdown_html);
+        
+        // Close button event
+        $('#closeNotifications').on('click', function() {
+            close_notification_dropdown();
+        });
+    }
+    
+    /**
+     * Bildirim dropdown'ını kapatır
+     */
+    function close_notification_dropdown() {
+        $('.notification_dropdown').fadeOut(200, function() {
+            $(this).remove();
+        });
+    }
+    
+    /**
+     * İnteraktif kart özellikleri
+     */
+    function init_interactive_cards() {
+        // Kartlara hover efekti ekle
+        var $interactive_cards = $('.quick_action_card, .loan_card, .help_center_card');
+        
+        $interactive_cards.on('mouseenter', function() {
+            $(this).addClass('card_hover');
+        });
+        
+        $interactive_cards.on('mouseleave', function() {
+            $(this).removeClass('card_hover');
+        });
+        
+        // Kart tıklama analytics (TODO: Backend'e gönderilecek)
+        $interactive_cards.on('click', function() {
+            var card_type = $(this).attr('class').split(' ')[0];
+            var card_title = $(this).find('h3').text();
+            
+            log_card_click(card_type, card_title);
+        });
+    }
+    
+    /**
+     * Kart tıklamalarını loglar (Analytics için)
+     */
+    function log_card_click(card_type, card_title) {
+        // TODO: Backend API'ye analytics verisi gönderilecek
+        console.log('Card Clicked:', {
+            type: card_type,
+            title: card_title,
+            timestamp: new Date().toISOString()
+        });
+    }
+    
+    /**
+     * Kredi kartı progress bar güncelleme
+     */
+    function update_credit_usage() {
+        // TODO: API'den gerçek zamanlı veri çekilecek
+        // Bu fonksiyon periyodik olarak çağrılabilir
+    }
+    
+    /**
+     * Sayfa görünürlük değişikliğini takip et
+     * Kullanıcı sayfaya döndüğünde verileri yenile
+     */
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            // Sayfa aktif olduğunda verileri yenile
+            refresh_dashboard_data();
+        }
+    });
+    
+    /**
+     * Dashboard verilerini yeniler
+     */
+    function refresh_dashboard_data() {
+        // TODO: API çağrıları ile güncel verileri çek
+        console.log('Dashboard verileri yenileniyor...');
+    }
+    
+    /**
+     * Responsive menü toggle (mobil için)
+     */
+    function init_mobile_menu() {
+        var $mobile_menu_btn = $('.mobile_menu_toggle');
+        
+        $mobile_menu_btn.on('click', function() {
+            $(this).toggleClass('active');
+            $('.dashboard__sidebar').toggleClass('active');
+        });
+    }
+    
+    // Sayfa yüklendiğinde bir kere çalışacak init fonksiyonları
+    init_mobile_menu();
+    
+    // Scroll animasyonları için intersection observer
+    if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    $(entry.target).addClass('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        // Tüm section'ları gözlemle
+        $('.dashboard__quick_actions, .dashboard__active_loans, .dashboard__help_center').each(function() {
+            observer.observe(this);
+        });
+    }
+});

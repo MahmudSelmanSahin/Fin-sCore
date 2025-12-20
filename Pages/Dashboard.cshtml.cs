@@ -1,28 +1,151 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.Json;
 
-namespace Fin_sCore.Pages;
-
-public class DashboardModel : PageModel
+namespace Fin_sCore.Pages
 {
-    public void OnGet()
+    public class DashboardModel : PageModel
     {
-        // Check if user is authenticated
-        var authToken = HttpContext.Session.GetString("AuthToken");
-        if (string.IsNullOrEmpty(authToken))
+        private readonly ILogger<DashboardModel> _logger;
+        private readonly IWebHostEnvironment _environment;
+
+        public DashboardModel(ILogger<DashboardModel> logger, IWebHostEnvironment environment)
         {
-            Response.Redirect("/");
-            return;
+            _logger = logger;
+            _environment = environment;
+        }
+
+        // Kullanıcı Bilgileri (API'den gelecek - simüle edildi)
+        public string UserName { get; set; } = "Ahmet Yılmaz";
+        public string UserPhone { get; set; } = "0532 XXX XX XX";
+        public decimal TotalCreditLimit { get; set; } = 150000.00m;
+        public decimal UsedCreditLimit { get; set; } = 45000.00m;
+        public decimal AvailableCreditLimit => TotalCreditLimit - UsedCreditLimit;
+        public int CreditScore { get; set; } = 1450;
+
+        // Aktif Krediler (API'den gelecek)
+        public List<ActiveLoanModel> ActiveLoans { get; set; } = new();
+
+        // Yardım & Destek Merkezi (CMS JSON'dan gelecek)
+        public List<HelpCenterItem> HelpCenterItems { get; set; } = new();
+
+        public void OnGet()
+        {
+            LoadUserData();
+            LoadHelpCenterData();
+        }
+
+        private void LoadUserData()
+        {
+            // TODO: API'den gerçek veri çekilecek
+            ActiveLoans = new List<ActiveLoanModel>
+            {
+                new ActiveLoanModel
+                {
+                    LoanType = "İhtiyaç Kredisi",
+                    LoanAmount = 25000.00m,
+                    RemainingAmount = 18500.00m,
+                    MonthlyPayment = 1250.00m,
+                    NextPaymentDate = new DateTime(2025, 1, 15),
+                    InstallmentNumber = 12,
+                    RemainingInstallments = 8
+                },
+                new ActiveLoanModel
+                {
+                    LoanType = "Konut Kredisi",
+                    LoanAmount = 20000.00m,
+                    RemainingAmount = 15000.00m,
+                    MonthlyPayment = 800.00m,
+                    NextPaymentDate = new DateTime(2025, 1, 20),
+                    InstallmentNumber = 24,
+                    RemainingInstallments = 18
+                }
+            };
+        }
+
+        private void LoadHelpCenterData()
+        {
+            try
+            {
+                var jsonPath = Path.Combine(_environment.WebRootPath, "data", "help_center.json");
+                
+                if (System.IO.File.Exists(jsonPath))
+                {
+                    var jsonString = System.IO.File.ReadAllText(jsonPath);
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                    HelpCenterItems = JsonSerializer.Deserialize<List<HelpCenterItem>>(jsonString, options) ?? new List<HelpCenterItem>();
+                }
+                else
+                {
+                    // Fallback data
+                    HelpCenterItems = GetDefaultHelpCenterItems();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Yardım merkezi verileri yüklenirken hata oluştu");
+                HelpCenterItems = GetDefaultHelpCenterItems();
+            }
+        }
+
+        private List<HelpCenterItem> GetDefaultHelpCenterItems()
+        {
+            return new List<HelpCenterItem>
+            {
+                new HelpCenterItem
+                {
+                    Title = "Kredi Başvurusu Nasıl Yapılır?",
+                    Description = "Kredi başvuru sürecini adım adım öğrenin",
+                    Icon = "document",
+                    Category = "Kredi İşlemleri",
+                    Link = "/help/credit-application"
+                },
+                new HelpCenterItem
+                {
+                    Title = "Kredi Hesaplama",
+                    Description = "Aylık taksit tutarınızı hesaplayın",
+                    Icon = "calculator",
+                    Category = "Hesaplama Araçları",
+                    Link = "/calculator"
+                },
+                new HelpCenterItem
+                {
+                    Title = "Sıkça Sorulan Sorular",
+                    Description = "En çok merak edilen soruların cevapları",
+                    Icon = "help",
+                    Category = "Destek",
+                    Link = "/faq"
+                },
+                new HelpCenterItem
+                {
+                    Title = "İletişim",
+                    Description = "Müşteri hizmetlerimize ulaşın",
+                    Icon = "phone",
+                    Category = "Destek",
+                    Link = "/contact"
+                }
+            };
         }
     }
 
-    public IActionResult OnPostLogout()
+    public class ActiveLoanModel
     {
-        // Clear all session data
-        HttpContext.Session.Clear();
-        
-        // Redirect to login page
-        return RedirectToPage("/Index");
+        public string LoanType { get; set; } = string.Empty;
+        public decimal LoanAmount { get; set; }
+        public decimal RemainingAmount { get; set; }
+        public decimal MonthlyPayment { get; set; }
+        public DateTime NextPaymentDate { get; set; }
+        public int InstallmentNumber { get; set; }
+        public int RemainingInstallments { get; set; }
+        public decimal CompletionPercentage => ((decimal)(InstallmentNumber - RemainingInstallments) / InstallmentNumber) * 100;
+    }
+
+    public class HelpCenterItem
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Icon { get; set; } = string.Empty;
+        public string Category { get; set; } = string.Empty;
+        public string Link { get; set; } = string.Empty;
     }
 }
-

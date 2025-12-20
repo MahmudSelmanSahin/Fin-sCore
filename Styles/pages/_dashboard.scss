@@ -1,240 +1,681 @@
-// Dashboard Page Styles
-.dashboard_container {
-    min-height: 100vh;
-    background: linear-gradient(135deg, $color_dark_navy 0%, #1a1f47 100%);
-    padding: 3rem 1rem;
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+// Dashboard Ana Container
+.dashboard {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background: $bg-secondary;
 }
 
-.dashboard_header {
-    text-align: center;
-    margin-bottom: 3rem;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
- 
-    &__title {
-        font-size: 2.5rem;
-        color: $color_white;
-        margin-bottom: 0.5rem;
-        font-weight: 700;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+// Dashboard Navbar
+.dashboard__navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  background: $bg-secondary;
+  transition: all 0.3s ease;
+
+  &.scrolled {
+    padding: 0.5rem 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 1rem;
+
+    &.scrolled {
+      padding: 0.5rem 1rem;
     }
-
-    &__subtitle {
-        font-size: 1.125rem;
-        color: rgba(255, 255, 255, 0.85);
-        font-weight: 500;
-    }
+  }
 }
 
-.dashboard_cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    perspective: 1000px;
+// Navbar spacing compensation
+.dashboard__navbar_spacer {
+  height: 130px;
+
+  @media (max-width: 768px) {
+    height: 120px;
+  }
 }
 
-.dashboard_card {
-    background: $color_white;
+.dashboard__navbar_container {
+  max-width: 1600px;
+  margin: 0 auto;
+  background: $color_white;
+  border-radius: 20px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 1rem;
     border-radius: 16px;
-    padding: 2.5rem;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.3),
-        0 1px 8px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    border: 2px solid transparent;
-    display: flex;
-    flex-direction: column;
-    transform: translateZ(0) rotateX(0deg) rotateY(0deg);
-    transform-style: preserve-3d;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: 16px;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-        opacity: 0.5;
-        pointer-events: none;
-    }
-
-    &:hover {
-        transform: translateY(-12px) translateZ(50px) scale(1.02);
-        box-shadow: 
-            0 20px 60px rgba(0, 0, 0, 0.4),
-            0 5px 20px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    }
-
-    &--blue {
-        border-color: $color_primary_blue;
-        background: linear-gradient(135deg, $color_white 0%, #f8fbff 100%);
-
-        .dashboard_card__icon {
-            background: linear-gradient(135deg, $color_light_blue 0%, $color_primary_blue 100%);
-            color: $color_white;
-            box-shadow: 0 4px 12px rgba(46, 109, 248, 0.3);
-        }
-
-        &:hover {
-            box-shadow: 
-                0 20px 60px rgba(46, 109, 248, 0.4),
-                0 5px 20px rgba(46, 109, 248, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
-    }
-
-    &--green {
-        border-color: #10B981;
-        background: linear-gradient(135deg, $color_white 0%, #f0fdf4 100%);
-
-        .dashboard_card__icon {
-            background: linear-gradient(135deg, #D1FAE5 0%, #10B981 100%);
-            color: $color_white;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-
-        &:hover {
-            box-shadow: 
-                0 20px 60px rgba(16, 185, 129, 0.4),
-                0 5px 20px rgba(16, 185, 129, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
-    }
-
-    &--navy {
-        border-color: #818cf8;
-        background: linear-gradient(135deg, $color_white 0%, #f5f7ff 100%);
-
-        .dashboard_card__icon {
-            background: linear-gradient(135deg, #818cf8 0%, $color_dark_navy 100%);
-            color: $color_white;
-            box-shadow: 0 4px 12px rgba(129, 140, 248, 0.3);
-        }
-
-        &:hover {
-            box-shadow: 
-                0 20px 60px rgba(129, 140, 248, 0.4),
-                0 5px 20px rgba(129, 140, 248, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
-    }
-
-    &__icon {
-        width: 72px;
-        height: 72px;
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1.5rem;
-        transition: all 0.3s ease;
-        transform: translateZ(20px);
-    }
-
-    &__icon_svg {
-        width: 36px;
-        height: 36px;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-    }
-
-    &__title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: $color_dark_navy;
-        margin-bottom: 0.75rem;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
-
-    &__description {
-        font-size: 1rem;
-        color: $color_dark_blue;
-        line-height: 1.6;
-        margin-bottom: 1.5rem;
-        flex-grow: 1;
-    }
-
-    &__arrow {
-        font-size: 1.75rem;
-        color: $color_primary_blue;
-        font-weight: 700;
-        align-self: flex-end;
-        transition: all 0.3s ease;
-        text-shadow: 0 2px 4px rgba(46, 109, 248, 0.3);
-    }
-
-    &:hover &__icon {
-        transform: translateZ(30px) scale(1.05);
-    }
-
-    &:hover &__arrow {
-        transform: translateX(8px) translateZ(10px);
-    }
+  }
 }
 
-// Confetti Pieces
-.confetti_piece {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    border-radius: 2px;
-    pointer-events: none;
-    z-index: 9999;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.dashboard__title {
+  font-size: $font_size_h1;
+  font-weight: $font_weight_bold;
+  line-height: $line_height_h1;
+  margin: 0 0 0.5rem 0;
+  color: $color_dark_navy;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_h1_mobile;
+  }
 }
 
-// Card Click Animation
-.dashboard_card.card_clicked {
-    animation: card_success_flash 0.6s ease-out;
+.dashboard__subtitle {
+  font-size: $font_size_body;
+  font-weight: $font_weight_regular;
+  line-height: $line_height_body;
+  margin: 0;
+  color: $text-secondary;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_body_mobile;
+  }
 }
 
-@keyframes card_success_flash {
-    0% {
-        transform: translateY(-12px) translateZ(50px) scale(1.02);
-        box-shadow: 
-            0 20px 60px rgba(0, 0, 0, 0.4),
-            0 5px 20px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    }
-    50% {
-        transform: translateY(-16px) translateZ(60px) scale(1.08);
-        box-shadow: 
-            0 30px 80px rgba(46, 109, 248, 0.6),
-            0 10px 30px rgba(46, 109, 248, 0.4),
-            inset 0 2px 0 rgba(255, 255, 255, 1);
-        filter: brightness(1.2);
-    }
-    100% {
-        transform: translateY(-12px) translateZ(50px) scale(1.02);
-        box-shadow: 
-            0 20px 60px rgba(0, 0, 0, 0.4),
-            0 5px 20px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    }
+// Credit Summary Cards
+.dashboard__credit_summary {
+  padding: 4rem 4rem;
+  background: $color_white;
+
+  @media (max-width: 1200px) {
+    padding: 3.5rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 1rem;
+  }
 }
 
-// Responsive Design
-@media (max-width: 768px) {
-    .dashboard_header__title {
-        font-size: 2rem;
-    }
+.dashboard__credit_summary_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
 
-    .dashboard_cards {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    .dashboard_card {
-        padding: 1.5rem;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.credit_card {
+  background: $color_white;
+  border: none;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+.credit_card__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.credit_card__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  &--blue {
+    background: rgba($color_primary_blue, 0.08);
+    color: $color_primary_blue;
+  }
+
+  &--green {
+    background: rgba($success, 0.08);
+    color: $success;
+  }
+
+  &--orange {
+    background: rgba($warning, 0.08);
+    color: $warning;
+  }
+}
+
+.credit_card__title {
+  font-size: $font_size_small;
+  font-weight: $font_weight_medium;
+  line-height: $line_height_h3;
+  color: $text-light;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.credit_card__content {
+  padding: 0;
+}
+
+.credit_card__amount,
+.credit_card__count,
+.credit_card__score {
+  font-size: $font_size_h1;
+  font-weight: $font_weight_bold;
+  line-height: $line_height_h1;
+  color: $color_dark_navy;
+  margin: 0 0 0.5rem 0;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_h1_mobile;
+  }
+}
+
+.credit_card__label {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_regular;
+  color: $text-secondary;
+  margin: 0;
+
+  strong {
+    color: $color_primary_blue;
+    font-weight: $font_weight_semibold;
+  }
+}
+
+.credit_card__score_bar {
+  width: 100%;
+  height: 8px;
+  background: $bg-tertiary;
+  border-radius: 4px;
+  margin: 1rem 0 0.5rem 0;
+  overflow: hidden;
+}
+
+.credit_card__score_fill {
+  height: 100%;
+  background: linear-gradient(90deg, $success 0%, $color_primary_blue 100%);
+  border-radius: 4px;
+  transition: width 1s ease;
+  width: 0;
+
+  &[data-score] {
+    animation: fillScore 1.5s ease forwards;
+  }
+}
+
+@keyframes fillScore {
+  to {
+    width: calc(var(--score-width, 85) * 1%);
+  }
+}
+
+.credit_card__score_label {
+  font-size: $font_size_small;
+  font-weight: $font_weight_medium;
+  color: $success;
+  margin: 0;
+}
+
+// Section Styles
+.section_title {
+  font-size: 28px;
+  font-weight: $font_weight_bold;
+  line-height: $line_height_h2;
+  color: $color_dark_navy;
+  margin: 0 0 2rem 0;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_h2_mobile;
+  }
+}
+
+.section_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section_link {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_semibold;
+  color: $color_primary_blue;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $color_dark_blue;
+  }
+}
+
+// Quick Actions
+.dashboard__quick_actions {
+  padding: 4rem 4rem;
+  background: $color_light_blue;
+
+  @media (max-width: 1200px) {
+    padding: 3.5rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 1rem;
+  }
+}
+
+.quick_actions_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quick_action_card {
+  background: $color_white;
+  border: none;
+  border-radius: 20px;
+  padding: 2rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+
+    .quick_action_card__icon {
+      transform: scale(1.05);
     }
+  }
+}
+
+.quick_action_card__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  transition: transform 0.3s ease;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  &--primary {
+    background: rgba($color_primary_blue, 0.08);
+    color: $color_primary_blue;
+  }
+
+  &--success {
+    background: rgba($success, 0.08);
+    color: $success;
+  }
+
+  &--warning {
+    background: rgba($warning, 0.08);
+    color: $warning;
+  }
+
+  &--info {
+    background: rgba($color_primary_blue, 0.08);
+    color: $color_primary_blue;
+  }
+}
+
+.quick_action_card__title {
+  font-size: $font_size_h3;
+  font-weight: $font_weight_medium;
+  line-height: $line_height_h3;
+  color: $color_dark_navy;
+  margin: 0 0 0.5rem 0;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_h3_mobile;
+  }
+}
+
+.quick_action_card__description {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_regular;
+  line-height: $line_height_body;
+  color: $text-secondary;
+  margin: 0;
+}
+
+// Active Loans
+.dashboard__active_loans {
+  padding: 4rem 4rem;
+  background: $color_white;
+
+  @media (max-width: 1200px) {
+    padding: 3.5rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 1rem;
+  }
+}
+
+.loans_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.loan_card {
+  background: $color_white;
+  border: none;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+.loan_card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.loan_card__title {
+  font-size: $font_size_h3;
+  font-weight: $font_weight_medium;
+  line-height: $line_height_h3;
+  color: $color_dark_navy;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_h3_mobile;
+  }
+}
+
+.loan_card__badge {
+  font-size: $font_size_small;
+  font-weight: $font_weight_semibold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+
+  &--active {
+    background: rgba($success, 0.1);
+    color: $success;
+  }
+}
+
+.loan_card__content {
+  margin-bottom: 1.5rem;
+}
+
+.loan_card__info_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid $bg-tertiary;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.loan_card__label {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_regular;
+  color: $text-secondary;
+}
+
+.loan_card__value {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_semibold;
+  color: $color_dark_navy;
+
+  &--highlight {
+    color: $color_primary_blue;
+    font-size: $font_size_body;
+  }
+}
+
+.loan_card__progress {
+  margin-bottom: 1.5rem;
+}
+
+.progress_bar {
+  width: 100%;
+  height: 8px;
+  background: $bg-tertiary;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress_bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, $color_primary_blue 0%, $color_dark_blue 100%);
+  border-radius: 4px;
+  transition: width 1s ease;
+  width: 0;
+
+  &[data-progress] {
+    animation: fillProgress 1.5s ease forwards;
+  }
+}
+
+@keyframes fillProgress {
+  to {
+    width: calc(var(--progress-width, 0) * 1%);
+  }
+}
+
+.progress_label {
+  font-size: $font_size_small;
+  font-weight: $font_weight_regular;
+  color: $text-secondary;
+  margin: 0;
+}
+
+.loan_card__actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn_primary,
+.btn_secondary {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-size: $font_size_button_mobile;
+  font-weight: $font_weight_semibold;
+  line-height: $line_height_button;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+
+  &--small {
+    padding: 0.625rem 1.25rem;
+    font-size: $font_size_small;
+  }
+}
+
+.btn_primary {
+  background: $color_primary_blue;
+  color: $color_white;
+
+  &:hover {
+    background: $color_dark_blue;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+.btn_secondary {
+  background: transparent;
+  color: $color_primary_blue;
+  border: 1px solid $color_primary_blue;
+
+  &:hover {
+    background: rgba($color_primary_blue, 0.05);
+    transform: translateY(-2px);
+  }
+}
+
+// Help Center
+.dashboard__help_center {
+  padding: 4rem 4rem;
+  background: $color_light_blue;
+
+  @media (max-width: 1200px) {
+    padding: 3.5rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 1rem;
+  }
+}
+
+.help_center_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.help_center_card {
+  background: $color_white;
+  border: none;
+  border-radius: 20px;
+  padding: 2rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+
+    .help_center_card__icon {
+      background: $color_primary_blue;
+      color: $color_white;
+    }
+  }
+}
+
+.help_center_card__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: rgba($color_primary_blue, 0.08);
+  color: $color_primary_blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  margin-bottom: 1.25rem;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.help_center_card__content {
+  flex: 1;
+}
+
+.help_center_card__title {
+  font-size: $font_size_h3_mobile;
+  font-weight: $font_weight_medium;
+  line-height: $line_height_h3;
+  color: $color_dark_navy;
+  margin: 0 0 0.5rem 0;
+}
+
+.help_center_card__description {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_regular;
+  line-height: $line_height_body;
+  color: $text-secondary;
+  margin: 0 0 0.75rem 0;
+}
+
+.help_center_card__category {
+  font-size: $font_size_small;
+  font-weight: $font_weight_medium;
+  color: $color_primary_blue;
+  background: rgba($color_primary_blue, 0.1);
+  padding: 0.25rem 0.625rem;
+  border-radius: 6px;
+  display: inline-block;
 }

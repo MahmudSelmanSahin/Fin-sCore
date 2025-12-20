@@ -58,8 +58,10 @@ public class IndexModel : PageModel
         // Reset attempt count
         HttpContext.Session.SetInt32("OtpAttemptCount", 0);
 
-        // Redirect to OTP send request
-        return RedirectToPage("/SmsVerification", new { identifier = identifier });
+        // Geliştirme aşamasında direkt Dashboard'a yönlendir
+        // Canlıda SMS doğrulama aktif olacak
+        // return RedirectToPage("/SmsVerification", new { identifier = identifier });
+        return RedirectToPage("/Dashboard");
     }
 }
 

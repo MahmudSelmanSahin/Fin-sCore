@@ -24,36 +24,62 @@ $shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06
 $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 $shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
-// Legacy Color Palette (for backward compatibility)
+// Color Palette (Marka Renkleri)
 $color_white: #FFFFFF;
 $color_dark_navy: #222854;
 $color_primary_blue: #2E6DF8;
 $color_dark_blue: #0056B3;
 $color_light_blue: #E6F7FF;
 
-// Tipografi - Font Boyutları
-$font_size_h1: 32px;
-$font_size_h1_mobile: 28px;
-$font_size_h2: 24px;
-$font_size_h2_mobile: 20px; 
-$font_size_h3: 18px;
-$font_size_h3_mobile: 16px;
-$font_size_body: 16px;
-$font_size_body_mobile: 14px;
-$font_size_small: 12px;
-$font_size_button: 16px;
-$font_size_button_mobile: 14px;
+// Legacy Color Palette (Modern Web 2.0 - backward compatibility)
+$primary: #2E6DF8;
+$primary-dark: #0056B3;
+$primary-light: #E6F7FF;
+$secondary: #10b981;
+$accent: #f59e0b;
+$error: #ef4444;
+$success: #10b981;
+$warning: #f59e0b;
+
+$text-primary: #222854;
+$text-secondary: #6b7280;
+$text-light: #9ca3af;
+
+$bg-primary: #FFFFFF;
+$bg-secondary: #f9fafb;
+$bg-tertiary: #f3f4f6;
+
+$border-color: #e5e7eb;
+$border-focus: #2E6DF8;
+
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// Tipografi - Font Boyutları (Design System'e uygun)
+$font_size_h1: 32px;           // Display / H1 (Desktop)
+$font_size_h1_mobile: 28px;    // Display / H1 (Mobile)
+$font_size_h2: 24px;           // Heading / H2 (Desktop)
+$font_size_h2_mobile: 20px;    // Heading / H2 (Mobile)
+$font_size_h3: 18px;           // Heading / H3 (Desktop)
+$font_size_h3_mobile: 16px;    // Heading / H3 (Mobile)
+$font_size_body: 16px;         // Body / Regular (Desktop)
+$font_size_body_mobile: 14px;  // Body / Regular (Mobile)
+$font_size_small: 12px;        // Caption / Small
+$font_size_button: 16px;       // Button / Label (Desktop)
+$font_size_button_mobile: 14px; // Button / Label (Mobile)
 
 // Tipografi - Font Ağırlıkları
-$font_weight_regular: 400;
-$font_weight_medium: 500;
-$font_weight_semibold: 600;
-$font_weight_bold: 700;
+$font_weight_regular: 400;     // Regular - Body text
+$font_weight_medium: 500;      // Medium - Card headings
+$font_weight_semibold: 600;    // Semi-Bold - Subheadings, buttons
+$font_weight_bold: 700;        // Bold - Main headings
 
 // Tipografi - Satır Yükseklikleri
-$line_height_h1: 120%;
-$line_height_h2: 130%;
-$line_height_h3: 140%;
-$line_height_body: 150%;
-$line_height_small: 140%;
-$line_height_button: 100%;
+$line_height_h1: 120%;         // Ana Başlıklar
+$line_height_h2: 130%;         // Alt Başlıklar
+$line_height_h3: 140%;         // Kart Başlıkları
+$line_height_body: 150%;       // Gövde Metni (Rahat okuma)
+$line_height_small: 140%;      // Küçük Metin
+$line_height_button: 100%;     // Butonlar

@@ -1,0 +1,76 @@
+[
+  {
+    "title": "Kredi Başvurusu Nasıl Yapılır?",
+    "description": "Kredi başvuru sürecini adım adım öğrenin ve hemen başvurunuzu tamamlayın",
+    "icon": "document",
+    "category": "Kredi İşlemleri",
+    "link": "/help/credit-application",
+    "order": 1,
+    "isActive": true
+  },
+  {
+    "title": "Kredi Hesaplama",
+    "description": "Aylık taksit tutarınızı ve toplam ödeme miktarınızı kolayca hesaplayın",
+    "icon": "calculator",
+    "category": "Hesaplama Araçları",
+    "link": "/loan-calculator",
+    "order": 2,
+    "isActive": true
+  },
+  {
+    "title": "Sıkça Sorulan Sorular",
+    "description": "Müşterilerimizin en çok merak ettiği soruların cevaplarını bulun",
+    "icon": "help",
+    "category": "Destek",
+    "link": "/faq",
+    "order": 3,
+    "isActive": true
+  },
+  {
+    "title": "İletişim",
+    "description": "7/24 müşteri hizmetlerimize ulaşın ve destek alın",
+    "icon": "phone",
+    "category": "Destek",
+    "link": "/contact",
+    "order": 4,
+    "isActive": true
+  },
+  {
+    "title": "Kredi Kartı Başvurusu",
+    "description": "Size özel kredi kartı seçeneklerini inceleyin",
+    "icon": "document",
+    "category": "Kredi İşlemleri",
+    "link": "/help/credit-card",
+    "order": 5,
+    "isActive": true
+  },
+  {
+    "title": "Ödeme Planı Oluşturma",
+    "description": "Kredi borcunuzu yeniden yapılandırın",
+    "icon": "calculator",
+    "category": "Hesaplama Araçları",
+    "link": "/payment-plan",
+    "order": 6,
+    "isActive": true
+  },
+  {
+    "title": "KVKK Aydınlatma Metni",
+    "description": "Kişisel verilerinizin korunması hakkında bilgi edinin",
+    "icon": "document",
+    "category": "Yasal",
+    "link": "/kvkk",
+    "order": 7,
+    "isActive": true
+  },
+  {
+    "title": "Güvenlik İpuçları",
+    "description": "Hesabınızı güvende tutmak için öneriler",
+    "icon": "help",
+    "category": "Güvenlik",
+    "link": "/security-tips",
+    "order": 8,
+    "isActive": true
+  }
+]
+
+
