@@ -307,6 +307,9 @@ body {
 .form-input.error:focus {
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
+.form-input::-moz-placeholder {
+  color: #9ca3af;
+}
 .form-input::placeholder {
   color: #9ca3af;
 }
@@ -339,7 +342,9 @@ body {
   cursor: pointer;
   position: relative;
   padding-left: 36px;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .kvkk-checkbox input[type=checkbox] {
   position: absolute;
@@ -742,5 +747,3 @@ body {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
 }
-
-/*# sourceMappingURL=site.css.map */
