@@ -1,0 +1,16 @@
+@page
+@model DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dashboard-container">
+    <div class="dashboard-card">
+        <h1>Hoş Geldiniz!</h1>
+        <p>Giriş başarılı. Dashboard sayfasına yönlendirildiniz.</p>
+        <form method="post" asp-page-handler="Logout">
+            <button type="submit" class="btn-primary">Çıkış Yap</button>
+        </form>
+    </div>
+</div>
+

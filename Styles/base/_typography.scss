@@ -1,5 +1,4 @@
 // Typography System
-// Font import (Google Fonts örneği - isterseniz değiştirebiliriz)
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 // Base Font Settings
@@ -8,7 +7,7 @@ body {
     font-size: $font_size_body;
     font-weight: $font_weight_regular;
     line-height: $line_height_body;
-    color: $color_dark_navy;
+    color: $text-primary;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -20,7 +19,7 @@ h1,
     font-size: $font_size_h1;
     font-weight: $font_weight_bold;
     line-height: $line_height_h1;
-    color: $color_dark_navy;
+    color: $text-primary;
     margin-bottom: 1rem;
 }
 
@@ -31,7 +30,7 @@ h2,
     font-size: $font_size_h2;
     font-weight: $font_weight_semibold;
     line-height: $line_height_h2;
-    color: $color_dark_navy;
+    color: $text-primary;
     margin-bottom: 0.875rem;
 }
 
@@ -42,7 +41,7 @@ h3,
     font-size: $font_size_h3;
     font-weight: $font_weight_medium;
     line-height: $line_height_h3;
-    color: $color_dark_navy;
+    color: $text-primary;
     margin-bottom: 0.75rem;
 }
 
@@ -53,7 +52,7 @@ p,
     font-size: $font_size_body;
     font-weight: $font_weight_regular;
     line-height: $line_height_body;
-    color: $color_dark_blue;
+    color: $text-secondary;
     margin-bottom: 1rem;
 }
 
@@ -64,7 +63,7 @@ small,
     font-size: $font_size_small;
     font-weight: $font_weight_regular;
     line-height: $line_height_small;
-    color: $color_dark_blue;
+    color: $text-secondary;
 }
 
 // Butonlar (Button / Label)
@@ -139,4 +138,3 @@ a.btn {
         font-size: $font_size_button_mobile;
     }
 }
-

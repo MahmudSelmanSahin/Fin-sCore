@@ -11,4 +11,43 @@
 @import 'components/forms';
 
 // 4. Pages (Sayfaya Özel)
-@import 'pages/dashboard'; 
+@import 'pages/login';
+@import 'pages/sms';
+@import 'pages/security';
+@import 'pages/dashboard';
+
+// 5. Responsive
+@media (max-width: 640px) {
+  .login-card,
+  .sms-card,
+  .signup-card {
+    padding: 32px 24px;
+    border-radius: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .code-inputs {
+    gap: 8px;
+  }
+
+  .code-input {
+    font-size: 18px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .login-title,
+  .sms-title,
+  .signup-title {
+    font-size: 28px;
+  }
+}
+
+// 6. Accessibility
+*:focus-visible {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+}

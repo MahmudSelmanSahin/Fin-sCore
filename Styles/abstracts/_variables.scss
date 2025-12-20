@@ -1,4 +1,30 @@
-// Renk Paleti
+// Color Palette - Modern Web 2.0
+$primary: #2563eb;
+$primary-dark: #1e40af;
+$primary-light: #3b82f6;
+$secondary: #10b981;
+$accent: #f59e0b;
+$error: #ef4444;
+$success: #10b981;
+$warning: #f59e0b;
+
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$text-light: #9ca3af;
+
+$bg-primary: #ffffff;
+$bg-secondary: #f9fafb;
+$bg-tertiary: #f3f4f6;
+
+$border-color: #e5e7eb;
+$border-focus: #2563eb;
+
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// Legacy Color Palette (for backward compatibility)
 $color_white: #FFFFFF;
 $color_dark_navy: #222854;
 $color_primary_blue: #2E6DF8;
@@ -31,4 +57,3 @@ $line_height_h3: 140%;
 $line_height_body: 150%;
 $line_height_small: 140%;
 $line_height_button: 100%;
-

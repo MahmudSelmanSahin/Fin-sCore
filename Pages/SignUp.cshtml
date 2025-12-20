@@ -1,0 +1,301 @@
+@page
+@model SignUpModel
+@{
+    ViewData["Title"] = "Üye Ol";
+}
+
+<div class="signup-container">
+    <div class="signup-card">
+        <div class="signup-header">
+            <button class="back-button" onclick="history.back()">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h1 class="signup-title">Üye Ol</h1>
+            <p class="signup-subtitle">Hesabınızı oluşturun ve başlayın</p>
+        </div>
+
+        <form id="signupForm" class="signup-form" method="post">
+            <div class="form-row">
+                <div class="input-group">
+                    <label class="input-label">Ad</label>
+                    <input type="text" 
+                           id="firstName" 
+                           name="firstName" 
+                           class="form-input" 
+                           placeholder="Adınız"
+                           required />
+                    <span class="input-error" id="firstNameError"></span>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Soyad</label>
+                    <input type="text" 
+                           id="lastName" 
+                           name="lastName" 
+                           class="form-input" 
+                           placeholder="Soyadınız"
+                           required />
+                    <span class="input-error" id="lastNameError"></span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">TC Kimlik No</label>
+                <input type="text" 
+                       id="tckno" 
+                       name="tckno" 
+                       class="form-input" 
+                       placeholder="11 haneli TC Kimlik No"
+                       maxlength="11"
+                       required />
+                <span class="input-error" id="tcknoError"></span>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">GSM Numarası</label>
+                <input type="text" 
+                       id="gsm" 
+                       name="gsm" 
+                       class="form-input" 
+                       placeholder="05XX XXX XX XX"
+                       maxlength="11"
+                       required />
+                <span class="input-error" id="gsmError"></span>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">E-posta</label>
+                <input type="email" 
+                       id="email" 
+                       name="email" 
+                       class="form-input" 
+                       placeholder="ornek@email.com"
+                       required />
+                <span class="input-error" id="emailError"></span>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Şifre</label>
+                <div class="input-wrapper password-wrapper">
+                    <input type="password" 
+                           id="password" 
+                           name="password" 
+                           class="form-input" 
+                           placeholder="En az 8 karakter"
+                           required />
+                    <button type="button" class="password-toggle" id="passwordToggle">
+                        <svg class="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
+                <span class="input-error" id="passwordError"></span>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Şifre Tekrar</label>
+                <div class="input-wrapper password-wrapper">
+                    <input type="password" 
+                           id="passwordConfirm" 
+                           name="passwordConfirm" 
+                           class="form-input" 
+                           placeholder="Şifrenizi tekrar giriniz"
+                           required />
+                    <button type="button" class="password-toggle" id="passwordConfirmToggle">
+                        <svg class="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
+                <span class="input-error" id="passwordConfirmError"></span>
+            </div>
+
+            <div class="kvkk-container">
+                <label class="kvkk-checkbox">
+                    <input type="checkbox" id="kvkkAccept" name="kvkkAccept" required />
+                    <span class="checkmark"></span>
+                    <span class="kvkk-text">
+                        <a href="#" class="kvkk-link">KVKK Aydınlatma Metni</a>'ni okudum, anladım ve kabul ediyorum.
+                    </span>
+                </label>
+            </div>
+
+            <div class="kvkk-container">
+                <label class="kvkk-checkbox">
+                    <input type="checkbox" id="termsAccept" name="termsAccept" required />
+                    <span class="checkmark"></span>
+                    <span class="kvkk-text">
+                        <a href="#" class="kvkk-link">Kullanım Koşulları</a>'nı okudum ve kabul ediyorum.
+                    </span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-primary" id="signupBtn">
+                <span class="btn-text">Üye Ol</span>
+                <span class="btn-loader" style="display: none;">
+                    <svg class="spinner" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
+                        <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                    </svg>
+                </span>
+            </button>
+        </form>
+
+        <div class="signup-footer">
+            <p>Zaten hesabınız var mı? <a href="/" class="link-primary">Giriş Yap</a></p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // TCKNO validation
+            $('#tckno').on('input', function() {
+                let value = $(this).val().replace(/\D/g, '');
+                $(this).val(value);
+                validateTCKNO(value);
+            });
+
+            // GSM validation
+            $('#gsm').on('input', function() {
+                let value = $(this).val().replace(/\D/g, '');
+                if (value && !value.startsWith('0')) {
+                    value = '0' + value;
+                }
+                $(this).val(value);
+                validateGSM(value);
+            });
+
+            // Password toggle
+            $('#passwordToggle, #passwordConfirmToggle').on('click', function() {
+                const input = $(this).siblings('input');
+                const type = input.attr('type') === 'password' ? 'text' : 'password';
+                input.attr('type', type);
+                $(this).toggleClass('active');
+            });
+
+            // Password confirmation validation
+            $('#passwordConfirm').on('input', function() {
+                const password = $('#password').val();
+                const confirm = $(this).val();
+                
+                if (confirm && password !== confirm) {
+                    showError('passwordConfirm', 'Şifreler eşleşmiyor');
+                } else {
+                    clearError('passwordConfirm');
+                }
+            });
+
+            // Form submission
+            $('#signupForm').on('submit', function(e) {
+                e.preventDefault();
+
+                let isValid = true;
+
+                // Validate all fields
+                if (!validateTCKNO($('#tckno').val())) isValid = false;
+                if (!validateGSM($('#gsm').val())) isValid = false;
+                if (!validateEmail($('#email').val())) isValid = false;
+                if (!validatePassword($('#password').val())) isValid = false;
+                
+                const password = $('#password').val();
+                const passwordConfirm = $('#passwordConfirm').val();
+                if (password !== passwordConfirm) {
+                    showError('passwordConfirm', 'Şifreler eşleşmiyor');
+                    isValid = false;
+                }
+
+                if (!$('#kvkkAccept').is(':checked')) {
+                    showError('kvkkAccept', 'KVKK metnini kabul etmelisiniz');
+                    isValid = false;
+                }
+
+                if (!$('#termsAccept').is(':checked')) {
+                    showError('termsAccept', 'Kullanım koşullarını kabul etmelisiniz');
+                    isValid = false;
+                }
+
+                if (!isValid) return;
+
+                // Show loading
+                $('#signupBtn').addClass('loading');
+                $('.btn-text').hide();
+                $('.btn-loader').show();
+
+                // Simulate API call
+                setTimeout(function() {
+                    window.location.href = '/SmsVerification?identifier=' + encodeURIComponent($('#gsm').val());
+                }, 1500);
+            });
+
+            function validateTCKNO(value) {
+                if (!value) {
+                    showError('tckno', 'TC Kimlik No giriniz');
+                    return false;
+                }
+                if (value.length !== 11) {
+                    showError('tckno', 'TC Kimlik No 11 haneli olmalıdır');
+                    return false;
+                }
+                clearError('tckno');
+                return true;
+            }
+
+            function validateGSM(value) {
+                if (!value) {
+                    showError('gsm', 'GSM numarası giriniz');
+                    return false;
+                }
+                if (!/^05\d{9}$/.test(value)) {
+                    showError('gsm', 'Geçerli bir GSM numarası giriniz (05XX XXX XX XX)');
+                    return false;
+                }
+                clearError('gsm');
+                return true;
+            }
+
+            function validateEmail(value) {
+                const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                if (!value) {
+                    showError('email', 'E-posta adresi giriniz');
+                    return false;
+                }
+                if (!emailRegex.test(value)) {
+                    showError('email', 'Geçerli bir e-posta adresi giriniz');
+                    return false;
+                }
+                clearError('email');
+                return true;
+            }
+
+            function validatePassword(value) {
+                if (!value) {
+                    showError('password', 'Şifre giriniz');
+                    return false;
+                }
+                if (value.length < 8) {
+                    showError('password', 'Şifre en az 8 karakter olmalıdır');
+                    return false;
+                }
+                clearError('password');
+                return true;
+            }
+
+            function showError(fieldId, message) {
+                $('#' + fieldId + 'Error').text(message).addClass('show');
+                $('#' + fieldId).addClass('error');
+            }
+
+            function clearError(fieldId) {
+                $('#' + fieldId + 'Error').text('').removeClass('show');
+                $('#' + fieldId).removeClass('error');
+            }
+        });
+    </script>
+}
+

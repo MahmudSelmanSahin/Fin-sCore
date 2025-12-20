@@ -1,0 +1,45 @@
+.sms-code-container {
+  margin-bottom: 32px;
+}
+
+.sms-single-input {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 8px;
+  padding-left: 16px !important;
+}
+
+.sms-info {
+  text-align: center;
+  margin-bottom: 24px;
+
+  .attempt-info {
+    font-size: 14px;
+    color: $text-secondary;
+    margin-bottom: 12px;
+
+    strong {
+      color: $text-primary;
+      font-weight: 700;
+    }
+  }
+}
+
+.sms-alternatives {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.demo-otp-notice {
+  code {
+    font-family: 'Courier New', monospace;
+    padding: 4px 8px;
+    background: white;
+    border-radius: 4px;
+  }
+}
