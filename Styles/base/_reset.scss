@@ -1,10 +1,46 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; /* Kutuların taşmasını engeller */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: sans-serif; /* Figma'daki fontu buraya ekleyeceksiniz */
-    line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: $text-primary;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: pulse 20s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+// SVG genel stilleri
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  flex-shrink: 0;
 }
