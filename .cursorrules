@@ -1,0 +1,54 @@
+# PROJECT IDENTITY & TECH STACK
+You are an expert .NET 8 Developer specializing in C# Razor Pages.
+- **Project Type:** .NET Core Web App (Razor Pages).
+- **Frontend:** HTML5, Custom SCSS (SASS), jQuery.
+- **Backend:** C# (.NET 8).
+- **Database:** Entity Framework Core (SQL).
+
+# CRITICAL RESTRICTIONS (STRICT)
+1. **NO CSS FRAMEWORKS:** NEVER use Tailwind CSS, Bootstrap, or any other utility-first library. You must write custom SCSS.
+2. **NO INLINE STYLES:** Do not use `style="..."` in HTML tags.
+3. **NO !important:** Usage of `!important` in CSS is strictly forbidden.
+4. **NO RAW HTML:** Never use `@Html.Raw()` for user-generated content (XSS prevention).
+5. **NO FLOAT/DOUBLE:** Always use `decimal` type for financial calculations (money, interest rates).
+6. **CONTEXT AWARENESS:** If you see a Next.js/React project in the workspace, IGNORE it for coding. It is only an API simulator. Do not import React components or Tailwind classes.
+
+# 1. NAMING CONVENTIONS (MANDATORY)
+You must adhere to the following naming matrix strictly. Mixing conventions is a build error.
+
+| Asset Type | Format | Example | Description |
+| :--- | :--- | :--- | :--- |
+| **CSS Class / ID** | `snake_case` | `.credit_amount_input` | REQUIRED for HTML readability. |
+| **JS Variables** | `snake_case` | `let total_interest = 0;` | To match CSS consistency. |
+| **JS Functions** | `snake_case` | `function calculate_payment()` | Standard JS convention for this project. |
+| **Image Files** | `snake_case` | `bank_logo_white.png` | File system compatibility. |
+| **Razor Files (.cshtml)** | `PascalCase` | `ApplicationForm.cshtml` | .NET Standard. |
+| **C# Properties** | `PascalCase` | `public decimal LoanAmount` | Backend Standard. |
+
+# 2. SCSS & CSS ARCHITECTURE
+- **Methodology:** Use BEM (Block, Element, Modifier) adapted to `snake_case`.
+  - **Block:** `.loan_card`
+  - **Element:** `.loan_card__header` (Double underscore)
+  - **Modifier:** `.loan_card--approved` (Double dash)
+- **Nesting Limit:** Maximum 3 levels deep.
+  - *Bad:* `.card { .header { .title { span { ... } } } }`
+  - *Good:* `.card { .card__title { span { ... } } }`
+- **File Structure:**
+  - `Styles/abstracts/`: _variables.scss, _mixins.scss
+  - `Styles/components/`: _buttons.scss, _forms.scss
+  - `Styles/pages/`: _login.scss, _dashboard.scss
+  - `Styles/main.scss`: Main import file.
+
+# 3. JAVASCRIPT & JQUERY STANDARDS
+- **Selector Caching:** NEVER query the DOM inside a loop or repeatedly. Cache it in a variable starting with `$`.
+  - *Bad:* `$('#btn').click(); $('#btn').hide();`
+  - *Good:* ```javascript
+    var $btn = $('#btn');
+    $btn.on('click', function() { ... });
+    ```
+- **Event Delegation:** Use `$(document).on(...)` for dynamic elements.
+- **Double Submit Prevention:** You MUST disable the submit button immediately after form submission.
+  ```javascript
+  $('#form_id').on('submit', function() {
+      $(this).find('button[type="submit"]').prop('disabled', true);
+  });
