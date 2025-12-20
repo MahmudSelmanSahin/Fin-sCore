@@ -1,0 +1,11 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Kutuların taşmasını engeller */
+}
+
+body {
+  font-family: sans-serif; /* Figma'daki fontu buraya ekleyeceksiniz */
+  line-height: 1.5;
+}
