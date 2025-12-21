@@ -26,6 +26,11 @@ $(document).ready(function () {
     var $report_detail_placeholder = $('#report_detail_placeholder');
     var $close_panel_btn = $('#close_panel_btn');
     var $report_page_layout = $('#report_page_layout');
+    var $invoices_content = $('#invoices_content');
+
+    // Invoice data cache
+    var invoices_data = null;
+    var current_invoice_type = null;
 
     // ==============================================
     // INITIALIZATION
@@ -33,6 +38,7 @@ $(document).ready(function () {
     
     console.log('Report Details JS Loaded'); // Debug
     load_report_list();
+    load_invoices_data();
 
     // ==============================================
     // TAB NAVIGATION (Event Delegation)
@@ -61,11 +67,18 @@ $(document).ready(function () {
         // Hide detail panel when switching tabs
         hide_detail_panel();
         
-        // Toggle full-width mode for credit offers tab
-        if (target_tab === 'credit_offers') {
+        // Toggle full-width mode for credit offers and invoices tabs
+        if (target_tab === 'credit_offers' || target_tab === 'invoices') {
             $report_page_layout.addClass('report_page_layout--full_width');
         } else {
             $report_page_layout.removeClass('report_page_layout--full_width');
+        }
+        
+        // Reset invoices tab to default state when clicked directly
+        if (target_tab === 'invoices') {
+            $('#invoice_info_default').show();
+            $('#invoices_content').empty();
+            current_invoice_type = null;
         }
     });
 
@@ -102,16 +115,21 @@ $(document).ready(function () {
         var invoice_type = $(this).data('invoice');
         var invoice_name = $(this).text();
         
+        console.log('Seçilen fatura türü:', invoice_type);
+        
         // Faturalar sekmesine geç
-        $report_tabs.removeClass('report_tab--active');
+        $('.report_tab').removeClass('report_tab--active');
         $('[data-tab="invoices"]').addClass('report_tab--active');
         
-        $tab_contents.removeClass('report_tab_content--active').hide();
-        $('#invoices_tab').addClass('report_tab_content--active').show();
+        $('.report_tab_content').removeClass('report_tab_content--active');
+        $('#invoices_tab').addClass('report_tab_content--active');
         
-        // Burada seçilen faturaya göre işlem yapılabilir
-        console.log('Seçilen fatura türü:', invoice_type);
-        alert('Seçilen fatura: ' + invoice_name + '\n\nÖdeme sayfasına yönlendiriliyorsunuz...');
+        // Full width modu aktifleştir
+        $report_page_layout.addClass('report_page_layout--full_width');
+        
+        // Fatura içeriğini yükle
+        current_invoice_type = invoice_type;
+        render_invoice_content(invoice_type);
     });
 
     // ==============================================
@@ -276,6 +294,212 @@ $(document).ready(function () {
         
         $report_detail_content.addClass('active').html(html);
     }
+
+    // ==============================================
+    // INVOICE FUNCTIONS
+    // ==============================================
+    
+    /**
+     * Fatura verilerini JSON'dan yükle
+     */
+    function load_invoices_data() {
+        $.ajax({
+            url: '/data/invoices.json',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                invoices_data = data;
+                console.log('Fatura verileri yüklendi');
+            },
+            error: function (xhr, status, error) {
+                console.error('Fatura verileri yüklenemedi:', error);
+            }
+        });
+    }
+
+    /**
+     * Seçilen fatura türüne göre içeriği render et
+     */
+    function render_invoice_content(invoice_type) {
+        var $content = $('#invoices_content');
+        var $default_info = $('#invoice_info_default');
+        
+        // Varsayılan bilgi kutusunu gizle
+        $default_info.hide();
+        
+        if (!invoices_data) {
+            $content.html('<div class="invoice_loading"><div class="spinner"></div><span>Faturalar yükleniyor...</span></div>');
+            // Veriler henüz yüklenmediyse bekle
+            setTimeout(function() {
+                render_invoice_content(invoice_type);
+            }, 500);
+            return;
+        }
+        
+        var invoice_group = invoices_data[invoice_type];
+        
+        if (!invoice_group) {
+            $content.html('<div class="invoice_empty_state"><svg viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><p>Bu fatura türü için veri bulunamadı.</p></div>');
+            return;
+        }
+        
+        var html = '';
+        
+        // Başlık
+        html += '<div class="invoice_section_header">';
+        html += '  <div class="invoice_section_header__icon">' + get_invoice_icon(invoice_type) + '</div>';
+        html += '  <div class="invoice_section_header__info">';
+        html += '    <h2 class="invoice_section_header__title">' + escape_html(invoice_group.title) + '</h2>';
+        html += '    <span class="invoice_section_header__count">' + invoice_group.items.length + ' fatura bulundu</span>';
+        html += '  </div>';
+        html += '</div>';
+        
+        if (invoice_group.items.length === 0) {
+            html += '<div class="invoice_empty_state">';
+            html += '  <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            html += '  <p>Bu kategoride bekleyen faturanız bulunmamaktadır.</p>';
+            html += '</div>';
+        } else {
+            html += '<div class="invoice_cards_grid">';
+            
+            for (var i = 0; i < invoice_group.items.length; i++) {
+                var item = invoice_group.items[i];
+                var status_class = get_status_class(item.status);
+                var status_text = get_status_text(item.status);
+                var formatted_amount = format_currency(item.amount);
+                var is_actionable = item.status === 'pending' || item.status === 'overdue';
+                
+                html += '<div class="invoice_card invoice_card--' + item.status + '">';
+                html += '  <div class="invoice_card__header">';
+                html += '    <span class="invoice_card__provider">' + escape_html(item.provider) + '</span>';
+                html += '    <span class="invoice_card__status ' + status_class + '">' + status_text + '</span>';
+                html += '  </div>';
+                html += '  <div class="invoice_card__body">';
+                html += '    <div class="invoice_card__amount">' + formatted_amount + '</div>';
+                html += '    <div class="invoice_card__period">' + escape_html(item.period) + '</div>';
+                html += '  </div>';
+                html += '  <div class="invoice_card__details">';
+                html += '    <div class="invoice_card__detail">';
+                html += '      <span>Abone No</span>';
+                html += '      <strong>' + escape_html(item.subscriber_no) + '</strong>';
+                html += '    </div>';
+                html += '    <div class="invoice_card__detail">';
+                html += '      <span>Tüketim</span>';
+                html += '      <strong>' + escape_html(item.consumption) + '</strong>';
+                html += '    </div>';
+                html += '    <div class="invoice_card__detail">';
+                html += '      <span>Son Ödeme</span>';
+                html += '      <strong>' + format_date(item.due_date) + '</strong>';
+                html += '    </div>';
+                html += '  </div>';
+                
+                if (is_actionable) {
+                    html += '  <button class="invoice_card__pay_btn" data-invoice-id="' + item.id + '">';
+                    html += '    <svg viewBox="0 0 24 24" fill="none"><rect x="1" y="4" width="22" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M1 10h22" stroke="currentColor" stroke-width="2"/></svg>';
+                    html += '    <span>Ödeme Yap</span>';
+                    html += '  </button>';
+                } else {
+                    html += '  <div class="invoice_card__paid_badge">';
+                    html += '    <svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                    html += '    <span>Ödendi</span>';
+                    html += '  </div>';
+                }
+                
+                html += '</div>';
+            }
+            
+            html += '</div>';
+        }
+        
+        $content.html(html);
+    }
+
+    /**
+     * Fatura türüne göre ikon SVG döndür
+     */
+    function get_invoice_icon(type) {
+        var icons = {
+            'elektrik': '<svg viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            'su': '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            'dogalgaz': '<svg viewBox="0 0 24 24" fill="none"><path d="M12 12c-3 0-4 3-4 5s2 4 4 4 4-2 4-4-1-5-4-5z" stroke="currentColor" stroke-width="2"/><path d="M12 2v4M12 8c-2.5 0-3.5 2-3.5 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+            'gsm': '<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="2"/><path d="M12 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+            'internet': '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2"/></svg>',
+            'tv': '<svg viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="15" rx="2" stroke="currentColor" stroke-width="2"/><path d="M17 2l-5 5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            'sabit_telefon': '<svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2"/></svg>',
+            'mtv': '<svg viewBox="0 0 24 24" fill="none"><path d="M5 17h14v-4.172a2 2 0 0 0-.586-1.414l-1.828-1.828A2 2 0 0 0 15.172 9H8.828a2 2 0 0 0-1.414.586l-1.828 1.828A2 2 0 0 0 5 12.828V17z" stroke="currentColor" stroke-width="2"/><circle cx="7.5" cy="17.5" r="1.5" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="17.5" r="1.5" stroke="currentColor" stroke-width="2"/></svg>',
+            'trafik_cezasi': '<svg viewBox="0 0 24 24" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke="currentColor" stroke-width="2"/><path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+            'sgk': '<svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            'vergi': '<svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            'universite': '<svg viewBox="0 0 24 24" fill="none"><path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 12v5c3 3 9 3 12 0v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            'ozel_okul': '<svg viewBox="0 0 24 24" fill="none"><path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 12v5c3 3 9 3 12 0v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            'aidat': '<svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            'bagis': '<svg viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            'sigorta': '<svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            'belediye': '<svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+        };
+        return icons[type] || icons['elektrik'];
+    }
+
+    /**
+     * Durum sınıfı döndür
+     */
+    function get_status_class(status) {
+        var classes = {
+            'pending': 'invoice_card__status--pending',
+            'paid': 'invoice_card__status--paid',
+            'overdue': 'invoice_card__status--overdue'
+        };
+        return classes[status] || classes['pending'];
+    }
+
+    /**
+     * Durum metni döndür
+     */
+    function get_status_text(status) {
+        var texts = {
+            'pending': 'Bekliyor',
+            'paid': 'Ödendi',
+            'overdue': 'Gecikmiş'
+        };
+        return texts[status] || 'Bekliyor';
+    }
+
+    /**
+     * Para formatla
+     */
+    function format_currency(amount) {
+        if (amount === 0) return 'Ücretsiz';
+        return amount.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ₺';
+    }
+
+    /**
+     * Tarih formatla
+     */
+    function format_date(date_str) {
+        if (!date_str || date_str === '-') return '-';
+        var parts = date_str.split('-');
+        if (parts.length !== 3) return date_str;
+        return parts[2] + '.' + parts[1] + '.' + parts[0];
+    }
+
+    // ==============================================
+    // INVOICE PAY BUTTON
+    // ==============================================
+    
+    $(document).on('click', '.invoice_card__pay_btn', function (e) {
+        e.preventDefault();
+        var $btn = $(this);
+        var invoice_id = $btn.data('invoice-id');
+        
+        // Button disable for double click prevention
+        $btn.prop('disabled', true).html('<div class="spinner spinner--small"></div><span>İşleniyor...</span>');
+        
+        // Simulated payment redirect
+        setTimeout(function() {
+            alert('Fatura ID: ' + invoice_id + '\n\nÖdeme sayfasına yönlendiriliyorsunuz...');
+            $btn.prop('disabled', false).html('<svg viewBox="0 0 24 24" fill="none"><rect x="1" y="4" width="22" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M1 10h22" stroke="currentColor" stroke-width="2"/></svg><span>Ödeme Yap</span>');
+        }, 800);
+    });
 
     // ==============================================
     // HELPER FUNCTIONS

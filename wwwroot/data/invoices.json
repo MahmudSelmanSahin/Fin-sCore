@@ -1,0 +1,354 @@
+{
+  "elektrik": {
+    "title": "Elektrik Faturaları",
+    "icon": "electricity",
+    "items": [
+      {
+        "id": "ELK001",
+        "provider": "AYEDAŞ",
+        "subscriber_no": "1234567890",
+        "period": "Kasım 2024",
+        "amount": 847.50,
+        "due_date": "2024-12-25",
+        "status": "pending",
+        "consumption": "285 kWh"
+      },
+      {
+        "id": "ELK002",
+        "provider": "AYEDAŞ",
+        "subscriber_no": "1234567890",
+        "period": "Ekim 2024",
+        "amount": 723.00,
+        "due_date": "2024-11-25",
+        "status": "paid",
+        "consumption": "242 kWh"
+      },
+      {
+        "id": "ELK003",
+        "provider": "AYEDAŞ",
+        "subscriber_no": "1234567890",
+        "period": "Eylül 2024",
+        "amount": 912.75,
+        "due_date": "2024-10-25",
+        "status": "paid",
+        "consumption": "305 kWh"
+      }
+    ]
+  },
+  "su": {
+    "title": "Su Faturaları",
+    "icon": "water",
+    "items": [
+      {
+        "id": "SU001",
+        "provider": "İSKİ",
+        "subscriber_no": "9876543210",
+        "period": "Kasım-Aralık 2024",
+        "amount": 245.80,
+        "due_date": "2024-12-30",
+        "status": "pending",
+        "consumption": "18 m³"
+      },
+      {
+        "id": "SU002",
+        "provider": "İSKİ",
+        "subscriber_no": "9876543210",
+        "period": "Eylül-Ekim 2024",
+        "amount": 198.50,
+        "due_date": "2024-10-30",
+        "status": "paid",
+        "consumption": "14 m³"
+      }
+    ]
+  },
+  "dogalgaz": {
+    "title": "Doğalgaz Faturaları",
+    "icon": "gas",
+    "items": [
+      {
+        "id": "GAZ001",
+        "provider": "İGDAŞ",
+        "subscriber_no": "5555666677",
+        "period": "Kasım 2024",
+        "amount": 1245.00,
+        "due_date": "2024-12-20",
+        "status": "pending",
+        "consumption": "98 m³"
+      },
+      {
+        "id": "GAZ002",
+        "provider": "İGDAŞ",
+        "subscriber_no": "5555666677",
+        "period": "Ekim 2024",
+        "amount": 456.30,
+        "due_date": "2024-11-20",
+        "status": "paid",
+        "consumption": "35 m³"
+      },
+      {
+        "id": "GAZ003",
+        "provider": "İGDAŞ",
+        "subscriber_no": "5555666677",
+        "period": "Eylül 2024",
+        "amount": 312.80,
+        "due_date": "2024-10-20",
+        "status": "paid",
+        "consumption": "24 m³"
+      }
+    ]
+  },
+  "gsm": {
+    "title": "GSM Faturaları",
+    "icon": "phone",
+    "items": [
+      {
+        "id": "GSM001",
+        "provider": "Turkcell",
+        "subscriber_no": "532****789",
+        "period": "Aralık 2024",
+        "amount": 389.00,
+        "due_date": "2024-12-28",
+        "status": "pending",
+        "consumption": "Faturalı Hat"
+      },
+      {
+        "id": "GSM002",
+        "provider": "Turkcell",
+        "subscriber_no": "532****789",
+        "period": "Kasım 2024",
+        "amount": 389.00,
+        "due_date": "2024-11-28",
+        "status": "paid",
+        "consumption": "Faturalı Hat"
+      }
+    ]
+  },
+  "internet": {
+    "title": "İnternet Faturaları",
+    "icon": "internet",
+    "items": [
+      {
+        "id": "INT001",
+        "provider": "Türk Telekom",
+        "subscriber_no": "2129998877",
+        "period": "Aralık 2024",
+        "amount": 449.90,
+        "due_date": "2024-12-15",
+        "status": "pending",
+        "consumption": "Fiber 100 Mbps"
+      },
+      {
+        "id": "INT002",
+        "provider": "Türk Telekom",
+        "subscriber_no": "2129998877",
+        "period": "Kasım 2024",
+        "amount": 449.90,
+        "due_date": "2024-11-15",
+        "status": "paid",
+        "consumption": "Fiber 100 Mbps"
+      }
+    ]
+  },
+  "tv": {
+    "title": "Televizyon Yayın Faturaları",
+    "icon": "tv",
+    "items": [
+      {
+        "id": "TV001",
+        "provider": "Digiturk",
+        "subscriber_no": "DT12345678",
+        "period": "Aralık 2024",
+        "amount": 299.00,
+        "due_date": "2024-12-10",
+        "status": "pending",
+        "consumption": "Spor Paketi"
+      }
+    ]
+  },
+  "sabit_telefon": {
+    "title": "Sabit Telefon Faturaları",
+    "icon": "phone",
+    "items": [
+      {
+        "id": "TEL001",
+        "provider": "Türk Telekom",
+        "subscriber_no": "2121234567",
+        "period": "Aralık 2024",
+        "amount": 89.90,
+        "due_date": "2024-12-15",
+        "status": "pending",
+        "consumption": "Sabit Hat"
+      }
+    ]
+  },
+  "mtv": {
+    "title": "Motorlu Taşıtlar Vergisi",
+    "icon": "car",
+    "items": [
+      {
+        "id": "MTV001",
+        "provider": "Gelir İdaresi",
+        "subscriber_no": "34ABC123",
+        "period": "2025 - 1. Taksit",
+        "amount": 2850.00,
+        "due_date": "2025-01-31",
+        "status": "pending",
+        "consumption": "Otomobil"
+      }
+    ]
+  },
+  "trafik_cezasi": {
+    "title": "Trafik Cezaları",
+    "icon": "warning",
+    "items": [
+      {
+        "id": "TRF001",
+        "provider": "Emniyet Genel Müdürlüğü",
+        "subscriber_no": "34ABC123",
+        "period": "15.11.2024",
+        "amount": 1500.00,
+        "due_date": "2024-12-30",
+        "status": "pending",
+        "consumption": "Hız İhlali"
+      }
+    ]
+  },
+  "sgk": {
+    "title": "SGK Ödemeleri",
+    "icon": "institution",
+    "items": [
+      {
+        "id": "SGK001",
+        "provider": "SGK",
+        "subscriber_no": "12345678901",
+        "period": "Kasım 2024",
+        "amount": 4752.50,
+        "due_date": "2024-12-26",
+        "status": "pending",
+        "consumption": "Bağ-Kur Primi"
+      }
+    ]
+  },
+  "vergi": {
+    "title": "Vergi Borçları",
+    "icon": "institution",
+    "items": [
+      {
+        "id": "VRG001",
+        "provider": "Gelir İdaresi",
+        "subscriber_no": "1234567890",
+        "period": "KDV - Kasım 2024",
+        "amount": 12450.00,
+        "due_date": "2024-12-26",
+        "status": "pending",
+        "consumption": "Aylık KDV"
+      }
+    ]
+  },
+  "universite": {
+    "title": "Üniversite Harçları",
+    "icon": "education",
+    "items": [
+      {
+        "id": "UNI001",
+        "provider": "İstanbul Üniversitesi",
+        "subscriber_no": "20240012345",
+        "period": "2024-2025 Güz Dönemi",
+        "amount": 0,
+        "due_date": "-",
+        "status": "paid",
+        "consumption": "Devlet Üniversitesi"
+      }
+    ]
+  },
+  "ozel_okul": {
+    "title": "Özel Okul Taksitleri",
+    "icon": "education",
+    "items": [
+      {
+        "id": "OKL001",
+        "provider": "ABC Özel Okulu",
+        "subscriber_no": "2024-1234",
+        "period": "Ocak 2025 Taksiti",
+        "amount": 15000.00,
+        "due_date": "2025-01-05",
+        "status": "pending",
+        "consumption": "10. Sınıf"
+      }
+    ]
+  },
+  "aidat": {
+    "title": "Site/Apartman Aidatları",
+    "icon": "building",
+    "items": [
+      {
+        "id": "AID001",
+        "provider": "Yeşilova Sitesi",
+        "subscriber_no": "A-12",
+        "period": "Aralık 2024",
+        "amount": 1250.00,
+        "due_date": "2024-12-15",
+        "status": "pending",
+        "consumption": "Aylık Aidat"
+      },
+      {
+        "id": "AID002",
+        "provider": "Yeşilova Sitesi",
+        "subscriber_no": "A-12",
+        "period": "Kasım 2024",
+        "amount": 1250.00,
+        "due_date": "2024-11-15",
+        "status": "paid",
+        "consumption": "Aylık Aidat"
+      }
+    ]
+  },
+  "bagis": {
+    "title": "Bağışlar",
+    "icon": "heart",
+    "items": []
+  },
+  "sigorta": {
+    "title": "Sigorta Primleri",
+    "icon": "shield",
+    "items": [
+      {
+        "id": "SIG001",
+        "provider": "Allianz Sigorta",
+        "subscriber_no": "POL-2024-123456",
+        "period": "Kasko - 2. Taksit",
+        "amount": 8500.00,
+        "due_date": "2025-01-15",
+        "status": "pending",
+        "consumption": "Kasko"
+      },
+      {
+        "id": "SIG002",
+        "provider": "Axa Sigorta",
+        "subscriber_no": "POL-2024-789012",
+        "period": "Konut Sigortası",
+        "amount": 2400.00,
+        "due_date": "2025-02-01",
+        "status": "pending",
+        "consumption": "Konut"
+      }
+    ]
+  },
+  "belediye": {
+    "title": "Belediye Ödemeleri",
+    "icon": "institution",
+    "items": [
+      {
+        "id": "BLD001",
+        "provider": "İstanbul Büyükşehir Belediyesi",
+        "subscriber_no": "2024-ÇTV-12345",
+        "period": "2024 - 2. Taksit",
+        "amount": 650.00,
+        "due_date": "2024-11-30",
+        "status": "overdue",
+        "consumption": "Çevre Temizlik Vergisi"
+      }
+    ]
+  }
+}
+
