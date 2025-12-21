@@ -1,5 +1,287 @@
-// Typography styles
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  color: $text-primary;
+// ==============================================
+// FIN-SCORE TYPOGRAPHY SYSTEM
+// ==============================================
+
+// Google Fonts - Poppins (Daha modern ve okunabilir)
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+// ============================================
+// BASE FONT SETTINGS
+// ============================================
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: $font_size_body;
+    font-weight: $font_weight_regular;
+    line-height: $line_height_body;
+    color: $text-primary;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// ============================================
+// HEADINGS
+// ============================================
+
+// Ana Başlıklar (Display / H1)
+// 28-32px, Bold (700), 120% line-height
+h1,
+.h1,
+.heading_display {
+    font-size: $font_size_h1;
+    font-weight: $font_weight_bold;
+    line-height: $line_height_h1;
+    color: $text-primary;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+// Alt Başlıklar (Heading / H2)
+// 20-24px, Semi-Bold (600), 130% line-height
+h2,
+.h2,
+.heading_secondary {
+    font-size: $font_size_h2;
+    font-weight: $font_weight_semibold;
+    line-height: $line_height_h2;
+    color: $text-primary;
+    margin-bottom: 0.875rem;
+    letter-spacing: -0.01em;
+}
+
+// Kart Başlıkları (Heading / H3)
+// 16-18px, Medium (500), 140% line-height
+h3,
+.h3,
+.heading_tertiary {
+    font-size: $font_size_h3;
+    font-weight: $font_weight_medium;
+    line-height: $line_height_h3;
+    color: $text-primary;
+    margin-bottom: 0.75rem;
+}
+
+// H4-H6 (Ek başlık seviyeleri)
+h4,
+.h4 {
+    font-size: $font_size_body;
+    font-weight: $font_weight_semibold;
+    line-height: $line_height_h3;
+    color: $text-primary;
+    margin-bottom: 0.5rem;
+}
+
+h5,
+.h5 {
+    font-size: $font_size_body;
+    font-weight: $font_weight_medium;
+    line-height: $line_height_h3;
+    color: $text-primary;
+    margin-bottom: 0.5rem;
+}
+
+h6,
+.h6 {
+    font-size: $font_size_small;
+    font-weight: $font_weight_semibold;
+    line-height: $line_height_small;
+    color: $text-secondary;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+// ============================================
+// BODY TEXT
+// ============================================
+
+// Gövde Metni (Body / Regular)
+// 14-16px, Regular (400), 150% line-height
+p,
+.body_text,
+.text_body {
+    font-size: $font_size_body;
+    font-weight: $font_weight_regular;
+    line-height: $line_height_body;
+    color: $text-secondary;
+    margin-bottom: 1rem;
+}
+
+// ============================================
+// SMALL TEXT / CAPTIONS
+// ============================================
+
+// Küçük Metin (Caption / Small)
+// 12px, Regular (400), 140% line-height
+small,
+.caption,
+.text_small {
+    font-size: $font_size_small;
+    font-weight: $font_weight_regular;
+    line-height: $line_height_small;
+    color: $text-secondary;
+}
+
+// Helper text (form altı yardımcı metin)
+.helper_text {
+    font-size: $font_size_helper;
+    font-weight: $font_weight_regular;
+    line-height: $line_height_small;
+    color: $text-secondary;
+    margin-top: $spacing_xs;
+}
+
+// Error text
+.error_text {
+    font-size: $font_size_helper;
+    font-weight: $font_weight_regular;
+    line-height: $line_height_small;
+    color: $text-error;
+    margin-top: $spacing_xs;
+}
+
+// ============================================
+// BUTTON & LABEL TEXT
+// ============================================
+
+// Butonlar (Button / Label)
+// 14-16px, Semi-Bold (600), 100% line-height
+button,
+.button,
+.btn,
+a.button,
+a.btn {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: $font_size_button;
+    font-weight: $font_weight_semibold;
+    line-height: $line_height_button;
+}
+
+// Form Labels
+.form_label,
+.input_label {
+    font-size: $font_size_small;
+    font-weight: $font_weight_medium;
+    line-height: $line_height_small;
+    color: $color_primary_blue;
+}
+
+// ============================================
+// UTILITY CLASSES - Font Weights
+// ============================================
+
+.text_regular {
+    font-weight: $font_weight_regular;
+}
+
+.text_medium {
+    font-weight: $font_weight_medium;
+}
+
+.text_semibold {
+    font-weight: $font_weight_semibold;
+}
+
+.text_bold {
+    font-weight: $font_weight_bold;
+}
+
+// ============================================
+// UTILITY CLASSES - Text Alignment
+// ============================================
+
+.text_left {
+    text-align: left;
+}
+
+.text_center {
+    text-align: center;
+}
+
+.text_right {
+    text-align: right;
+}
+
+// ============================================
+// UTILITY CLASSES - Text Colors
+// ============================================
+
+.text_primary {
+    color: $text-primary;
+}
+
+.text_secondary {
+    color: $text-secondary;
+}
+
+.text_light {
+    color: $text-light;
+}
+
+.text_error {
+    color: $text-error;
+}
+
+.text_success {
+    color: $color_success;
+}
+
+.text_warning {
+    color: $color_warning;
+}
+
+.text_blue {
+    color: $color_primary_blue;
+}
+
+// ============================================
+// LINKS
+// ============================================
+
+a {
+    color: $color_primary_blue;
+    text-decoration: none;
+    transition: color $transition_fast;
+
+    &:hover {
+        color: $color_dark_blue;
+    }
+}
+
+// ============================================
+// RESPONSIVE TYPOGRAPHY
+// ============================================
+
+@media (max-width: 768px) {
+    h1,
+    .h1,
+    .heading_display {
+        font-size: $font_size_h1_mobile;
+    }
+
+    h2,
+    .h2,
+    .heading_secondary {
+        font-size: $font_size_h2_mobile;
+    }
+
+    h3,
+    .h3,
+    .heading_tertiary {
+        font-size: $font_size_h3_mobile;
+    }
+
+    p,
+    .body_text,
+    .text_body {
+        font-size: $font_size_body_mobile;
+    }
+
+    button,
+    .button,
+    .btn,
+    a.button,
+    a.btn {
+        font-size: $font_size_button_mobile;
+    }
 }

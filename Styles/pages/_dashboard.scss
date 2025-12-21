@@ -1,26 +1,662 @@
-.dashboard-container {
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+// Dashboard Ana Container
+.dashboard {
   width: 100%;
-  max-width: 600px;
-  animation: fadeIn 0.6s ease-out;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background: $bg-secondary;
 }
 
-.dashboard-card {
-  background: $bg-primary;
-  border-radius: 24px;
-  padding: 48px;
-  box-shadow: $shadow-xl;
+// Dashboard Navbar
+.dashboard__navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  background: $bg-secondary;
+  transition: all 0.3s ease;
+
+  &.scrolled {
+    padding: 0.5rem 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 1rem;
+
+    &.scrolled {
+      padding: 0.5rem 1rem;
+    }
+  }
+}
+
+// Navbar spacing compensation
+.dashboard__navbar_spacer {
+  height: 130px;
+
+  @media (max-width: 768px) {
+    height: 120px;
+  }
+}
+
+.dashboard__navbar_container {
+  max-width: 1600px;
+  margin: 0 auto;
+  background: $color_white;
+  border-radius: 20px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 1rem;
+    border-radius: 16px;
+  }
+}
+
+.dashboard__title {
+  font-size: $font_size_h1;
+  font-weight: $font_weight_bold;
+  line-height: $line_height_h1;
+  margin: 0 0 0.5rem 0;
+  color: $color_dark_navy;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_h1_mobile;
+  }
+}
+
+.dashboard__subtitle {
+  font-size: $font_size_body;
+  font-weight: $font_weight_regular;
+  line-height: $line_height_body;
+  margin: 0;
+  color: $text-secondary;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_body_mobile;
+  }
+}
+
+// Credit Summary Cards
+.dashboard__credit_summary {
+  padding: 4rem 4rem;
+  background: $color_white;
+
+  @media (max-width: 1200px) {
+    padding: 3.5rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 1rem;
+  }
+}
+
+.dashboard__credit_summary_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.credit_card {
+  background: $color_white;
+  border: none;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+.credit_card__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.credit_card__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($color_primary_blue, 0.08);
+  color: $color_primary_blue;
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  // Kredi skoru için yeşil (olumlu gösterge)
+  &--green {
+    background: rgba($success, 0.08);
+    color: $success;
+  }
+
+  // Aktif krediler için sarı (uyarı göstergesi)
+  &--yellow {
+    background: rgba(#F5A623, 0.1);
+    color: #F5A623;
+  }
+}
+
+.credit_card__title {
+  font-size: $font_size_small;
+  font-weight: $font_weight_medium;
+  line-height: $line_height_h3;
+  color: $text-light;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.credit_card__content {
+  padding: 0;
+}
+
+.credit_card__amount,
+.credit_card__count,
+.credit_card__score {
+  font-size: $font_size_h1;
+  font-weight: $font_weight_bold;
+  line-height: $line_height_h1;
+  color: $color_dark_navy;
+  margin: 0 0 0.5rem 0;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_h1_mobile;
+  }
+}
+
+.credit_card__label {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_regular;
+  color: $text-secondary;
+  margin: 0;
+
+  strong {
+    color: $color_primary_blue;
+    font-weight: $font_weight_semibold;
+  }
+}
+
+.credit_card__score_bar {
+  width: 100%;
+  height: 8px;
+  background: $bg-tertiary;
+  border-radius: 4px;
+  margin: 1rem 0 0.5rem 0;
+  overflow: hidden;
+}
+
+.credit_card__score_fill {
+  height: 100%;
+  background: linear-gradient(90deg, $success 0%, $color_primary_blue 100%);
+  border-radius: 4px;
+  transition: width 1s ease;
+  width: 0;
+
+  &[data-score] {
+    animation: fillScore 1.5s ease forwards;
+  }
+}
+
+@keyframes fillScore {
+  to {
+    width: calc(var(--score-width, 85) * 1%);
+  }
+}
+
+.credit_card__score_label {
+  font-size: $font_size_small;
+  font-weight: $font_weight_medium;
+  color: $success;
+  margin: 0;
+}
+
+// Section Styles
+.section_title {
+  font-size: 28px;
+  font-weight: $font_weight_bold;
+  line-height: $line_height_h2;
+  color: $color_dark_navy;
+  margin: 0 0 2rem 0;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_h2_mobile;
+  }
+}
+
+.section_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section_link {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_semibold;
+  color: $color_primary_blue;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $color_dark_blue;
+  }
+}
+
+// Quick Actions
+.dashboard__quick_actions {
+  padding: 4rem 4rem;
+  background: $color_light_blue;
+
+  @media (max-width: 1200px) {
+    padding: 3.5rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 1rem;
+  }
+}
+
+.quick_actions_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quick_action_card {
+  background: $color_white;
+  border: none;
+  border-radius: 20px;
+  padding: 2rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 
-  h1 {
-    font-size: 32px;
-    font-weight: 700;
-    color: $text-primary;
-    margin-bottom: 16px;
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+
+    .quick_action_card__icon {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.quick_action_card__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  transition: all 0.3s ease;
+  background: rgba($color_primary_blue, 0.08);
+  color: $color_primary_blue;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.quick_action_card__title {
+  font-size: $font_size_h3;
+  font-weight: $font_weight_medium;
+  line-height: $line_height_h3;
+  color: $color_dark_navy;
+  margin: 0 0 0.5rem 0;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_h3_mobile;
+  }
+}
+
+.quick_action_card__description {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_regular;
+  line-height: $line_height_body;
+  color: $text-secondary;
+  margin: 0;
+}
+
+// Active Loans
+.dashboard__active_loans {
+  padding: 4rem 4rem;
+  background: $color_white;
+
+  @media (max-width: 1200px) {
+    padding: 3.5rem 2rem;
   }
 
-  p {
-    font-size: 16px;
-    color: $text-secondary;
-    margin-bottom: 32px;
+  @media (max-width: 768px) {
+    padding: 2.5rem 1rem;
   }
+}
+
+.loans_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.loan_card {
+  background: $color_white;
+  border: none;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+.loan_card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.loan_card__title {
+  font-size: $font_size_h3;
+  font-weight: $font_weight_medium;
+  line-height: $line_height_h3;
+  color: $color_dark_navy;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: $font_size_h3_mobile;
+  }
+}
+
+.loan_card__badge {
+  font-size: $font_size_small;
+  font-weight: $font_weight_semibold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+
+  &--active {
+    background: rgba($success, 0.1);
+    color: $success;
+  }
+}
+
+.loan_card__content {
+  margin-bottom: 1.5rem;
+}
+
+.loan_card__info_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid $bg-tertiary;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.loan_card__label {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_regular;
+  color: $text-secondary;
+}
+
+.loan_card__value {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_semibold;
+  color: $color_dark_navy;
+
+  &--highlight {
+    color: $color_primary_blue;
+    font-size: $font_size_body;
+  }
+}
+
+.loan_card__progress {
+  margin-bottom: 1.5rem;
+}
+
+.progress_bar {
+  width: 100%;
+  height: 8px;
+  background: $bg-tertiary;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress_bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, $color_primary_blue 0%, $color_dark_blue 100%);
+  border-radius: 4px;
+  transition: width 1s ease;
+  width: 0;
+
+  &[data-progress] {
+    animation: fillProgress 1.5s ease forwards;
+  }
+}
+
+@keyframes fillProgress {
+  to {
+    width: calc(var(--progress-width, 0) * 1%);
+  }
+}
+
+.progress_label {
+  font-size: $font_size_small;
+  font-weight: $font_weight_regular;
+  color: $text-secondary;
+  margin: 0;
+}
+
+.loan_card__actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn_primary,
+.btn_secondary {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-size: $font_size_button_mobile;
+  font-weight: $font_weight_semibold;
+  line-height: $line_height_button;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+
+  &--small {
+    padding: 0.625rem 1.25rem;
+    font-size: $font_size_small;
+  }
+}
+
+.btn_primary {
+  background: $color_primary_blue;
+  color: $color_white;
+
+  &:hover {
+    background: $color_dark_blue;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+.btn_secondary {
+  background: transparent;
+  color: $color_primary_blue;
+  border: 1px solid $color_primary_blue;
+
+  &:hover {
+    background: rgba($color_primary_blue, 0.05);
+    transform: translateY(-2px);
+  }
+}
+
+// Help Center
+.dashboard__help_center {
+  padding: 4rem 4rem;
+  background: $color_light_blue;
+
+  @media (max-width: 1200px) {
+    padding: 3.5rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 1rem;
+  }
+}
+
+.help_center_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.help_center_card {
+  background: $color_white;
+  border: none;
+  border-radius: 20px;
+  padding: 2rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+
+    .help_center_card__icon {
+      background: $color_primary_blue;
+      color: $color_white;
+    }
+  }
+}
+
+.help_center_card__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: rgba($color_primary_blue, 0.08);
+  color: $color_primary_blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  margin-bottom: 1.25rem;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.help_center_card__content {
+  flex: 1;
+}
+
+.help_center_card__title {
+  font-size: $font_size_h3_mobile;
+  font-weight: $font_weight_medium;
+  line-height: $line_height_h3;
+  color: $color_dark_navy;
+  margin: 0 0 0.5rem 0;
+}
+
+.help_center_card__description {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_regular;
+  line-height: $line_height_body;
+  color: $text-secondary;
+  margin: 0 0 0.75rem 0;
+}
+
+.help_center_card__category {
+  font-size: $font_size_small;
+  font-weight: $font_weight_medium;
+  color: $color_primary_blue;
+  background: rgba($color_primary_blue, 0.1);
+  padding: 0.25rem 0.625rem;
+  border-radius: 6px;
+  display: inline-block;
 }

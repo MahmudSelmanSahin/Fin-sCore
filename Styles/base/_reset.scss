@@ -6,7 +6,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: $bg-secondary;
   min-height: 100vh;
   color: $text-primary;
   line-height: 1.6;
@@ -22,6 +22,7 @@ body {
   padding: 20px;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
   &::before {
     content: '';

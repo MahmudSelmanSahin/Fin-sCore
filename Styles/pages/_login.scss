@@ -1,149 +1,380 @@
+// ==============================================
+// FIN-SCORE LOGIN PAGE STYLES
+// ==============================================
+
+// ============================================
+// CONTAINERS
+// ============================================
+
+.login_container,
+.sms_container,
+.signup_container,
+.security_container {
+    width: 100%;
+    max-width: 480px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+// Legacy class support
 .login-container,
 .sms-container,
 .signup-container,
 .security-container {
-  width: 100%;
-  max-width: 480px;
-  animation: fadeIn 0.6s ease-out;
+    width: 100%;
+    max-width: 480px;
+    animation: fadeIn 0.6s ease-out;
 }
 
+// ============================================
+// CARDS
+// ============================================
+
+.login_card,
+.sms_card,
+.signup_card,
+.security_card {
+    background: $bg-primary;
+    border-radius: $radius_xl;
+    padding: $spacing_2xl $spacing_xl;
+    box-shadow: $shadow-xl;
+    position: relative;
+    overflow: hidden;
+    transition: transform $transition_slow, box-shadow $transition_slow;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    // Üst gradient çizgi
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, $color_primary_blue, $color_success, $color_warning);
+        background-size: 200% 100%;
+        animation: gradientShift 3s ease infinite;
+    }
+}
+
+// Legacy class support
 .login-card,
 .sms-card,
 .signup-card,
 .security-card {
-  background: $bg-primary;
-  border-radius: 24px;
-  padding: 48px 40px;
-  box-shadow: $shadow-xl;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, $primary, $secondary, $accent);
-    background-size: 200% 100%;
-    animation: gradientShift 3s ease infinite;
-  }
+    @extend .login_card;
 }
 
+// ============================================
+// HEADER
+// ============================================
+
+.login_header,
+.sms_header,
+.signup_header {
+    text-align: center;
+    margin-bottom: $spacing_xl;
+    position: relative;
+}
+
+// Legacy class support
 .login-header,
 .sms-header,
 .signup-header {
-  text-align: center;
-  margin-bottom: 40px;
-  position: relative;
+    text-align: center;
+    margin-bottom: $spacing_xl;
+    position: relative;
 }
 
-.logo-container {
-  margin-bottom: 24px;
-  display: inline-block;
-  animation: fadeIn 0.8s ease-out, float 3s ease-in-out infinite 1s;
+// Logo Container
+.logo_container {
+    margin-bottom: $spacing_lg;
+    display: inline-block;
+    animation: fadeIn 0.8s ease-out, float 3s ease-in-out infinite 1s;
+}
 
-  .logo-icon {
+.logo_icon {
     width: 48px;
     height: 48px;
-    color: $primary;
-    filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.2));
-    
+    color: $color_primary_blue;
+    filter: drop-shadow(0 2px 4px rgba($color_primary_blue, 0.2));
+
     svg {
-      width: 100%;
-      height: 100%;
-      display: block;
+        width: 100%;
+        height: 100%;
+        display: block;
     }
-  }
 }
 
+// Legacy class support
+.logo-container {
+    @extend .logo_container;
+
+    .logo-icon {
+        @extend .logo_icon;
+    }
+}
+
+// ============================================
+// TITLES
+// ============================================
+
+.login_title,
+.sms_title,
+.signup_title {
+    font-size: $font_size_h1;
+    font-weight: $font_weight_bold;
+    line-height: $line_height_h1;
+    color: $color_dark_navy;
+    margin-bottom: $spacing_sm;
+}
+
+// Legacy class support
 .login-title,
 .sms-title,
 .signup-title {
-  font-size: 32px;
-  font-weight: 700;
-  color: $text-primary;
-  margin-bottom: 8px;
-  background: linear-gradient(135deg, $primary, $secondary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+    font-size: $font_size_h1;
+    font-weight: $font_weight_bold;
+    line-height: $line_height_h1;
+    color: $color_dark_navy;
+    margin-bottom: $spacing_sm;
 }
 
+.login_subtitle,
+.sms_subtitle,
+.signup_subtitle {
+    font-size: $font_size_body;
+    font-weight: $font_weight_regular;
+    line-height: $line_height_body;
+    color: $text-secondary;
+    margin-top: $spacing_sm;
+}
+
+// Legacy class support
 .login-subtitle,
 .sms-subtitle,
 .signup-subtitle {
-  font-size: 16px;
-  color: $text-secondary;
-  margin-top: 8px;
+    font-size: $font_size_body;
+    font-weight: $font_weight_regular;
+    line-height: $line_height_body;
+    color: $text-secondary;
+    margin-top: $spacing_sm;
 }
 
+// ============================================
+// FORMS
+// ============================================
+
+.login_form,
+.sms_form,
+.signup_form {
+    animation: slideIn 0.6s ease-out 0.2s both;
+}
+
+// Legacy class support
 .login-form,
 .sms-form,
 .signup-form {
-  animation: slideIn 0.6s ease-out 0.2s both;
+    animation: slideIn 0.6s ease-out 0.2s both;
 }
 
+// ============================================
+// FOOTER
+// ============================================
+
+.login_footer,
+.sms_footer,
+.signup_footer,
+.security_footer {
+    text-align: center;
+    margin-top: $spacing_xl;
+    padding-top: $spacing_lg;
+    border-top: 1px solid $border-color;
+    font-size: $font_size_body_mobile;
+    color: $text-secondary;
+}
+
+// Legacy class support
 .login-footer,
 .sms-footer,
 .signup-footer,
 .security-footer {
-  text-align: center;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid $border-color;
-  font-size: 14px;
-  color: $text-secondary;
+    text-align: center;
+    margin-top: $spacing_xl;
+    padding-top: $spacing_lg;
+    border-top: 1px solid $border-color;
+    font-size: $font_size_body_mobile;
+    color: $text-secondary;
 }
 
-// Login Type Selector
+// ============================================
+// LOGIN TYPE SELECTOR (Radio Tabs)
+// ============================================
+
+.login_type_selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing_md;
+    margin-bottom: $spacing_lg;
+}
+
+// Legacy class support
 .login-type-selector {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing_md;
+    margin-bottom: $spacing_lg;
 }
 
-.type-option {
-  cursor: pointer;
-  position: relative;
-
-  input[type="radio"] {
-    position: absolute;
-    opacity: 0;
+.type_option {
     cursor: pointer;
+    position: relative;
 
-    &:checked ~ .type-label {
-      background: $primary;
-      color: white;
-      border-color: $primary;
-      box-shadow: $shadow-md;
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+
+        &:checked ~ .type_label {
+            background: $color_primary_blue;
+            color: $color_white;
+            border-color: $color_primary_blue;
+            box-shadow: $shadow-md;
+        }
+
+        &:focus ~ .type_label {
+            box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+        }
     }
-  }
 
-  .type-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 16px;
-    background: $bg-secondary;
-    border: 2px solid $border-color;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-    font-size: 14px;
-    font-weight: 600;
-    color: $text-primary;
+    .type_label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $input_padding_y $input_padding_x;
+        background: $bg-secondary;
+        border: $input_border_width solid $border-color;
+        border-radius: $radius_lg;
+        transition: all $transition_fast;
+        font-size: $font_size_body_mobile;
+        font-weight: $font_weight_semibold;
+        color: $text-primary;
 
-    &:hover {
-      border-color: $primary;
-      background: rgba(37, 99, 235, 0.05);
+        &:hover {
+            border-color: $color_primary_blue;
+            background: rgba($color_primary_blue, 0.05);
+        }
     }
-  }
+}
+
+// Legacy class support
+.type-option {
+    @extend .type_option;
+
+    .type-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $input_padding_y $input_padding_x;
+        background: $bg-secondary;
+        border: $input_border_width solid $border-color;
+        border-radius: $radius_lg;
+        transition: all $transition_fast;
+        font-size: $font_size_body_mobile;
+        font-weight: $font_weight_semibold;
+        color: $text-primary;
+
+        &:hover {
+            border-color: $color_primary_blue;
+            background: rgba($color_primary_blue, 0.05);
+        }
+    }
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+
+        &:checked ~ .type-label {
+            background: $color_primary_blue;
+            color: $color_white;
+            border-color: $color_primary_blue;
+            box-shadow: $shadow-md;
+        }
+    }
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+@media (max-width: 640px) {
+    .login_card,
+    .sms_card,
+    .signup_card,
+    .login-card,
+    .sms-card,
+    .signup-card {
+        padding: $spacing_xl $spacing_lg;
+        border-radius: $radius_xl;
+    }
+
+    .login_title,
+    .sms_title,
+    .signup_title,
+    .login-title,
+    .sms-title,
+    .signup-title {
+        font-size: $font_size_h1_mobile;
+    }
 }

@@ -1,0 +1,176 @@
+@import '../abstracts/variables';
+
+// Notification Dropdown Component
+.notification_dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 380px;
+  max-height: 500px;
+  background: $color_white;
+  border: 1px solid $border-color;
+  border-radius: 16px;
+  box-shadow: $shadow-xl;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+
+  @media (max-width: 480px) {
+    width: calc(100vw - 2rem);
+    right: -1rem;
+  }
+}
+
+.notification_dropdown__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.notification_dropdown__title {
+  font-size: $font_size_h3;
+  font-weight: $font_weight_semibold;
+  color: $color_dark_navy;
+  margin: 0;
+}
+
+.notification_dropdown__close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: $text-secondary;
+  transition: color 0.3s ease;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    color: $color_dark_navy;
+  }
+}
+
+.notification_dropdown__list {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 0.5rem;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $bg-tertiary;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $border-color;
+    border-radius: 3px;
+
+    &:hover {
+      background: $text-light;
+    }
+  }
+}
+
+.notification_item {
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+  transition: background 0.3s ease;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+
+  &:hover {
+    background: $bg-secondary;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &--success {
+    border-left-color: $success;
+    background: rgba($success, 0.05);
+  }
+
+  &--warning {
+    border-left-color: $warning;
+    background: rgba($warning, 0.05);
+  }
+
+  &--info {
+    border-left-color: $color_primary_blue;
+    background: rgba($color_primary_blue, 0.05);
+  }
+
+  &--error {
+    border-left-color: $error;
+    background: rgba($error, 0.05);
+  }
+}
+
+.notification_item__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.notification_item__title {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_semibold;
+  color: $color_dark_navy;
+  margin: 0;
+}
+
+.notification_item__message {
+  font-size: $font_size_small;
+  font-weight: $font_weight_regular;
+  color: $text-secondary;
+  line-height: $line_height_body;
+  margin: 0;
+}
+
+.notification_item__time {
+  font-size: $font_size_small;
+  font-weight: $font_weight_regular;
+  color: $text-light;
+  margin-top: 0.25rem;
+}
+
+.notification_dropdown__footer {
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid $border-color;
+  text-align: center;
+}
+
+.notification_dropdown__link {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_semibold;
+  color: $color_primary_blue;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $color_dark_blue;
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
