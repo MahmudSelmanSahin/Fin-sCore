@@ -1524,6 +1524,145 @@ a:hover {
   }
 }
 
+.idle_timeout_modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.idle_timeout_modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+.idle_timeout_modal.show .idle_timeout_modal__content {
+  transform: scale(1);
+}
+.idle_timeout_modal__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+.idle_timeout_modal__content {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid #e5e7eb;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+.idle_timeout_modal__icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.idle_timeout_modal__icon svg {
+  width: 32px;
+  height: 32px;
+  color: #f59e0b;
+}
+.idle_timeout_modal__icon--logout {
+  background: linear-gradient(135deg, rgba(46, 109, 248, 0.15), rgba(46, 109, 248, 0.05));
+}
+.idle_timeout_modal__icon--logout svg {
+  color: #2E6DF8;
+}
+.idle_timeout_modal__title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222854;
+  margin-bottom: 8px;
+}
+.idle_timeout_modal__message {
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 150%;
+  margin-bottom: 24px;
+}
+.idle_timeout_modal__countdown {
+  display: inline-block;
+  min-width: 28px;
+  padding: 2px 8px;
+  background: #f59e0b;
+  color: #FFFFFF;
+  font-weight: 700;
+  border-radius: 4px;
+  margin: 0 4px;
+}
+.idle_timeout_modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.idle_timeout_modal__actions .btn, .idle_timeout_modal__actions .btn-primary, .idle_timeout_modal__actions .btn-secondary {
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.idle_timeout_modal__actions .btn_primary, .idle_timeout_modal__actions .btn-primary {
+  background: linear-gradient(135deg, #2E6DF8, #0056B3);
+  color: #FFFFFF;
+  border: none;
+}
+.idle_timeout_modal__actions .btn_primary:hover, .idle_timeout_modal__actions .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(46, 109, 248, 0.4);
+}
+.idle_timeout_modal__actions .btn_secondary, .idle_timeout_modal__actions .btn-secondary {
+  background: transparent;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+}
+.idle_timeout_modal__actions .btn_secondary:hover, .idle_timeout_modal__actions .btn-secondary:hover {
+  background: rgba(107, 114, 128, 0.1);
+  color: #222854;
+}
+
+@media (max-width: 480px) {
+  .idle_timeout_modal__content {
+    padding: 24px;
+    margin: 16px;
+  }
+  .idle_timeout_modal__icon {
+    width: 56px;
+    height: 56px;
+  }
+  .idle_timeout_modal__icon svg {
+    width: 28px;
+    height: 28px;
+  }
+  .idle_timeout_modal__title {
+    font-size: 18px;
+  }
+  .idle_timeout_modal__message {
+    font-size: 14px;
+  }
+}
 .login_container,
 .sms_container,
 .signup_container,
@@ -1603,7 +1742,8 @@ a:hover {
 .logo_container, .logo-container {
   margin-bottom: 24px;
   display: inline-block;
-  animation: fadeIn 0.8s ease-out, float 3s ease-in-out infinite 1s;
+  animation: fadeIn 0.8s ease-out forwards, float 3s ease-in-out infinite 1s;
+  opacity: 1;
 }
 
 .logo_icon, .logo-container .logo-icon {
@@ -1616,6 +1756,20 @@ a:hover {
   width: 100%;
   height: 100%;
   display: block;
+}
+
+.login_card .logo_container,
+.sms-card .logo_container,
+.signup-card .logo_container,
+.security-card .logo_container,
+.sms-card .logo-container,
+.signup-card .logo-container,
+.security-card .logo-container,
+.login_card .logo-container,
+.login-card .logo_container,
+.login-card .logo-container {
+  opacity: 1;
+  animation: fadeIn 0.6s ease-out forwards, float 3s ease-in-out infinite 1s;
 }
 
 .login_title,
@@ -2174,19 +2328,101 @@ a:hover {
   display: block;
 }
 
-.sms_modal__info {
-  text-align: center;
-  margin-top: 16px;
+.sms_modal__captcha {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
 }
 
-.sms_modal__attempts {
+.sms_modal__captcha_notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: #2E6DF8;
   font-size: 14px;
-  color: #6b7280;
-  margin: 0;
 }
-.sms_modal__attempts strong {
-  color: #222854;
+.sms_modal__captcha_notice svg {
+  flex-shrink: 0;
+}
+.sms_modal__captcha_notice span {
+  color: #6b7280;
+}
+
+.sms_modal__captcha_image_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.sms_modal__captcha_image {
+  display: block;
+  width: 200px;
+  height: 70px;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  background: #FFFFFF;
+}
+
+.sms_modal__captcha_refresh {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: #FFFFFF;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sms_modal__captcha_refresh:hover {
+  border-color: #2E6DF8;
+  color: #2E6DF8;
+  background: rgba(46, 109, 248, 0.05);
+}
+.sms_modal__captcha_refresh:active {
+  transform: rotate(180deg);
+}
+
+.sms_modal__captcha_input_group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sms_modal__captcha_input {
+  width: 200px;
+  padding: 16px;
+  font-size: 18px;
   font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #222854;
+  transition: all 0.15s ease;
+}
+.sms_modal__captcha_input::placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #6b7280;
+}
+.sms_modal__captcha_input:focus {
+  outline: none;
+  border-color: #2E6DF8;
+  box-shadow: 0 0 0 3px rgba(46, 109, 248, 0.1);
 }
 
 .sms_modal__footer {
@@ -2292,42 +2528,6 @@ a:hover {
   padding-left: 16px;
 }
 
-.sms-info {
-  text-align: center;
-  margin-bottom: 24px;
-}
-.sms-info .attempt-info {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.sms-info .attempt-info strong {
-  color: #222854;
-  font-weight: 700;
-}
-.sms-info .attempt-info--warning {
-  color: #f59e0b;
-}
-.sms-info .attempt-info--warning svg {
-  color: #f59e0b;
-}
-.sms-info .attempt-info--new-code {
-  color: #10b981;
-  padding: 8px 16px;
-  background: rgba(16, 185, 129, 0.1);
-  border-radius: 8px;
-}
-.sms-info .attempt-info--new-code svg {
-  color: #10b981;
-}
-.sms-info .attempt-info--new-code strong {
-  color: #10b981;
-}
-
 .sms-alternatives {
   margin-top: 12px;
   display: flex;
@@ -2399,7 +2599,7 @@ a:hover {
   font-size: 14px;
 }
 .recaptcha-notice svg {
-  color: #f59e0b;
+  color: #222854;
 }
 
 .recaptcha-checkbox-wrapper {

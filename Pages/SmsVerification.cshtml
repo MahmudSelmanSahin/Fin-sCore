@@ -77,17 +77,6 @@
                 </div>
             </div>
 
-            <div class="sms-info">
-                <p class="attempt-info @(Model.ShowRecaptcha ? "attempt-info--warning" : "")">
-                    @if (Model.ShowRecaptcha)
-                    {
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-                            <path d="M12 9v4M12 17h.01M5.07183 19H18.9282C20.4678 19 21.4301 17.3333 20.6603 16L13.7321 4C12.9623 2.66667 11.0377 2.66667 10.2679 4L3.33975 16C2.56995 17.3333 3.53223 19 5.07183 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    }
-                    Kalan deneme hakkı: <strong>@Model.RemainingAttempts</strong>
-                </p>
-            </div>
 
             @if (Model.ShowRecaptcha)
             {
@@ -141,7 +130,7 @@
             var $recaptcha_check = $('#recaptchaCheck');
             var $recaptcha_token = $('#recaptchaToken');
             
-            var resend_cooldown = 60;
+            var resend_cooldown = 30;
             var resend_timer = null;
             var show_recaptcha = @(Model.ShowRecaptcha ? "true" : "false");
 
@@ -169,6 +158,12 @@
                     $recaptcha_token.val('');
                 }
             });
+
+            // Reset reCAPTCHA on page load (for each attempt)
+            if (show_recaptcha) {
+                $recaptcha_check.prop('checked', false);
+                $recaptcha_token.val('');
+            }
 
             // Form submission
             $sms_form.on('submit', function(e) {
@@ -200,7 +195,7 @@
 
             // Resend cooldown
             function start_resend_cooldown() {
-                resend_cooldown = 60;
+                resend_cooldown = 30;
                 $resend_link.prop('disabled', true).addClass('disabled');
 
                 resend_timer = setInterval(function() {

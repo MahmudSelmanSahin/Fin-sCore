@@ -22,6 +22,17 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    
+    @{
+        var isAuthenticated = !string.IsNullOrEmpty(Context.Session.GetString("AuthToken"));
+    }
+    @if (isAuthenticated)
+    {
+        <form id="logoutForm" method="post" asp-page="/Index" asp-page-handler="Logout">
+            @Html.AntiForgeryToken()
+        </form>
+        <script src="~/js/idle_timeout.js" asp-append-version="true"></script>
+    }
 </body>
 </html>
 

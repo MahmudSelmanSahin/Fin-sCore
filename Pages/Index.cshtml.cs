@@ -8,6 +8,7 @@ namespace Fin_sCore.Pages;
 public class IndexModel : PageModel
 {
     private readonly AuthService _authService;
+    private readonly CaptchaService _captchaService;
 
     public bool HasKvkkConsent { get; set; }
     
@@ -22,9 +23,10 @@ public class IndexModel : PageModel
 
     public string ErrorMessage { get; set; } = string.Empty;
 
-    public IndexModel(AuthService authService)
+    public IndexModel(AuthService authService, CaptchaService captchaService)
     {
         _authService = authService;
+        _captchaService = captchaService;
     }
 
     public void OnGet()
@@ -113,10 +115,13 @@ public class IndexModel : PageModel
             }
         }
         
-        // Reset OTP attempt count
+        // Reset OTP attempt count and clear any captcha requirements from previous sessions
         HttpContext.Session.SetInt32("OtpAttemptCount", 0);
         HttpContext.Session.Remove("OtpCode");
         HttpContext.Session.Remove("OtpId");
+        HttpContext.Session.Remove("RequireCaptcha");
+        HttpContext.Session.Remove("RequireRecaptcha");
+        HttpContext.Session.Remove("CaptchaCode");
 
         // Generate and send OTP
         var otpResult = await _authService.SendOtp(tckn, gsmClean);
@@ -164,6 +169,29 @@ public class IndexModel : PageModel
             return new JsonResult(new { success = false, message = "Doğrulama kodu 6 haneli olmalıdır" });
         }
 
+        // Check if CAPTCHA is required
+        var requireCaptcha = HttpContext.Session.GetString("RequireCaptcha") == "true";
+        
+        // If CAPTCHA is required, verify it
+        if (requireCaptcha)
+        {
+            var sessionCaptcha = HttpContext.Session.GetString("CaptchaCode");
+            if (string.IsNullOrEmpty(request.CaptchaCode) || 
+                !string.Equals(request.CaptchaCode, sessionCaptcha, StringComparison.OrdinalIgnoreCase))
+            {
+                // Generate new CAPTCHA for next attempt
+                var newCaptcha = _captchaService.GenerateCaptcha();
+                HttpContext.Session.SetString("CaptchaCode", newCaptcha.Code);
+                
+                return new JsonResult(new { 
+                    success = false, 
+                    message = "Güvenlik kodu hatalı",
+                    requireCaptcha = true,
+                    captchaImage = newCaptcha.ImageBase64
+                });
+            }
+        }
+
         // Get and increment attempt count
         var attemptCount = HttpContext.Session.GetInt32("OtpAttemptCount") ?? 0;
         attemptCount++;
@@ -176,6 +204,7 @@ public class IndexModel : PageModel
         {
             // Reset everything on successful login
             HttpContext.Session.SetInt32("OtpAttemptCount", 0);
+            HttpContext.Session.Remove("RequireCaptcha");
             
             // Issue token
             var tokenResult = _authService.IssueToken(gsm);
@@ -204,38 +233,27 @@ public class IndexModel : PageModel
             }
         }
 
-        var remainingAttempts = 3 - attemptCount;
-
         // Check if max attempts reached
         if (attemptCount >= 3)
         {
-            // Send new OTP automatically
-            var otpResult = await _authService.SendOtp(tckn, gsm);
+            // Do NOT send new OTP automatically - require CAPTCHA for all future attempts
+            HttpContext.Session.SetString("RequireCaptcha", "true");
             
-            if (otpResult.Success)
-            {
-                // Store new OTP info
-                HttpContext.Session.SetString("OtpCode", otpResult.OtpCode ?? "");
-                HttpContext.Session.SetInt32("OtpId", otpResult.OtpId);
-                HttpContext.Session.SetInt32("SmsVerificationId", otpResult.SmsVerificationId);
-                HttpContext.Session.SetString("OtpSentTime", DateTime.Now.ToString("o"));
-                
-                // Reset attempt count
-                HttpContext.Session.SetInt32("OtpAttemptCount", 0);
-                
-                return new JsonResult(new { 
-                    success = false, 
-                    message = "3 hatalı deneme! Yeni doğrulama kodu gönderildi.",
-                    newOtpSent = true,
-                    remainingAttempts = 3
-                });
-            }
+            // Generate CAPTCHA
+            var captcha = _captchaService.GenerateCaptcha();
+            HttpContext.Session.SetString("CaptchaCode", captcha.Code);
+            
+            return new JsonResult(new { 
+                success = false, 
+                message = "Kodu yanlış girdiniz",
+                requireCaptcha = true,
+                captchaImage = captcha.ImageBase64
+            });
         }
 
         return new JsonResult(new { 
             success = false, 
-            message = verifyResult.Message ?? "Hatalı doğrulama kodu",
-            remainingAttempts = remainingAttempts > 0 ? remainingAttempts : 0
+            message = "Kodu yanlış girdiniz"
         });
     }
 
@@ -250,7 +268,10 @@ public class IndexModel : PageModel
             return new JsonResult(new { success = false, message = "Oturum bilgisi bulunamadı" });
         }
 
-        // Reset attempt count
+        // Check if CAPTCHA is required (keep the flag - don't reset it)
+        var requireCaptcha = HttpContext.Session.GetString("RequireCaptcha") == "true";
+        
+        // Reset attempt count but keep RequireCaptcha flag
         HttpContext.Session.SetInt32("OtpAttemptCount", 0);
         
         // Generate and send new OTP
@@ -266,8 +287,7 @@ public class IndexModel : PageModel
             
             return new JsonResult(new { 
                 success = true, 
-                message = "Yeni doğrulama kodu gönderildi",
-                remainingAttempts = 3
+                message = requireCaptcha ? "Yeni doğrulama kodu gönderildi. Robot doğrulaması gerekli." : "Yeni doğrulama kodu gönderildi"
             });
         }
 
@@ -300,6 +320,19 @@ public class IndexModel : PageModel
     public class VerifyOtpRequest
     {
         public string OtpCode { get; set; } = string.Empty;
+        public string? CaptchaCode { get; set; }
+    }
+
+    // CAPTCHA Generation Endpoint
+    public IActionResult OnGetCaptcha()
+    {
+        var captcha = _captchaService.GenerateCaptcha();
+        HttpContext.Session.SetString("CaptchaCode", captcha.Code);
+        
+        return new JsonResult(new { 
+            success = true, 
+            captchaImage = captcha.ImageBase64
+        });
     }
 
     public async Task<IActionResult> OnGetKvkkTextAsync(int kvkkId = 1)
@@ -355,5 +388,29 @@ public class IndexModel : PageModel
         public int KvkkId { get; set; }
         public int CustomerId { get; set; }
         public bool IsOk { get; set; }
+    }
+
+    // AJAX Logout Handler - Idle timeout veya manuel çıkış için
+    public IActionResult OnPostLogoutAsync()
+    {
+        // Session'ı temizle
+        HttpContext.Session.Clear();
+        
+        return new JsonResult(new { 
+            success = true, 
+            message = "Oturum sonlandırıldı",
+            redirectUrl = "/"
+        });
+    }
+    
+    // Session durumu kontrolü (heartbeat için)
+    public IActionResult OnGetCheckSessionAsync()
+    {
+        var authToken = HttpContext.Session.GetString("AuthToken");
+        var isAuthenticated = !string.IsNullOrEmpty(authToken);
+        
+        return new JsonResult(new { 
+            authenticated = isAuthenticated
+        });
     }
 }
