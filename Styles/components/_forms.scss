@@ -209,6 +209,78 @@
 }
 
 // ============================================
+// MASKED INPUT (TC Kimlik, GSM vb.)
+// ============================================
+
+.masked_input_wrapper {
+    position: relative;
+    width: 100%;
+
+    .form_input,
+    .form-input {
+        padding-right: 48px;
+        letter-spacing: 0.05em;
+    }
+}
+
+.masked_input__toggle {
+    position: absolute;
+    right: $input_padding_x;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $text-light;
+    transition: color $transition_fast;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius_sm;
+
+    &:hover {
+        color: $color_primary_blue;
+    }
+
+    &:focus {
+        outline: none;
+        color: $color_primary_blue;
+    }
+
+    .eye_icon {
+        width: 20px;
+        height: 20px;
+        display: block;
+        transition: opacity $transition_fast;
+    }
+
+    // Default (masked): çizgili göz görünür (göremiyorsun)
+    .eye_icon--hidden {
+        display: none;
+    }
+
+    .eye_icon--visible {
+        display: block;
+    }
+
+    // Visible state: açık göz görünür (görebilirsin)
+    &.masked_input__toggle--visible {
+        color: $color_primary_blue;
+
+        .eye_icon--hidden {
+            display: block;
+        }
+
+        .eye_icon--visible {
+            display: none;
+        }
+    }
+}
+
+// ============================================
 // SELECT (DROPDOWN)
 // ============================================
 

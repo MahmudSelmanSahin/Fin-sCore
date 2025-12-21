@@ -100,10 +100,10 @@ public class IndexModel : PageModel
         HttpContext.Session.SetInt32("CustomerId", result.Value?.CustomerId ?? 0);
         HttpContext.Session.SetString("ApiMessage", result.Message);
         
-        // Save KVKK consent if just accepted
+        // KVKK onayını "pending" olarak işaretle - login başarılı olunca kalıcı olacak
         if (!hasConsent && kvkkAccept)
         {
-            HttpContext.Session.SetString("HasKvkkConsent", "true");
+            HttpContext.Session.SetString("PendingKvkkConsent", "true");
             
             // Save KVKK approval to API
             var customerId = result.Value?.CustomerId ?? 0;
@@ -183,6 +183,13 @@ public class IndexModel : PageModel
             {
                 HttpContext.Session.SetString("AuthToken", tokenResult.Token!);
                 HttpContext.Session.SetString("TokenExpiry", tokenResult.Expiry.ToString("o"));
+                
+                // Login başarılı - KVKK onayını kalıcı olarak kaydet
+                if (HttpContext.Session.GetString("PendingKvkkConsent") == "true")
+                {
+                    HttpContext.Session.SetString("HasKvkkConsent", "true");
+                    HttpContext.Session.Remove("PendingKvkkConsent");
+                }
                 
                 // Clear OTP data
                 HttpContext.Session.Remove("OtpCode");
@@ -331,15 +338,15 @@ public class IndexModel : PageModel
         
         if (result != null)
         {
-            // Save KVKK consent to session
-            HttpContext.Session.SetString("HasKvkkConsent", "true");
+            // NOT: KVKK onayını session'a kaydetmiyoruz - sadece login başarılı olunca kaydedilecek
+            // Bu sayede sayfa yenilenirse KVKK checkbox tekrar görünecek
             HttpContext.Session.SetInt32("KvkkOnayId", result.Id);
             
             return new JsonResult(new { success = true, data = result });
         }
         
         // Even if API fails, allow the user to proceed (optimistic approach)
-        HttpContext.Session.SetString("HasKvkkConsent", "true");
+        // Session'a HasKvkkConsent kaydetmiyoruz - login tamamlanana kadar bekle
         return new JsonResult(new { success = true, data = new { Id = 0, Message = "KVKK onayı kaydedildi" } });
     }
 
