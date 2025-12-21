@@ -34,31 +34,55 @@
 
             <div class="input-group">
                 <label class="input-label" for="tckn">TC Kimlik No</label>
-                <input type="text" 
-                       id="tckn" 
-                       name="tckn" 
-                       class="form-input" 
-                       placeholder="11 haneli TC Kimlik No"
-                       autocomplete="off"
-                       maxlength="11"
-                       inputmode="numeric"
-                       pattern="[0-9]*"
-                       required />
+                <div class="masked_input_wrapper">
+                    <input type="text" 
+                           id="tckn" 
+                           name="tckn" 
+                           class="form-input masked_input" 
+                           placeholder="11 haneli TC Kimlik No"
+                           autocomplete="off"
+                           maxlength="11"
+                           inputmode="numeric"
+                           required />
+                    <input type="hidden" id="tckn_real" name="tckn_real" />
+                    <button type="button" class="masked_input__toggle" id="tcknToggle" aria-label="Göster/Gizle">
+                        <svg class="eye_icon eye_icon--hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <svg class="eye_icon eye_icon--visible" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
                 <span class="input-error" id="tcknError"></span>
             </div>
 
             <div class="input-group">
                 <label class="input-label" for="gsm">GSM Numarası</label>
-                <input type="text" 
-                       id="gsm" 
-                       name="gsm" 
-                       class="form-input" 
-                       placeholder="05XX XXX XX XX"
-                       autocomplete="off"
-                       maxlength="11"
-                       inputmode="numeric"
-                       pattern="[0-9]*"
-                       required />
+                <div class="masked_input_wrapper">
+                    <input type="text" 
+                           id="gsm" 
+                           name="gsm" 
+                           class="form-input masked_input" 
+                           placeholder="05XX XXX XX XX"
+                           autocomplete="off"
+                           maxlength="11"
+                           inputmode="numeric"
+                           required />
+                    <input type="hidden" id="gsm_real" name="gsm_real" />
+                    <button type="button" class="masked_input__toggle" id="gsmToggle" aria-label="Göster/Gizle">
+                        <svg class="eye_icon eye_icon--hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <svg class="eye_icon eye_icon--visible" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
                 <span class="input-error" id="gsmError"></span>
             </div>
 
@@ -175,6 +199,10 @@
             // Login form elements
             var $tckn_input = $('#tckn');
             var $gsm_input = $('#gsm');
+            var $tckn_real = $('#tckn_real');
+            var $gsm_real = $('#gsm_real');
+            var $tckn_toggle = $('#tcknToggle');
+            var $gsm_toggle = $('#gsmToggle');
             var $login_form = $('#loginForm');
             var $login_btn = $('#loginBtn');
             var $kvkk_link = $('#kvkkLink');
@@ -203,24 +231,133 @@
             
             var resend_cooldown = 0;
             var resend_timer = null;
+            
+            // Masking state
+            var tckn_visible = false;
+            var gsm_visible = false;
 
-            // ========== INPUT FORMATTING ==========
-            $tckn_input.on('input', function() {
-                var value = $(this).val().replace(/\D/g, '');
-                $(this).val(value);
-                if (value.length > 0) {
-                    validate_tckn(value);
+            // ========== MASKED INPUT HELPER FUNCTIONS ==========
+            function mask_value(value) {
+                if (!value || value.length <= 1) return value;
+                var masked = '';
+                for (var i = 0; i < value.length - 1; i++) {
+                    masked += '•';
                 }
+                masked += value.charAt(value.length - 1);
+                return masked;
+            }
+
+            function update_masked_display($input, $real_input, is_visible) {
+                var real_value = $real_input.val();
+                if (is_visible) {
+                    $input.val(real_value);
+                } else {
+                    $input.val(mask_value(real_value));
+                }
+            }
+
+            // ========== MASKED INPUT HANDLER (Keydown tabanlı) ==========
+            function setup_masked_input($input, $real_input, get_visible, validate_fn) {
+                // Keydown event - tam kontrol
+                $input.on('keydown', function(e) {
+                    var key = e.key;
+                    var real_value = $real_input.val();
+                    var is_visible = get_visible();
+                    
+                    // Rakam tuşları (0-9)
+                    if (/^[0-9]$/.test(key)) {
+                        if (real_value.length < 11) {
+                            real_value = real_value + key;
+                            $real_input.val(real_value);
+                            
+                            if (is_visible) {
+                                $input.val(real_value);
+                            } else {
+                                $input.val(mask_value(real_value));
+                            }
+                            
+                            if (validate_fn) validate_fn(real_value);
+                        }
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Backspace
+                    if (key === 'Backspace') {
+                        if (real_value.length > 0) {
+                            real_value = real_value.slice(0, -1);
+                            $real_input.val(real_value);
+                            
+                            if (is_visible) {
+                                $input.val(real_value);
+                            } else {
+                                $input.val(mask_value(real_value));
+                            }
+                            
+                            if (validate_fn && real_value.length > 0) validate_fn(real_value);
+                        }
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Delete tuşu
+                    if (key === 'Delete') {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Tab, Enter gibi navigation tuşlarına izin ver
+                    if (['Tab', 'Enter', 'Escape', 'ArrowLeft', 'ArrowRight'].indexOf(key) !== -1) {
+                        return;
+                    }
+                    
+                    // Diğer tüm tuşları engelle
+                    e.preventDefault();
+                });
+                
+                // Paste event
+                $input.on('paste', function(e) {
+                    e.preventDefault();
+                    var paste_data = (e.originalEvent.clipboardData || window.clipboardData).getData('text');
+                    var only_numbers = paste_data.replace(/\D/g, '');
+                    var real_value = $real_input.val();
+                    var is_visible = get_visible();
+                    
+                    // Mevcut değere ekle, 11 karakteri geçmesin
+                    var new_value = (real_value + only_numbers).substring(0, 11);
+                    $real_input.val(new_value);
+                    
+                    if (is_visible) {
+                        $input.val(new_value);
+                    } else {
+                        $input.val(mask_value(new_value));
+                    }
+                    
+                    if (validate_fn && new_value.length > 0) validate_fn(new_value);
+                });
+            }
+
+            // TCKN için masked input kurulumu
+            setup_masked_input($tckn_input, $tckn_real, function() { return tckn_visible; }, validate_tckn);
+
+            $tckn_toggle.on('click', function() {
+                tckn_visible = !tckn_visible;
+                $(this).toggleClass('masked_input__toggle--visible', tckn_visible);
+                update_masked_display($tckn_input, $tckn_real, tckn_visible);
+                $tckn_input.focus();
             });
 
-            $gsm_input.on('input', function() {
-                var value = $(this).val().replace(/\D/g, '');
-                $(this).val(value);
-                if (value.length > 0) {
-                    validate_gsm(value);
-                }
+            // GSM için masked input kurulumu
+            setup_masked_input($gsm_input, $gsm_real, function() { return gsm_visible; }, validate_gsm);
+
+            $gsm_toggle.on('click', function() {
+                gsm_visible = !gsm_visible;
+                $(this).toggleClass('masked_input__toggle--visible', gsm_visible);
+                update_masked_display($gsm_input, $gsm_real, gsm_visible);
+                $gsm_input.focus();
             });
 
+            // ========== OTP INPUT ==========
             $otp_input.on('input', function() {
                 var value = $(this).val().replace(/\D/g, '');
                 $(this).val(value);
@@ -307,8 +444,9 @@
             $login_form.on('submit', function(e) {
                 e.preventDefault();
                 
-                var tckn = $tckn_input.val();
-                var gsm = $gsm_input.val();
+                // Gerçek (maskesiz) değerleri kullan
+                var tckn = $tckn_real.val();
+                var gsm = $gsm_real.val();
                 var kvkk_checkbox_exists = $kvkk_accept.length > 0;
                 var kvkk_accepted = kvkk_checkbox_exists ? $kvkk_accept.is(':checked') : true;
 
