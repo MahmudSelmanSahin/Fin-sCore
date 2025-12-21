@@ -234,12 +234,13 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: $text-light;
+    color: $text-secondary;
     transition: color $transition_fast;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: $radius_sm;
+    z-index: 2;
 
     &:hover {
         color: $color_primary_blue;
@@ -253,11 +254,29 @@
     .eye_icon {
         width: 20px;
         height: 20px;
-        display: block;
+        min-width: 20px;
+        min-height: 20px;
         transition: opacity $transition_fast;
+        flex-shrink: 0;
+
+        // SVG'nin kendisi için stiller
+        path, circle, line {
+            stroke: currentColor;
+        }
     }
 
-    // Default (masked): çizgili göz görünür (göremiyorsun)
+    // Default (masked/gizli): Çizgili göz görünür
+    // eye_icon--open = açık göz (görünür durumu temsil eder)
+    // eye_icon--slash = çizgili göz (gizli durumu temsil eder)
+    .eye_icon--open {
+        display: none;
+    }
+
+    .eye_icon--slash {
+        display: block;
+    }
+
+    // Legacy support
     .eye_icon--hidden {
         display: none;
     }
@@ -266,10 +285,19 @@
         display: block;
     }
 
-    // Visible state: açık göz görünür (görebilirsin)
+    // Visible state (maskesiz/görünür): Açık göz görünür
     &.masked_input__toggle--visible {
         color: $color_primary_blue;
 
+        .eye_icon--open {
+            display: block;
+        }
+
+        .eye_icon--slash {
+            display: none;
+        }
+
+        // Legacy support
         .eye_icon--hidden {
             display: block;
         }

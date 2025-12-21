@@ -690,12 +690,13 @@ a:hover {
   background: none;
   border: none;
   cursor: pointer;
-  color: #9ca3af;
+  color: #6b7280;
   transition: color 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
+  z-index: 2;
 }
 .masked_input__toggle:hover {
   color: #2E6DF8;
@@ -707,8 +708,19 @@ a:hover {
 .masked_input__toggle .eye_icon {
   width: 20px;
   height: 20px;
-  display: block;
+  min-width: 20px;
+  min-height: 20px;
   transition: opacity 0.15s ease;
+  flex-shrink: 0;
+}
+.masked_input__toggle .eye_icon path, .masked_input__toggle .eye_icon circle, .masked_input__toggle .eye_icon line {
+  stroke: currentColor;
+}
+.masked_input__toggle .eye_icon--open {
+  display: none;
+}
+.masked_input__toggle .eye_icon--slash {
+  display: block;
 }
 .masked_input__toggle .eye_icon--hidden {
   display: none;
@@ -718,6 +730,12 @@ a:hover {
 }
 .masked_input__toggle.masked_input__toggle--visible {
   color: #2E6DF8;
+}
+.masked_input__toggle.masked_input__toggle--visible .eye_icon--open {
+  display: block;
+}
+.masked_input__toggle.masked_input__toggle--visible .eye_icon--slash {
+  display: none;
 }
 .masked_input__toggle.masked_input__toggle--visible .eye_icon--hidden {
   display: block;
@@ -3028,6 +3046,12 @@ a:hover {
   margin-bottom: 1.5rem;
 }
 
+.loan_card__header_info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .loan_card__title {
   font-size: 18px;
   font-weight: 500;
@@ -3039,6 +3063,18 @@ a:hover {
   .loan_card__title {
     font-size: 16px;
   }
+}
+
+.loan_card__bank {
+  font-size: 12px;
+  font-weight: 500;
+  color: #2E6DF8;
+  background: rgba(46, 109, 248, 0.08);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
 }
 
 .loan_card__badge {
@@ -3123,6 +3159,9 @@ a:hover {
   display: flex;
   gap: 0.75rem;
 }
+.loan_card__actions--centered {
+  justify-content: center;
+}
 
 .btn_primary, .btn-primary,
 .btn_secondary,
@@ -3153,6 +3192,19 @@ a:hover {
   background: #0056B3;
   transform: translateY(-2px);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.btn_primary--full {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn_icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .btn_secondary, .btn-secondary {
