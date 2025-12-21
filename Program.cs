@@ -11,6 +11,9 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+// Register HttpClient
+builder.Services.AddHttpClient();
+
 // Register services
 builder.Services.AddSingleton<AuthService>();
 builder.Services.AddHttpClient<UserService>();
