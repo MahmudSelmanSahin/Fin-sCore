@@ -118,33 +118,15 @@ public class SmsVerificationModel : PageModel
         // Check if max attempts reached after this attempt
         if (AttemptCount >= MAX_ATTEMPTS)
         {
-            // Send new OTP automatically
-            var otpResult = await _authService.SendOtp(tckn, gsm);
+            // Do NOT send new OTP automatically - require reCAPTCHA for all future attempts
+            HttpContext.Session.SetString("RequireRecaptcha", "true");
             
-            if (otpResult.Success)
-            {
-                // Store new OTP info
-                HttpContext.Session.SetString("OtpCode", otpResult.OtpCode ?? "");
-                HttpContext.Session.SetInt32("OtpId", otpResult.OtpId);
-                HttpContext.Session.SetInt32("SmsVerificationId", otpResult.SmsVerificationId);
-                HttpContext.Session.SetString("OtpSentTime", DateTime.Now.ToString("o"));
-                
-                // Reset attempt count but require reCAPTCHA for ALL future attempts
-                HttpContext.Session.SetInt32("OtpAttemptCount", 0);
-                HttpContext.Session.SetString("RequireRecaptcha", "true");
-                HttpContext.Session.SetString("NewSmsSent", "true");
-                
-                TempData["Warning"] = "3 hatalı deneme! Yeni doğrulama kodu gönderildi. Bundan sonra her denemede robot doğrulaması gerekecek.";
-            }
-            else
-            {
-                TempData["Error"] = "Yeni kod gönderilemedi: " + (otpResult.Message ?? "Bilinmeyen hata");
-            }
+            TempData["Warning"] = "3 hatalı deneme! Yeni kod almak için 'SMS'i Tekrar Gönder' butonunu kullanın.";
             
             return RedirectToPage("/SmsVerification");
         }
 
-        TempData["Error"] = verifyResult.Message ?? "Hatalı doğrulama kodu";
+        TempData["Error"] = "Kodu yanlış girdiniz";
         return Page();
     }
 
@@ -158,9 +140,12 @@ public class SmsVerificationModel : PageModel
             return RedirectToPage("/Index");
         }
 
-        // Reset attempt count
+        // Check if captcha is required (after 3 failed attempts)
+        var requireRecaptcha = HttpContext.Session.GetString("RequireRecaptcha") == "true";
+        
+        // Reset attempt count but keep RequireRecaptcha flag if it was set
         HttpContext.Session.SetInt32("OtpAttemptCount", 0);
-        HttpContext.Session.Remove("RequireRecaptcha");
+        // Note: RequireRecaptcha stays - user must always verify with CAPTCHA after 3 failures
         
         // Generate and send new OTP
         var otpResult = await _authService.SendOtp(tckn, gsm);
@@ -173,7 +158,14 @@ public class SmsVerificationModel : PageModel
             HttpContext.Session.SetInt32("SmsVerificationId", otpResult.SmsVerificationId);
             HttpContext.Session.SetString("OtpSentTime", DateTime.Now.ToString("o"));
             
-            TempData["Success"] = "Yeni doğrulama kodu gönderildi";
+            if (requireRecaptcha)
+            {
+                TempData["Success"] = "Yeni doğrulama kodu gönderildi. Robot doğrulaması gerekli.";
+            }
+            else
+            {
+                TempData["Success"] = "Yeni doğrulama kodu gönderildi";
+            }
         }
         else
         {

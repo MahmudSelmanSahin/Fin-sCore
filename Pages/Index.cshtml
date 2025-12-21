@@ -173,10 +173,32 @@
                 <span class="sms_modal__error" id="otpCodeError"></span>
             </div>
             
-            <div class="sms_modal__info">
-                <p class="sms_modal__attempts">
-                    Kalan deneme hakkı: <strong id="remainingAttempts">3</strong>
-                </p>
+            <!-- CAPTCHA Container - 3 hatalı girişten sonra görünür -->
+            <div class="sms_modal__captcha" id="captchaContainer" style="display: none;">
+                <div class="sms_modal__captcha_notice">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Güvenlik doğrulaması gerekli</span>
+                </div>
+                <div class="sms_modal__captcha_image_wrapper">
+                    <img id="captchaImage" class="sms_modal__captcha_image" src="" alt="CAPTCHA" />
+                    <button type="button" class="sms_modal__captcha_refresh" id="refreshCaptcha" title="Yeni kod">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                            <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14L18.36 18.36A9 9 0 013.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="sms_modal__captcha_input_group">
+                    <input type="text" 
+                           id="captchaInput" 
+                           class="sms_modal__captcha_input" 
+                           placeholder="Yukarıdaki kodu giriniz"
+                           maxlength="5"
+                           autocomplete="off" />
+                </div>
             </div>
         </div>
         
@@ -229,12 +251,16 @@
             var $sms_modal_alert_text = $('#smsModalAlertText');
             var $otp_input = $('#otpCodeInput');
             var $otp_error = $('#otpCodeError');
-            var $remaining_attempts = $('#remainingAttempts');
             var $verify_btn = $('#verifyOtpBtn');
             var $resend_btn = $('#resendOtpBtn');
+            var $captcha_container = $('#captchaContainer');
+            var $captcha_image = $('#captchaImage');
+            var $captcha_input = $('#captchaInput');
+            var $refresh_captcha = $('#refreshCaptcha');
             
             var resend_cooldown = 0;
             var resend_timer = null;
+            var require_captcha = false;
             
             // Masking state
             var tckn_visible = false;
@@ -487,7 +513,6 @@
                         if (response.success) {
                             // Open SMS modal
                             $sms_modal_phone.text(response.maskedGsm || gsm);
-                            $remaining_attempts.text(response.remainingAttempts || 3);
                             open_sms_modal();
                             start_resend_cooldown();
                         } else {
@@ -534,6 +559,30 @@
                 $otp_input.val('').focus();
                 hide_sms_alert();
                 clear_otp_error();
+                
+                // Reset CAPTCHA state on new login
+                require_captcha = false;
+                $captcha_container.hide();
+                $captcha_input.val('');
+                $captcha_image.attr('src', '');
+            }
+
+            // Refresh CAPTCHA
+            $refresh_captcha.on('click', function() {
+                load_captcha();
+            });
+
+            function load_captcha() {
+                $.ajax({
+                    url: '/?handler=Captcha',
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.success && response.captchaImage) {
+                            $captcha_image.attr('src', 'data:image/png;base64,' + response.captchaImage);
+                            $captcha_input.val('').focus();
+                        }
+                    }
+                });
             }
 
             function close_sms_modal() {
@@ -560,13 +609,25 @@
                     return;
                 }
 
+                // Check CAPTCHA if required
+                if (require_captcha) {
+                    var captcha_code = $captcha_input.val();
+                    if (!captcha_code || captcha_code.length < 4) {
+                        show_otp_error('Lütfen güvenlik kodunu giriniz');
+                        return;
+                    }
+                }
+
                 set_verify_loading(true);
 
                 $.ajax({
                     url: '/?handler=VerifyOtp',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ otpCode: otp_code }),
+                    data: JSON.stringify({ 
+                        otpCode: otp_code,
+                        captchaCode: require_captcha ? $captcha_input.val() : null
+                    }),
                     headers: {
                         'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
                     },
@@ -579,12 +640,21 @@
                                 window.location.href = response.redirectUrl || '/Dashboard';
                             }, 1000);
                         } else {
-                            $remaining_attempts.text(response.remainingAttempts || 0);
+                            // Reset CAPTCHA input for next attempt
+                            $captcha_input.val('');
                             
-                            if (response.newOtpSent) {
+                            if (response.requireCaptcha) {
+                                // 3 hatalı giriş - CAPTCHA aktif et
+                                require_captcha = true;
+                                $captcha_container.show();
+                                
+                                // Yeni CAPTCHA görselini yükle
+                                if (response.captchaImage) {
+                                    $captcha_image.attr('src', 'data:image/png;base64,' + response.captchaImage);
+                                }
+                                
                                 show_sms_alert(response.message, 'warning');
                                 $otp_input.val('');
-                                start_resend_cooldown();
                             } else {
                                 show_sms_alert(response.message || 'Hatalı kod', 'error');
                             }
@@ -626,9 +696,15 @@
                     },
                     success: function(response) {
                         if (response.success) {
-                            show_sms_alert('Yeni doğrulama kodu gönderildi', 'success');
-                            $remaining_attempts.text(response.remainingAttempts || 3);
+                            if (require_captcha) {
+                                show_sms_alert('Yeni doğrulama kodu gönderildi. Güvenlik kodunu giriniz.', 'success');
+                                // Yeni CAPTCHA yükle
+                                load_captcha();
+                            } else {
+                                show_sms_alert('Yeni doğrulama kodu gönderildi', 'success');
+                            }
                             $otp_input.val('').focus();
+                            $captcha_input.val('');
                             start_resend_cooldown();
                         } else {
                             show_sms_alert(response.message || 'Kod gönderilemedi', 'error');
@@ -643,7 +719,7 @@
             });
 
             function start_resend_cooldown() {
-                resend_cooldown = 60;
+                resend_cooldown = 30;
                 $resend_btn.prop('disabled', true);
 
                 if (resend_timer) clearInterval(resend_timer);

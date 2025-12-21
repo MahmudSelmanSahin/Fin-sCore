@@ -2174,19 +2174,101 @@ a:hover {
   display: block;
 }
 
-.sms_modal__info {
-  text-align: center;
-  margin-top: 16px;
+.sms_modal__captcha {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
 }
 
-.sms_modal__attempts {
+.sms_modal__captcha_notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: #f59e0b;
   font-size: 14px;
-  color: #6b7280;
-  margin: 0;
 }
-.sms_modal__attempts strong {
-  color: #222854;
+.sms_modal__captcha_notice svg {
+  flex-shrink: 0;
+}
+.sms_modal__captcha_notice span {
+  color: #6b7280;
+}
+
+.sms_modal__captcha_image_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.sms_modal__captcha_image {
+  display: block;
+  width: 200px;
+  height: 70px;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  background: #FFFFFF;
+}
+
+.sms_modal__captcha_refresh {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: #FFFFFF;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sms_modal__captcha_refresh:hover {
+  border-color: #2E6DF8;
+  color: #2E6DF8;
+  background: rgba(46, 109, 248, 0.05);
+}
+.sms_modal__captcha_refresh:active {
+  transform: rotate(180deg);
+}
+
+.sms_modal__captcha_input_group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sms_modal__captcha_input {
+  width: 200px;
+  padding: 16px;
+  font-size: 18px;
   font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #222854;
+  transition: all 0.15s ease;
+}
+.sms_modal__captcha_input::placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #6b7280;
+}
+.sms_modal__captcha_input:focus {
+  outline: none;
+  border-color: #2E6DF8;
+  box-shadow: 0 0 0 3px rgba(46, 109, 248, 0.1);
 }
 
 .sms_modal__footer {
@@ -2292,42 +2374,6 @@ a:hover {
   padding-left: 16px;
 }
 
-.sms-info {
-  text-align: center;
-  margin-bottom: 24px;
-}
-.sms-info .attempt-info {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.sms-info .attempt-info strong {
-  color: #222854;
-  font-weight: 700;
-}
-.sms-info .attempt-info--warning {
-  color: #f59e0b;
-}
-.sms-info .attempt-info--warning svg {
-  color: #f59e0b;
-}
-.sms-info .attempt-info--new-code {
-  color: #10b981;
-  padding: 8px 16px;
-  background: rgba(16, 185, 129, 0.1);
-  border-radius: 8px;
-}
-.sms-info .attempt-info--new-code svg {
-  color: #10b981;
-}
-.sms-info .attempt-info--new-code strong {
-  color: #10b981;
-}
-
 .sms-alternatives {
   margin-top: 12px;
   display: flex;
@@ -2399,7 +2445,7 @@ a:hover {
   font-size: 14px;
 }
 .recaptcha-notice svg {
-  color: #f59e0b;
+  color: #222854;
 }
 
 .recaptcha-checkbox-wrapper {
