@@ -3171,7 +3171,7 @@ a:hover {
 
 .dashboard__quick_actions {
   padding: 4rem 4rem;
-  background: #FFFFFF;
+  background: #F8FAFC;
 }
 @media (max-width: 1200px) {
   .dashboard__quick_actions {
@@ -4050,7 +4050,7 @@ a:hover {
   font-size: 24px;
   font-weight: 700;
   line-height: 130%;
-  color: #222854;
+  color: #0056B3;
   margin: 0 0 0.25rem 0;
 }
 @media (max-width: 768px) {
@@ -4138,6 +4138,9 @@ a:hover {
   border-radius: 0;
   padding: 2rem;
   box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 @media (max-width: 768px) {
   .profile__card {
@@ -4198,6 +4201,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  flex: 1;
 }
 
 .profile__form_row {
@@ -4301,7 +4305,7 @@ a:hover {
 }
 
 .profile__form_actions {
-  margin-top: 0.5rem;
+  margin-top: auto;
   padding-top: 1.5rem;
   border-top: 1px solid #f3f4f6;
 }

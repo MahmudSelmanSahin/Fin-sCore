@@ -36,6 +36,13 @@ app.UseSession();
 
 app.UseAuthorization();
 
+// Minimal API Endpoints
+app.MapPost("/api/auth/logout", (HttpContext context) =>
+{
+    context.Session.Clear();
+    return Results.Ok(new { success = true, message = "Çıkış başarılı" });
+});
+
 app.MapRazorPages();
 
 app.Run();

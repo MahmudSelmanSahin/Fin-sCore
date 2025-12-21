@@ -58,7 +58,7 @@
     font-size: $font_size_h2;
     font-weight: $font_weight_bold;
     line-height: $line_height_h2;
-    color: $color_dark_navy;
+    color: $color_dark_blue;
     margin: 0 0 0.25rem 0;
 
     @media (max-width: 768px) {
@@ -146,6 +146,9 @@
     border-radius: 0;
     padding: 2rem;
     box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 
     @media (max-width: 768px) {
         padding: 1.5rem;
@@ -206,6 +209,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    flex: 1;
 }
 
 .profile__form_row {
@@ -310,7 +314,7 @@
 }
 
 .profile__form_actions {
-    margin-top: 0.5rem;
+    margin-top: auto;
     padding-top: 1.5rem;
     border-top: 1px solid $bg-tertiary;
 
@@ -323,4 +327,3 @@
 .navbar__btn_primary--active {
     background: $color_dark_blue;
 }
-
