@@ -56,6 +56,7 @@ Thumbs.db
 appsettings.Development.json
 appsettings.*.json
 !appsettings.json
+wwwroot/js/config/api_config.js
 
 # WebSube-API (Development API Simulator - contains secrets)
 WebSube-API/
