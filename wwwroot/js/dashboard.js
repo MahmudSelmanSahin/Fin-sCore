@@ -6,11 +6,15 @@ $(document).ready(function() {
     var $notification_btn = $('#notificationBtn');
     var $credit_score_fills = $('.credit_card__score_fill');
     var $progress_fills = $('.progress_bar__fill');
+    var $profile_dropdown = $('#profileDropdown');
+    var $profile_dropdown_btn = $('#profileDropdownBtn');
+    var $logout_btn = $('#logoutBtn');
     
     // Animasyonları Başlat
     init_animations();
     init_notification_system();
     init_interactive_cards();
+    init_profile_dropdown();
     
     /**
      * Sayfa yüklendiğinde animasyonları başlatır
@@ -231,8 +235,70 @@ $(document).ready(function() {
         });
     }
     
+    /**
+     * Profil dropdown menüsü
+     */
+    function init_profile_dropdown() {
+        // Dropdown toggle
+        $profile_dropdown_btn.on('click', function(e) {
+            e.stopPropagation();
+            $profile_dropdown.toggleClass('active');
+        });
+        
+        // Dışarı tıklanınca kapat
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.profile_dropdown').length) {
+                $profile_dropdown.removeClass('active');
+            }
+        });
+        
+        // ESC tuşu ile kapat
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape') {
+                $profile_dropdown.removeClass('active');
+            }
+        });
+        
+        // Logout işlemi
+        $logout_btn.on('click', function() {
+            // Session'ı temizle ve çıkış yap
+            $.ajax({
+                url: '/api/auth/logout',
+                type: 'POST',
+                success: function() {
+                    window.location.href = '/';
+                },
+                error: function() {
+                    // API yoksa direkt yönlendir
+                    window.location.href = '/';
+                }
+            });
+        });
+    }
+    
     // Sayfa yüklendiğinde bir kere çalışacak init fonksiyonları
     init_mobile_menu();
+    init_faq_accordion();
+    
+    /**
+     * SSS (FAQ) Accordion fonksiyonalitesi
+     */
+    function init_faq_accordion() {
+        var $faq_items = $('.faq_item');
+        
+        $faq_items.find('.faq_item__header').on('click', function() {
+            var $parent = $(this).closest('.faq_item');
+            var is_open = $parent.hasClass('is-open');
+            
+            // Diğerlerini kapat (accordion davranışı)
+            $faq_items.removeClass('is-open');
+            
+            // Tıklananı toggle et
+            if (!is_open) {
+                $parent.addClass('is-open');
+            }
+        });
+    }
     
     // Scroll animasyonları için intersection observer
     if ('IntersectionObserver' in window) {
@@ -247,7 +313,7 @@ $(document).ready(function() {
         });
         
         // Tüm section'ları gözlemle
-        $('.dashboard__quick_actions, .dashboard__active_loans, .dashboard__help_center').each(function() {
+        $('.dashboard__quick_actions, .dashboard__active_loans, .dashboard__help_center, .dashboard__faq_section').each(function() {
             observer.observe(this);
         });
     }
