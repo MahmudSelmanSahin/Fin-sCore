@@ -16,6 +16,7 @@ builder.Services.AddHttpClient();
 
 // Register services
 builder.Services.AddSingleton<AuthService>();
+builder.Services.AddSingleton<CaptchaService>();
 builder.Services.AddHttpClient<UserService>();
 
 var app = builder.Build();

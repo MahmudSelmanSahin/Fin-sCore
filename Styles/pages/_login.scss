@@ -741,19 +741,107 @@
     }
 }
 
-.sms_modal__info {
-    text-align: center;
-    margin-top: $spacing_md;
+// SMS Modal CAPTCHA
+.sms_modal__captcha {
+    margin-top: $spacing_lg;
+    padding: $spacing_md;
+    background: $bg-secondary;
+    border-radius: $radius_lg;
+    border: 1px solid $border-color;
 }
 
-.sms_modal__attempts {
+.sms_modal__captcha_notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing_sm;
+    margin-bottom: $spacing_md;
+    color: $warning;
     font-size: $font_size_body_mobile;
-    color: $text-secondary;
-    margin: 0;
 
-    strong {
-        color: $color_dark_navy;
-        font-weight: $font_weight_bold;
+    svg {
+        flex-shrink: 0;
+    }
+
+    span {
+        color: $text-secondary;
+    }
+}
+
+.sms_modal__captcha_image_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing_sm;
+    margin-bottom: $spacing_md;
+}
+
+.sms_modal__captcha_image {
+    display: block;
+    width: 200px;
+    height: 70px;
+    border-radius: $radius_md;
+    border: 2px solid $border-color;
+    background: $color_white;
+}
+
+.sms_modal__captcha_refresh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: $bg-primary;
+    border: 2px solid $border-color;
+    border-radius: $radius_md;
+    color: $text-secondary;
+    cursor: pointer;
+    transition: all $transition_fast;
+
+    &:hover {
+        border-color: $color_primary_blue;
+        color: $color_primary_blue;
+        background: rgba($color_primary_blue, 0.05);
+    }
+
+    &:active {
+        transform: rotate(180deg);
+    }
+}
+
+.sms_modal__captcha_input_group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sms_modal__captcha_input {
+    width: 200px;
+    padding: $spacing_md;
+    font-size: 18px;
+    font-weight: $font_weight_bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    border: 2px solid $border-color;
+    border-radius: $radius_md;
+    background: $bg-primary;
+    color: $color_dark_navy;
+    transition: all $transition_fast;
+
+    &::placeholder {
+        font-size: 14px;
+        font-weight: $font_weight_medium;
+        letter-spacing: normal;
+        text-transform: none;
+        color: $text-secondary;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $color_primary_blue;
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
     }
 }
 

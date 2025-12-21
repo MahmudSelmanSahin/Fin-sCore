@@ -8,5 +8,9 @@
     <UserSecretsId>937b375b-e59d-4006-a2d9-e537cba391b2</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+  </ItemGroup>
+
 </Project>
 

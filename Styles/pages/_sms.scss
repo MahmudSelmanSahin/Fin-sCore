@@ -42,48 +42,6 @@
   padding-left: 16px;
 }
 
-.sms-info {
-  text-align: center;
-  margin-bottom: 24px;
-
-  .attempt-info {
-    font-size: 14px;
-    color: $text-secondary;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-
-    strong {
-      color: $text-primary;
-      font-weight: 700;
-    }
-
-    &--warning {
-      color: $warning;
-
-      svg {
-        color: $warning;
-      }
-    }
-
-    &--new-code {
-      color: $success;
-      padding: 8px 16px;
-      background: rgba($success, 0.1);
-      border-radius: 8px;
-
-      svg {
-        color: $success;
-      }
-
-      strong {
-        color: $success;
-      }
-    }
-  }
-}
 
 .sms-alternatives {
   margin-top: 12px;
@@ -161,7 +119,7 @@
   font-size: 14px;
 
   svg {
-    color: $warning;
+    color: $text-primary;
   }
 }
 
