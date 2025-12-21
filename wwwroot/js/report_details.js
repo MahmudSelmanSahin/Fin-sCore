@@ -32,12 +32,15 @@ $(document).ready(function () {
     var invoices_data = null;
     var current_invoice_type = null;
 
+    // Reports data cache
+    var reports_data = null;
+
     // ==============================================
     // INITIALIZATION
     // ==============================================
     
     console.log('Report Details JS Loaded'); // Debug
-    load_report_list();
+    load_reports_data();
     load_invoices_data();
 
     // ==============================================
@@ -171,30 +174,31 @@ $(document).ready(function () {
     // ==============================================
     
     /**
-     * Rapor listesini API'den yükle
+     * Rapor verilerini JSON dosyasından yükle
      */
-    function load_report_list() {
+    function load_reports_data() {
         $report_list_loading.show();
         $report_list.empty();
 
         $.ajax({
-            url: api_config.report_list,
+            url: '/data/reports.json',
             method: 'GET',
             dataType: 'json',
             success: function (data) {
+                reports_data = data;
                 $report_list_loading.hide();
-                render_report_list(data);
+                render_report_list(data.reports || []);
             },
             error: function (xhr, status, error) {
                 $report_list_loading.hide();
-                console.error('Rapor listesi hatası:', error);
+                console.error('Rapor verileri yüklenemedi:', error);
                 $report_list.html('<li class="report_loading">Rapor listesi yüklenemedi.</li>');
             }
         });
     }
 
     /**
-     * Rapor detayını API'den yükle
+     * Rapor detayını JSON'dan yükle
      */
     function load_report_detail(report_id) {
         // Show panel on mobile
@@ -205,24 +209,27 @@ $(document).ready(function () {
         $report_detail_loading.show();
         $report_detail_content.removeClass('active').empty();
 
-        var detail_url = api_config.report_detail + '&reportId=' + encodeURIComponent(report_id);
+        // Veriler henüz yüklenmediyse bekle
+        if (!reports_data) {
+            setTimeout(function() {
+                load_report_detail(report_id);
+            }, 500);
+            return;
+        }
 
-        $.ajax({
-            url: detail_url,
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
+        // JSON'dan rapor detayını bul
+        var report_detail = reports_data.details && reports_data.details[report_id];
+        
+        if (report_detail) {
                 $report_detail_loading.hide();
-                render_report_detail(data);
-            },
-            error: function (xhr, status, error) {
+            render_report_detail(report_detail);
+        } else {
                 $report_detail_loading.hide();
-                console.error('Rapor detay hatası:', error);
+            console.error('Rapor detayı bulunamadı:', report_id);
                 $report_detail_content.addClass('active').html(
-                    '<p class="report_detail_placeholder">Rapor detayı yüklenemedi.</p>'
+                '<p class="report_detail_placeholder">Rapor detayı bulunamadı.</p>'
                 );
             }
-        });
     }
 
     // ==============================================
@@ -270,27 +277,209 @@ $(document).ready(function () {
             return;
         }
 
-        var html = '<div class="detail_section">';
+        var html = '';
+        
+        // Rapor Başlık Bilgileri
+        html += '<div class="detail_section">';
         html += '<h3 class="detail_section__title">Rapor Bilgileri</h3>';
+        html += '<div class="detail_row">';
+        html += '  <span class="detail_row__label">Rapor Adı</span>';
+        html += '  <span class="detail_row__value">' + escape_html(detail.name || '-') + '</span>';
+        html += '</div>';
+        html += '<div class="detail_row">';
+        html += '  <span class="detail_row__label">Rapor Türü</span>';
+        html += '  <span class="detail_row__value">' + escape_html(detail.type || '-') + '</span>';
+        html += '</div>';
+        html += '<div class="detail_row">';
+        html += '  <span class="detail_row__label">Tarih</span>';
+        html += '  <span class="detail_row__value">' + escape_html(detail.date || '-') + '</span>';
+        html += '</div>';
+        html += '<div class="detail_row">';
+        html += '  <span class="detail_row__label">Durum</span>';
+        html += '  <span class="detail_row__value">' + escape_html(detail.status || '-') + '</span>';
+        html += '</div>';
+        if (detail.summary) {
+            html += '<div class="detail_row detail_row--full">';
+            html += '  <span class="detail_row__label">Özet</span>';
+            html += '  <span class="detail_row__value">' + escape_html(detail.summary) + '</span>';
+            html += '</div>';
+        }
+        html += '</div>';
 
-        for (var key in detail) {
-            if (detail.hasOwnProperty(key)) {
-                var value = detail[key];
-                
-                // Array'leri atla
-                if (Array.isArray(value)) continue;
-                
-                var display_key = format_key_name(key);
-                var display_value = format_value(value);
-                
+        // Rapor Türüne Göre Özel Detaylar
+        if (detail.reportPeriod) {
+            html += '<div class="detail_section">';
+            html += '<h3 class="detail_section__title">Rapor Dönemi</h3>';
+            html += '<div class="detail_row">';
+            html += '  <span class="detail_row__label">Dönem</span>';
+            html += '  <span class="detail_row__value">' + escape_html(detail.reportPeriod) + '</span>';
+            html += '</div>';
+            html += '</div>';
+        }
+
+        // Kredi Geçmişi Raporu için özel render
+        if (detail.creditHistory && Array.isArray(detail.creditHistory)) {
+            html += '<div class="detail_section">';
+            html += '<h3 class="detail_section__title">Kredi Geçmişi</h3>';
+            for (var i = 0; i < detail.creditHistory.length; i++) {
+                var credit = detail.creditHistory[i];
+                html += '<div class="detail_card">';
+                html += '  <div class="detail_card__header">';
+                html += '    <strong>' + escape_html(credit.bankName) + '</strong>';
+                html += '    <span class="detail_card__badge">' + escape_html(credit.status) + '</span>';
+                html += '  </div>';
+                html += '  <div class="detail_card__body">';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Kredi Türü</span>';
+                html += '      <span class="detail_row__value">' + escape_html(credit.creditType) + '</span>';
+                html += '    </div>';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Tutar</span>';
+                html += '      <span class="detail_row__value">' + format_currency(credit.amount) + '</span>';
+                html += '    </div>';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Aylık Taksit</span>';
+                html += '      <span class="detail_row__value">' + format_currency(credit.monthlyPayment) + '</span>';
+                html += '    </div>';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Kalan Taksit</span>';
+                html += '      <span class="detail_row__value">' + credit.remainingInstallments + ' ay</span>';
+                html += '    </div>';
+                html += '  </div>';
+                html += '</div>';
+            }
+            html += '</div>';
+        }
+
+        // Ödeme Performans Raporu için özel render
+        if (detail.paymentHistory && Array.isArray(detail.paymentHistory)) {
+            html += '<div class="detail_section">';
+            html += '<h3 class="detail_section__title">Ödeme Geçmişi</h3>';
+            for (var i = 0; i < detail.paymentHistory.length; i++) {
+                var payment = detail.paymentHistory[i];
+                html += '<div class="detail_card">';
+                html += '  <div class="detail_card__header">';
+                html += '    <strong>' + escape_html(payment.month) + '</strong>';
+                html += '    <span class="detail_card__badge detail_card__badge--success">' + escape_html(payment.status) + '</span>';
+                html += '  </div>';
+                html += '  <div class="detail_card__body">';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Tutar</span>';
+                html += '      <span class="detail_row__value">' + format_currency(payment.amount) + '</span>';
+                html += '    </div>';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Vade Tarihi</span>';
+                html += '      <span class="detail_row__value">' + format_date(payment.dueDate) + '</span>';
+                html += '    </div>';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Ödeme Tarihi</span>';
+                html += '      <span class="detail_row__value">' + format_date(payment.paymentDate) + '</span>';
+                html += '    </div>';
+                if (payment.daysEarly !== undefined) {
+                    html += '    <div class="detail_row">';
+                    html += '      <span class="detail_row__label">Erken Ödeme</span>';
+                    html += '      <span class="detail_row__value">' + payment.daysEarly + ' gün önce</span>';
+                    html += '    </div>';
+                }
+                html += '  </div>';
+                html += '</div>';
+            }
+            html += '</div>';
+        }
+
+        // Kredi Skoru Değişim Raporu için özel render
+        if (detail.scoreHistory && Array.isArray(detail.scoreHistory)) {
+            html += '<div class="detail_section">';
+            html += '<h3 class="detail_section__title">Skor Geçmişi</h3>';
+            for (var i = 0; i < detail.scoreHistory.length; i++) {
+                var score = detail.scoreHistory[i];
+                var change_class = score.change > 0 ? 'detail_row__value--positive' : score.change < 0 ? 'detail_row__value--negative' : '';
+                var change_text = score.change > 0 ? '+' + score.change : score.change.toString();
+                html += '<div class="detail_row">';
+                html += '  <span class="detail_row__label">' + escape_html(score.month) + '</span>';
+                html += '  <span class="detail_row__value ' + change_class + '">' + score.score + ' (' + change_text + ')</span>';
+                html += '</div>';
+            }
+            html += '</div>';
+        }
+
+        // Borç Özet Raporu için özel render
+        if (detail.credits && Array.isArray(detail.credits)) {
+            html += '<div class="detail_section">';
+            html += '<h3 class="detail_section__title">Aktif Krediler</h3>';
+            for (var i = 0; i < detail.credits.length; i++) {
+                var credit = detail.credits[i];
+                html += '<div class="detail_card">';
+                html += '  <div class="detail_card__header">';
+                html += '    <strong>' + escape_html(credit.bankName) + '</strong>';
+                html += '    <span class="detail_card__badge">%' + credit.interestRate.toFixed(2) + '</span>';
+                html += '  </div>';
+                html += '  <div class="detail_card__body">';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Orijinal Tutar</span>';
+                html += '      <span class="detail_row__value">' + format_currency(credit.originalAmount) + '</span>';
+                html += '    </div>';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Kalan Borç</span>';
+                html += '      <span class="detail_row__value">' + format_currency(credit.remainingAmount) + '</span>';
+                html += '    </div>';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Aylık Taksit</span>';
+                html += '      <span class="detail_row__value">' + format_currency(credit.monthlyPayment) + '</span>';
+                html += '    </div>';
+                html += '    <div class="detail_row">';
+                html += '      <span class="detail_row__label">Tamamlanma</span>';
+                html += '      <span class="detail_row__value">%' + credit.completionPercentage.toFixed(1) + '</span>';
+                html += '    </div>';
+                html += '  </div>';
+                html += '</div>';
+            }
+            html += '</div>';
+        }
+
+        // Genel sayısal değerler
+        var numeric_fields = ['totalCredits', 'activeCredits', 'completedCredits', 'totalBorrowed', 'totalPaid', 'remainingDebt', 
+                             'averageInterestRate', 'onTimePaymentRate', 'creditScore', 'totalPayments', 'onTimePayments', 
+                             'latePayments', 'totalDebt', 'totalMonthlyPayment', 'debtToIncomeRatio', 'currentScore', 
+                             'previousScore', 'scoreChange', 'totalIncome', 'totalExpenses', 'savings', 'savingsRate',
+                             'totalApplications', 'approvedApplications', 'rejectedApplications', 'pendingApplications',
+                             'approvalRate', 'riskScore'];
+        
+        var has_numeric_data = false;
+        for (var j = 0; j < numeric_fields.length; j++) {
+            if (detail[numeric_fields[j]] !== undefined) {
+                has_numeric_data = true;
+                break;
+            }
+        }
+
+        if (has_numeric_data) {
+            html += '<div class="detail_section">';
+            html += '<h3 class="detail_section__title">İstatistikler</h3>';
+            for (var key in detail) {
+                if (detail.hasOwnProperty(key) && numeric_fields.indexOf(key) !== -1) {
+                    var display_key = format_key_name(key);
+                    var display_value = format_numeric_value(key, detail[key]);
                 html += '<div class="detail_row">';
                 html += '  <span class="detail_row__label">' + escape_html(display_key) + '</span>';
                 html += '  <span class="detail_row__value">' + escape_html(display_value) + '</span>';
                 html += '</div>';
             }
+            }
+            html += '</div>';
         }
 
+        // Öneriler
+        if (detail.recommendations && Array.isArray(detail.recommendations)) {
+            html += '<div class="detail_section">';
+            html += '<h3 class="detail_section__title">Öneriler</h3>';
+            html += '<ul class="detail_list">';
+            for (var k = 0; k < detail.recommendations.length; k++) {
+                html += '<li class="detail_list__item">' + escape_html(detail.recommendations[k]) + '</li>';
+            }
+            html += '</ul>';
         html += '</div>';
+        }
         
         $report_detail_content.addClass('active').html(html);
     }
@@ -533,6 +722,33 @@ $(document).ready(function () {
         if (value === null || value === undefined) return '-';
         if (typeof value === 'boolean') return value ? 'Evet' : 'Hayır';
         if (typeof value === 'object') return JSON.stringify(value);
+        return String(value);
+    }
+
+    function format_numeric_value(key, value) {
+        if (value === null || value === undefined) return '-';
+        
+        // Para birimi gerektiren alanlar
+        var currency_fields = ['totalBorrowed', 'totalPaid', 'remainingDebt', 'totalPaidAmount', 
+                              'totalDebt', 'totalMonthlyPayment', 'originalAmount', 'remainingAmount',
+                              'monthlyPayment', 'amount', 'totalIncome', 'totalExpenses', 'savings'];
+        if (currency_fields.indexOf(key) !== -1) {
+            return format_currency(value);
+        }
+        
+        // Yüzde gerektiren alanlar
+        var percentage_fields = ['averageInterestRate', 'onTimePaymentRate', 'savingsRate', 
+                                'approvalRate', 'debtToIncomeRatio', 'completionPercentage', 'interestRate'];
+        if (percentage_fields.indexOf(key) !== -1) {
+            return '%' + parseFloat(value).toFixed(2);
+        }
+        
+        // Skor değişimi
+        if (key === 'scoreChange' || key === 'creditScoreChange') {
+            var change = parseFloat(value);
+            return change > 0 ? '+' + change : change.toString();
+        }
+        
         return String(value);
     }
 });
