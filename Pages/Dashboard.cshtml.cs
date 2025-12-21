@@ -21,13 +21,18 @@ namespace Fin_sCore.Pages
         public decimal TotalCreditLimit { get; set; } = 150000.00m;
         public decimal UsedCreditLimit { get; set; } = 45000.00m;
         public decimal AvailableCreditLimit => TotalCreditLimit - UsedCreditLimit;
-        public int CreditScore { get; set; } = 1450;
+        
+        // Bu ayki ödenmesi gereken toplam miktar
+        public decimal MonthlyPaymentDue => ActiveLoans.Sum(l => l.MonthlyPayment);
 
         // Aktif Krediler (API'den gelecek)
         public List<ActiveLoanModel> ActiveLoans { get; set; } = new();
 
         // Yardım & Destek Merkezi (CMS JSON'dan gelecek)
         public List<HelpCenterItem> HelpCenterItems { get; set; } = new();
+
+        // SSS (Sıkça Sorulan Sorular)
+        public List<FaqItem> FaqItems { get; set; } = new();
 
         public IActionResult OnGet()
         {
@@ -40,6 +45,7 @@ namespace Fin_sCore.Pages
 
             LoadUserData();
             LoadHelpCenterData();
+            LoadFaqData();
             return Page();
         }
 
@@ -138,6 +144,27 @@ namespace Fin_sCore.Pages
                 }
             };
         }
+
+        private void LoadFaqData()
+        {
+            try
+            {
+                var jsonPath = Path.Combine(_environment.WebRootPath, "data", "faq.json");
+                
+                if (System.IO.File.Exists(jsonPath))
+                {
+                    var jsonString = System.IO.File.ReadAllText(jsonPath);
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                    FaqItems = JsonSerializer.Deserialize<List<FaqItem>>(jsonString, options) ?? new List<FaqItem>();
+                    FaqItems = FaqItems.Where(f => f.IsActive).OrderBy(f => f.Order).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "SSS verileri yüklenirken hata oluştu");
+                FaqItems = new List<FaqItem>();
+            }
+        }
     }
 
     public class ActiveLoanModel
@@ -161,5 +188,16 @@ namespace Fin_sCore.Pages
         public string Icon { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
         public string Link { get; set; } = string.Empty;
+        public bool IsClickable { get; set; } = true;
+    }
+
+    public class FaqItem
+    {
+        public int Id { get; set; }
+        public string Question { get; set; } = string.Empty;
+        public string Answer { get; set; } = string.Empty;
+        public string Category { get; set; } = string.Empty;
+        public int Order { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

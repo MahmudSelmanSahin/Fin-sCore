@@ -1,0 +1,169 @@
+@page
+@model LoanCalculatorModel
+@{
+    ViewData["Title"] = "Kredi Hesaplama - İnteraktif Şube";
+    ViewData["UseAppContainer"] = false;
+}
+
+<div class="loan-calculator">
+    <!-- Navigation Bar -->
+    <nav class="dashboard__navbar" id="mainNavbar">
+        <div class="dashboard__navbar_container">
+            <!-- Top Row -->
+            <div class="navbar__top_row">
+                <a href="/Dashboard" class="navbar__logo">
+                    <img src="~/img/interaktif_kredi_logo.png" alt="İnteraktif Kredi" class="navbar__logo_img" />
+                </a>
+                
+                <div class="navbar__top_menu">
+                    <a href="/About" class="navbar__top_link">Biz Kimiz?</a>
+                    <a href="/Reports" class="navbar__top_link">Raporlar</a>
+                    <a href="/LoanCalculator" class="navbar__top_link navbar__top_link--active">Kredi Hesaplama</a>
+                    <a href="#help-center" class="navbar__top_link">Destek & SSS</a>
+                </div>
+                
+                <div class="navbar__actions">
+                    <a href="/Profile" class="navbar__btn_primary" title="Profil">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar Spacer -->
+    <div class="dashboard__navbar_spacer dashboard__navbar_spacer--compact"></div>
+
+    <!-- Page Header -->
+    <section class="calculator__header">
+        <div class="calculator__header_container">
+            <h1 class="calculator__title">Kredi Hesaplama</h1>
+            <p class="calculator__subtitle">Kredi tutarınızı, vadenizi ve faiz oranınızı girerek aylık taksit tutarınızı hesaplayın</p>
+        </div>
+    </section>
+
+    <!-- Calculator Content -->
+    <section class="calculator__content">
+        <div class="calculator__grid">
+            <!-- Input Panel -->
+            <div class="calculator__input_panel">
+                <h2 class="panel__title">Kredi Bilgileri</h2>
+                
+                <!-- Loan Amount -->
+                <div class="input_field">
+                    <label class="input_field__label">Kredi Tutarı</label>
+                    <div class="input_field__amount_wrapper">
+                        <input type="text" id="loanAmountInput" class="input_field__amount" value="100.000" />
+                        <span class="input_field__currency">₺</span>
+                    </div>
+                    <input type="range" id="loanAmountSlider" class="input_field__slider" min="1000" max="500000" step="1000" value="100000" />
+                    <div class="input_field__range_labels">
+                        <span>1.000 ₺</span>
+                        <span>500.000 ₺</span>
+                    </div>
+                </div>
+
+                <!-- Term (Maturity) -->
+                <div class="input_field">
+                    <label class="input_field__label">Vade (Ay)</label>
+                    <div class="input_field__rate_wrapper">
+                        <input type="number" id="termInput" class="input_field__rate" value="24" step="1" min="1" max="120" />
+                        <span class="input_field__percent">Ay</span>
+                    </div>
+                </div>
+
+                <!-- Interest Rate -->
+                <div class="input_field">
+                    <label class="input_field__label">Aylık Faiz Oranı (%)</label>
+                    <div class="input_field__rate_wrapper">
+                        <input type="number" id="interestRateInput" class="input_field__rate" value="2.5" step="0.1" min="0.1" max="10" />
+                        <span class="input_field__percent">%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Panel -->
+            <div class="calculator__output_panel">
+                <h2 class="panel__title">Hesaplama Sonuçları</h2>
+                
+                <!-- Monthly Installment (Big) -->
+                <div class="result_card result_card--primary">
+                    <span class="result_card__label">Aylık Taksit Tutarı</span>
+                    <span class="result_card__value" id="monthlyPayment">0 ₺</span>
+                </div>
+
+                <!-- Other Results -->
+                <div class="result_cards_row">
+                    <div class="result_card">
+                        <span class="result_card__label">Toplam Ödeme</span>
+                        <span class="result_card__value result_card__value--secondary" id="totalPayment">0 ₺</span>
+                    </div>
+                    <div class="result_card">
+                        <span class="result_card__label">Toplam Faiz</span>
+                        <span class="result_card__value result_card__value--accent" id="totalInterest">0 ₺</span>
+                    </div>
+                </div>
+
+                <!-- Donut Chart -->
+                <div class="chart_container">
+                    <h3 class="chart__title">Anapara / Faiz Oranı</h3>
+                    <div class="chart_wrapper">
+                        <canvas id="loanChart"></canvas>
+                    </div>
+                    <div class="chart_legend">
+                        <div class="chart_legend__item">
+                            <span class="chart_legend__color chart_legend__color--principal"></span>
+                            <span class="chart_legend__label">Anapara</span>
+                            <span class="chart_legend__value" id="principalPercent">0%</span>
+                        </div>
+                        <div class="chart_legend__item">
+                            <span class="chart_legend__color chart_legend__color--interest"></span>
+                            <span class="chart_legend__label">Faiz</span>
+                            <span class="chart_legend__value" id="interestPercent">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amortization Schedule -->
+        <div class="amortization_section">
+            <button type="button" class="amortization__toggle" id="amortizationToggle">
+                <span class="amortization__toggle_text">Ödeme Planı (Amortisman Tablosu)</span>
+                <svg class="amortization__toggle_icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="amortization__content" id="amortizationContent">
+                <div class="amortization__table_wrapper">
+                    <table class="amortization__table">
+                        <thead>
+                            <tr>
+                                <th>Ay</th>
+                                <th>Aylık Taksit</th>
+                                <th>Anapara Ödemesi</th>
+                                <th>Faiz Ödemesi</th>
+                                <th>Kalan Borç</th>
+                            </tr>
+                        </thead>
+                        <tbody id="amortizationBody">
+                            <!-- Rows will be generated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/loan-calculator.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="~/js/navbar.js" asp-append-version="true"></script>
+    <script src="~/js/loan-calculator.js" asp-append-version="true"></script>
+}
