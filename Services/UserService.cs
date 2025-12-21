@@ -319,6 +319,110 @@ public class UserService
     }
 
     #endregion
+
+    #region Türkiye API - Cities/Districts
+
+    private List<TurkiyeCity>? _cachedCities;
+
+    /// <summary>
+    /// Türkiye API'den tüm illeri getirir
+    /// </summary>
+    public async Task<ApiResponse<List<CityDto>>> GetCitiesAsync()
+    {
+        try
+        {
+            if (_cachedCities != null)
+            {
+                var dtos = _cachedCities.Select(c => new CityDto { Id = c.Id, Name = c.Name }).ToList();
+                return new ApiResponse<List<CityDto>>
+                {
+                    Success = true,
+                    Message = "İller cache'den getirildi",
+                    Value = dtos
+                };
+            }
+
+            var url = "https://api.turkiyeapi.dev/api/v1/provinces";
+            var response = await _httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<TurkiyeApiResponse>();
+                if (result?.Data != null)
+                {
+                    _cachedCities = result.Data.OrderBy(c => c.Name).ToList();
+                    var dtos = _cachedCities.Select(c => new CityDto { Id = c.Id, Name = c.Name }).ToList();
+                    return new ApiResponse<List<CityDto>>
+                    {
+                        Success = true,
+                        Message = "İller başarıyla getirildi",
+                        Value = dtos
+                    };
+                }
+            }
+
+            return new ApiResponse<List<CityDto>>
+            {
+                Success = false,
+                Message = $"API Hatası: {response.StatusCode}"
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ApiResponse<List<CityDto>>
+            {
+                Success = false,
+                Message = $"Bağlantı hatası: {ex.Message}"
+            };
+        }
+    }
+
+    /// <summary>
+    /// Seçilen ilin ilçelerini getirir
+    /// </summary>
+    public async Task<ApiResponse<List<DistrictDto>>> GetDistrictsByCityIdAsync(int cityId)
+    {
+        try
+        {
+            // Önce cache'i kontrol et, yoksa API'den çek
+            if (_cachedCities == null)
+            {
+                await GetCitiesAsync();
+            }
+
+            var city = _cachedCities?.FirstOrDefault(c => c.Id == cityId);
+            if (city?.Districts != null)
+            {
+                var dtos = city.Districts
+                    .OrderBy(d => d.Name)
+                    .Select(d => new DistrictDto { Id = d.Id, Name = d.Name })
+                    .ToList();
+                    
+                return new ApiResponse<List<DistrictDto>>
+                {
+                    Success = true,
+                    Message = "İlçeler başarıyla getirildi",
+                    Value = dtos
+                };
+            }
+
+            return new ApiResponse<List<DistrictDto>>
+            {
+                Success = false,
+                Message = "İl bulunamadı veya ilçe bilgisi yok"
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ApiResponse<List<DistrictDto>>
+            {
+                Success = false,
+                Message = $"Bağlantı hatası: {ex.Message}"
+            };
+        }
+    }
+
+    #endregion
 }
 
 #region DTOs
@@ -496,6 +600,50 @@ public class FinanceUpdateRequest
 
     [JsonPropertyName("houseStatus")]
     public bool HouseStatus { get; set; }
+}
+
+// Türkiye API Models
+public class TurkiyeApiResponse
+{
+    [JsonPropertyName("status")]
+    public string? Status { get; set; }
+
+    [JsonPropertyName("data")]
+    public List<TurkiyeCity>? Data { get; set; }
+}
+
+public class TurkiyeCity
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("districts")]
+    public List<TurkiyeDistrict>? Districts { get; set; }
+}
+
+public class TurkiyeDistrict
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+}
+
+// Simple DTOs for frontend
+public class CityDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+}
+
+public class DistrictDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
 }
 
 #endregion
