@@ -3,15 +3,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Fin_sCore.Pages
 {
-    public class ReportDetailsModel : PageModel
+    public class LoanCalculatorModel : PageModel
     {
-        private readonly ILogger<ReportDetailsModel> _logger;
-
-        public ReportDetailsModel(ILogger<ReportDetailsModel> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult OnGet()
         {
             // Authentication kontrolü
@@ -21,9 +14,7 @@ namespace Fin_sCore.Pages
                 return RedirectToPage("/Index");
             }
 
-            _logger.LogInformation("ReportDetails page accessed at {Time}", DateTime.UtcNow);
             return Page();
         }
     }
 }
-

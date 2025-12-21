@@ -23,19 +23,30 @@
                 </div>
                 
                 <div class="navbar__actions">
-                    <button type="button" class="navbar__notification" id="notificationBtn">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span class="navbar__badge">3</span>
-                    </button>
-                    <a href="/Profile" class="navbar__btn_primary" title="Profil">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
+                    <div class="profile_dropdown" id="profileDropdown">
+                        <button type="button" class="navbar__btn_primary" id="profileDropdownBtn" title="Profil">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="profile_dropdown__menu" id="profileDropdownMenu">
+                            <a href="/Profile" class="profile_dropdown__item">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Profil</span>
+                            </a>
+                            <button type="button" class="profile_dropdown__item profile_dropdown__item--logout" id="logoutBtn">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Çıkış Yap</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,12 +81,12 @@
                     <div class="credit_stat">
                         <span class="credit_stat__icon">
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </span>
                         <div class="credit_stat__info">
-                            <span class="credit_stat__label">Kredi Skoru</span>
-                            <span class="credit_stat__value">@Model.CreditScore</span>
+                            <span class="credit_stat__label">Bu Ayın Ödeme Tutarı</span>
+                            <span class="credit_stat__value">@Model.MonthlyPaymentDue.ToString("N2") ₺</span>
                         </div>
                     </div>
                     
@@ -99,7 +110,7 @@
     <!-- Action Cards Section -->
     <section class="dashboard__action_cards">
         <div class="action_cards_grid">
-            <a href="/Reports" class="action_card">
+            <a href="/ReportDetails" class="action_card">
                 <div class="action_card__icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
@@ -191,7 +202,7 @@
                 <p class="quick_action_card__description">Kredi taksitinizi ödeyin</p>
             </a>
 
-            <a href="/Reports" class="quick_action_card">
+            <a href="/ReportDetails" class="quick_action_card">
                 <div class="quick_action_card__icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -221,7 +232,6 @@
                                 <h3 class="loan_card__title">@loan.LoanType</h3>
                                 <span class="loan_card__bank">@loan.BankName</span>
                             </div>
-                            <span class="loan_card__badge loan_card__badge--active">Aktif</span>
                         </div>
                         <div class="loan_card__content">
                             <div class="loan_card__info_row">
@@ -249,9 +259,6 @@
                         </div>
                         <div class="loan_card__actions loan_card__actions--centered">
                             <a href="@loan.BankPaymentUrl" target="_blank" rel="noopener noreferrer" class="btn_primary btn_primary--small btn_primary--full">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn_icon">
-                                    <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
                                 Ödeme Yap
                             </a>
                         </div>
@@ -265,49 +272,118 @@
     <section class="dashboard__help_center" id="help-center">
         <div class="section_header">
             <h2 class="section_title">Yardım & Destek Merkezi</h2>
-            <a href="/Help" class="section_link">Tümünü Gör</a>
         </div>
         <div class="help_center_grid">
-            @foreach (var item in Model.HelpCenterItems.Take(4))
+            @foreach (var item in Model.HelpCenterItems)
             {
-                <a href="@item.Link" class="help_center_card">
-                    <div class="help_center_card__icon">
-                        @switch (item.Icon)
-                        {
-                            case "document":
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                                break;
-                            case "calculator":
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="4" y="2" width="16" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M8 6h8M8 10h2M8 14h2M8 18h2M14 14h2M14 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                break;
-                            case "help":
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                break;
-                            case "phone":
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                                break;
-                        }
+                if (item.IsClickable && !string.IsNullOrEmpty(item.Link))
+                {
+                    <a href="@item.Link" class="help_center_card">
+                        <div class="help_center_card__icon">
+                            @switch (item.Icon)
+                            {
+                                case "document":
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    break;
+                                case "calculator":
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="4" y="2" width="16" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M8 6h8M8 10h2M8 14h2M8 18h2M14 14h2M14 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    break;
+                                case "help":
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    break;
+                                case "phone":
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    break;
+                            }
+                        </div>
+                        <div class="help_center_card__content">
+                            <h3 class="help_center_card__title">@item.Title</h3>
+                            <p class="help_center_card__description">@item.Description</p>
+                            <span class="help_center_card__category">@item.Category</span>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <div class="help_center_card help_center_card--static">
+                        <div class="help_center_card__icon">
+                            @switch (item.Icon)
+                            {
+                                case "document":
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    break;
+                                case "calculator":
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="4" y="2" width="16" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M8 6h8M8 10h2M8 14h2M8 18h2M14 14h2M14 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    break;
+                                case "help":
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    break;
+                                case "phone":
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    break;
+                            }
+                        </div>
+                        <div class="help_center_card__content">
+                            <h3 class="help_center_card__title">@item.Title</h3>
+                            <p class="help_center_card__description">@item.Description</p>
+                            <span class="help_center_card__category">@item.Category</span>
+                        </div>
                     </div>
-                    <div class="help_center_card__content">
-                        <h3 class="help_center_card__title">@item.Title</h3>
-                        <p class="help_center_card__description">@item.Description</p>
-                        <span class="help_center_card__category">@item.Category</span>
-                    </div>
-                </a>
+                }
             }
         </div>
     </section>
+
+    <!-- SSS (Sıkça Sorulan Sorular) -->
+    @if (Model.FaqItems.Any())
+    {
+        <section class="dashboard__faq_section" id="faq">
+            <div class="section_header">
+                <h2 class="section_title">Sıkça Sorulan Sorular</h2>
+            </div>
+            <div class="faq_accordion">
+                @foreach (var faq in Model.FaqItems.Take(6))
+                {
+                    <div class="faq_item" data-faq-id="@faq.Id">
+                        <button type="button" class="faq_item__header">
+                            <span class="faq_item__question">@faq.Question</span>
+                            <svg class="faq_item__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq_item__content">
+                            <p class="faq_item__answer">@faq.Answer</p>
+                            <span class="faq_item__category">@faq.Category</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    }
 </div>
 
 @section Scripts {
