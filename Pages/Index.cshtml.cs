@@ -389,4 +389,28 @@ public class IndexModel : PageModel
         public int CustomerId { get; set; }
         public bool IsOk { get; set; }
     }
+
+    // AJAX Logout Handler - Idle timeout veya manuel çıkış için
+    public IActionResult OnPostLogoutAsync()
+    {
+        // Session'ı temizle
+        HttpContext.Session.Clear();
+        
+        return new JsonResult(new { 
+            success = true, 
+            message = "Oturum sonlandırıldı",
+            redirectUrl = "/"
+        });
+    }
+    
+    // Session durumu kontrolü (heartbeat için)
+    public IActionResult OnGetCheckSessionAsync()
+    {
+        var authToken = HttpContext.Session.GetString("AuthToken");
+        var isAuthenticated = !string.IsNullOrEmpty(authToken);
+        
+        return new JsonResult(new { 
+            authenticated = isAuthenticated
+        });
+    }
 }

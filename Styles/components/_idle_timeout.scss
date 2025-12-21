@@ -1,0 +1,175 @@
+// ============================================
+// Idle Timeout Modal Component
+// Kullanıcı işlem yapmadığında gösterilen uyarı
+// ============================================
+
+.idle_timeout_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        
+        .idle_timeout_modal__content {
+            transform: scale(1);
+        }
+    }
+    
+    // Overlay
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(4px);
+    }
+    
+    // Content
+    &__content {
+        position: relative;
+        background: $color_white;
+        border-radius: $radius_xl;
+        padding: $spacing_xl;
+        max-width: 420px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border: 1px solid $border-color;
+        transform: scale(0.95);
+        transition: transform 0.3s ease;
+    }
+    
+    // Icon
+    &__icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 20px;
+        background: linear-gradient(135deg, rgba($warning, 0.15), rgba($warning, 0.05));
+        border-radius: $radius_circle;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        svg {
+            width: 32px;
+            height: 32px;
+            color: $warning;
+        }
+        
+        &--logout {
+            background: linear-gradient(135deg, rgba($primary, 0.15), rgba($primary, 0.05));
+            
+            svg {
+                color: $primary;
+            }
+        }
+    }
+    
+    // Title
+    &__title {
+        font-size: $font_size_h2;
+        font-weight: $font_weight_semibold;
+        color: $text-primary;
+        margin-bottom: $spacing_sm;
+    }
+    
+    // Message
+    &__message {
+        font-size: $font_size_body;
+        color: $text-secondary;
+        line-height: $line_height_body;
+        margin-bottom: $spacing_lg;
+    }
+    
+    // Countdown
+    &__countdown {
+        display: inline-block;
+        min-width: 28px;
+        padding: 2px 8px;
+        background: $warning;
+        color: $color_white;
+        font-weight: $font_weight_bold;
+        border-radius: $radius_sm;
+        margin: 0 4px;
+    }
+    
+    // Actions
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing_sm;
+        
+        .btn {
+            width: 100%;
+            padding: 14px 24px;
+            font-size: $font_size_body;
+            font-weight: $font_weight_semibold;
+            border-radius: $radius_lg;
+            cursor: pointer;
+            transition: all $transition_normal;
+        }
+        
+        .btn_primary {
+            background: linear-gradient(135deg, $primary, $primary-dark);
+            color: $color_white;
+            border: none;
+            
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba($primary, 0.4);
+            }
+        }
+        
+        .btn_secondary {
+            background: transparent;
+            color: $text-secondary;
+            border: 1px solid $border-color;
+            
+            &:hover {
+                background: rgba($text-secondary, 0.1);
+                color: $text-primary;
+            }
+        }
+    }
+}
+
+// Mobile Responsive
+@media (max-width: 480px) {
+    .idle_timeout_modal {
+        &__content {
+            padding: $spacing_lg;
+            margin: $spacing_md;
+        }
+        
+        &__icon {
+            width: 56px;
+            height: 56px;
+            
+            svg {
+                width: 28px;
+                height: 28px;
+            }
+        }
+        
+        &__title {
+            font-size: $font_size_h3;
+        }
+        
+        &__message {
+            font-size: $font_size_body_mobile;
+        }
+    }
+}
