@@ -29,8 +29,18 @@ public class IndexModel : PageModel
         _captchaService = captchaService;
     }
 
-    public void OnGet()
+    public async Task OnGetAsync()
     {
+        // Logout action check
+        string? action = Request.Query["action"];
+        if (!string.IsNullOrEmpty(action) && action == "logout")
+        {
+            HttpContext.Session.Clear();
+            // Clear cookie as well to be safe
+            Response.Cookies.Delete(".AspNetCore.Session");
+            return;
+        }
+
         // If already authenticated, redirect to dashboard
         var authToken = HttpContext.Session.GetString("AuthToken");
         if (!string.IsNullOrEmpty(authToken))
@@ -41,6 +51,8 @@ public class IndexModel : PageModel
 
         // Check if user has KVKK consent (from session)
         HasKvkkConsent = HttpContext.Session.GetString("HasKvkkConsent") == "true";
+        
+        await Task.CompletedTask;
     }
 
     public async Task<IActionResult> OnPostAsync()

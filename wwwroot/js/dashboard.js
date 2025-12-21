@@ -261,18 +261,7 @@ $(document).ready(function() {
         
         // Logout işlemi
         $logout_btn.on('click', function() {
-            // Session'ı temizle ve çıkış yap
-            $.ajax({
-                url: '/api/auth/logout',
-                type: 'POST',
-                success: function() {
-                    window.location.href = '/';
-                },
-                error: function() {
-                    // API yoksa direkt yönlendir
-                    window.location.href = '/';
-                }
-            });
+            window.location.href = '/?action=logout';
         });
     }
     
