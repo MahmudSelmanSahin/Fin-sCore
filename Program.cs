@@ -13,6 +13,7 @@ builder.Services.AddSession(options =>
 
 // Register services
 builder.Services.AddSingleton<AuthService>();
+builder.Services.AddHttpClient<UserService>();
 
 var app = builder.Build();
 
