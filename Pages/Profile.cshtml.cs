@@ -118,12 +118,28 @@ public class ProfileModel : PageModel
         "Diğer"
     };
 
-    public async Task OnGetAsync()
+    public async Task<IActionResult> OnGetAsync()
     {
+        // Authentication kontrolü
+        var authToken = HttpContext.Session.GetString("AuthToken");
+        if (string.IsNullOrEmpty(authToken))
+        {
+            return RedirectToPage("/Index");
+        }
+
+        // Session'dan CustomerId al
+        var sessionCustomerId = HttpContext.Session.GetInt32("CustomerId");
+        if (sessionCustomerId.HasValue && sessionCustomerId.Value > 0)
+        {
+            CustomerId = sessionCustomerId.Value;
+        }
+
         await LoadAddressInfoAsync();
         await LoadJobInfoAsync();
         await LoadWifeInfoAsync();
         await LoadFinanceInfoAsync();
+        
+        return Page();
     }
 
     private async Task LoadAddressInfoAsync()

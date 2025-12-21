@@ -117,7 +117,7 @@
 // Content Area
 .profile__content {
     padding: 0 4rem 4rem;
-    background: $bg-secondary;
+    background: $color_white;
 
     @media (max-width: 1200px) {
         padding: 0 2rem 3rem;
@@ -143,9 +143,9 @@
 // Profile Card
 .profile__card {
     background: $color_white;
-    border-radius: $radius_xl;
+    border-radius: 0;
     padding: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: none;
 
     @media (max-width: 768px) {
         padding: 1.5rem;

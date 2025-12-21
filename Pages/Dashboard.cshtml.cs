@@ -29,10 +29,18 @@ namespace Fin_sCore.Pages
         // Yardım & Destek Merkezi (CMS JSON'dan gelecek)
         public List<HelpCenterItem> HelpCenterItems { get; set; } = new();
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            // Authentication kontrolü
+            var authToken = HttpContext.Session.GetString("AuthToken");
+            if (string.IsNullOrEmpty(authToken))
+            {
+                return RedirectToPage("/Index");
+            }
+
             LoadUserData();
             LoadHelpCenterData();
+            return Page();
         }
 
         private void LoadUserData()
