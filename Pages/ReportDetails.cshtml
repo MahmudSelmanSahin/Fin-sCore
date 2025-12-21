@@ -138,13 +138,17 @@
                 <h1 class="report_page_title">Faturalar</h1>
                 <p class="report_page_subtitle">Yukarıdaki menüden fatura türünü seçerek ödeme yapabilirsiniz.</p>
                 
-                <div class="invoice_info_box">
+                <!-- Varsayılan bilgi kutusu -->
+                <div class="invoice_info_box" id="invoice_info_default">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
                         <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                     <p>Fatura ödemek için üstteki <strong>"Faturalar"</strong> menüsünün üzerine gelin ve açılan listeden fatura türünü seçin.</p>
                 </div>
+                
+                <!-- Dinamik fatura içeriği -->
+                <div id="invoices_content"></div>
             </section>
 
             <!-- Kredi Teklifleri Tab Content -->
