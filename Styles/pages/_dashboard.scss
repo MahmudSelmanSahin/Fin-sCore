@@ -144,25 +144,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba($color_primary_blue, 0.08);
+  color: $color_primary_blue;
 
   svg {
     width: 28px;
     height: 28px;
   }
 
-  &--blue {
-    background: rgba($color_primary_blue, 0.08);
-    color: $color_primary_blue;
-  }
-
+  // Kredi skoru için yeşil (olumlu gösterge)
   &--green {
     background: rgba($success, 0.08);
     color: $success;
   }
 
-  &--orange {
-    background: rgba($warning, 0.08);
-    color: $warning;
+  // Aktif krediler için sarı (uyarı göstergesi)
+  &--yellow {
+    background: rgba(#F5A623, 0.1);
+    color: #F5A623;
   }
 }
 
@@ -338,31 +337,13 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 1.25rem;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  background: rgba($color_primary_blue, 0.08);
+  color: $color_primary_blue;
 
   svg {
     width: 32px;
     height: 32px;
-  }
-
-  &--primary {
-    background: rgba($color_primary_blue, 0.08);
-    color: $color_primary_blue;
-  }
-
-  &--success {
-    background: rgba($success, 0.08);
-    color: $success;
-  }
-
-  &--warning {
-    background: rgba($warning, 0.08);
-    color: $warning;
-  }
-
-  &--info {
-    background: rgba($color_primary_blue, 0.08);
-    color: $color_primary_blue;
   }
 }
 

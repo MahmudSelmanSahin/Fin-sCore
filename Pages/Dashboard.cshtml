@@ -11,18 +11,9 @@
         <div class="dashboard__navbar_container">
             <!-- Top Row -->
             <div class="navbar__top_row">
-                <div class="navbar__logo">
-                    <div class="navbar__logo_icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="navbar__logo_text">
-                        <span class="navbar__logo_title">interaktif</span>
-                        <span class="navbar__logo_subtitle">kredi</span>
-                    </div>
-                </div>
+                <a href="/Dashboard" class="navbar__logo">
+                    <img src="~/img/interaktif_kredi_logo.png" alt="İnteraktif Kredi" class="navbar__logo_img" />
+                </a>
                 
                 <div class="navbar__top_menu">
                     <a href="/About" class="navbar__top_link">Biz Kimiz?</a>
@@ -70,15 +61,15 @@
     <!-- Credit Summary Cards -->
     <section class="dashboard__credit_summary">
         <div class="dashboard__credit_summary_grid">
-        <div class="credit_card credit_card--limit">
+        <div class="credit_card">
             <div class="credit_card__header">
-                <span class="credit_card__icon credit_card__icon--blue">
+                <span class="credit_card__icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
                         <path d="M2 10h20" stroke="currentColor" stroke-width="2"/>
                     </svg>
                 </span>
-                <h3 class="credit_card__title">Toplam Kredi Limitiniz</h3>
+                <h3 class="credit_card__title">TOPLAM KREDİ LİMİTİNİZ</h3>
             </div>
             <div class="credit_card__content">
                 <p class="credit_card__amount">@Model.TotalCreditLimit.ToString("N2") ₺</p>
@@ -86,14 +77,14 @@
             </div>
         </div>
 
-        <div class="credit_card credit_card--score">
+        <div class="credit_card">
             <div class="credit_card__header">
                 <span class="credit_card__icon credit_card__icon--green">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
-                <h3 class="credit_card__title">Kredi Skorunuz</h3>
+                <h3 class="credit_card__title">KREDİ SKORUNUZ</h3>
             </div>
             <div class="credit_card__content">
                 <p class="credit_card__score">@Model.CreditScore</p>
@@ -104,15 +95,15 @@
             </div>
         </div>
 
-        <div class="credit_card credit_card--active">
+        <div class="credit_card">
             <div class="credit_card__header">
-                <span class="credit_card__icon credit_card__icon--orange">
+                <span class="credit_card__icon credit_card__icon--yellow">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="currentColor" stroke-width="2"/>
                         <rect x="8" y="2" width="8" height="4" rx="1" stroke="currentColor" stroke-width="2"/>
                     </svg>
                 </span>
-                <h3 class="credit_card__title">Aktif Kredileriniz</h3>
+                <h3 class="credit_card__title">AKTİF KREDİLERİNİZ</h3>
             </div>
             <div class="credit_card__content">
                 <p class="credit_card__count">@Model.ActiveLoans.Count</p>
@@ -127,7 +118,7 @@
         <h2 class="section_title">Hızlı İşlemler</h2>
         <div class="quick_actions_grid">
             <a href="/LoanCalculator" class="quick_action_card">
-                <div class="quick_action_card__icon quick_action_card__icon--primary">
+                <div class="quick_action_card__icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="4" y="2" width="16" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
                         <path d="M8 6h8M8 10h2M8 14h2M8 18h2M14 14h2M14 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -138,7 +129,7 @@
             </a>
 
             <a href="/LoanApplication" class="quick_action_card">
-                <div class="quick_action_card__icon quick_action_card__icon--success">
+                <div class="quick_action_card__icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
                         <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2"/>
@@ -149,7 +140,7 @@
             </a>
 
             <a href="/Payment" class="quick_action_card">
-                <div class="quick_action_card__icon quick_action_card__icon--warning">
+                <div class="quick_action_card__icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
                         <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -160,7 +151,7 @@
             </a>
 
             <a href="/Reports" class="quick_action_card">
-                <div class="quick_action_card__icon quick_action_card__icon--info">
+                <div class="quick_action_card__icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

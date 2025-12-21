@@ -19,42 +19,18 @@
 .navbar__logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
-.navbar__logo_icon {
-  width: 40px;
+.navbar__logo_img {
   height: 40px;
-  background: $color_primary_blue;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: auto;
+  object-fit: contain;
 
-  svg {
-    width: 24px;
-    height: 24px;
-    color: $color_white;
+  @media (max-width: 768px) {
+    height: 32px;
   }
-}
-
-.navbar__logo_text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-.navbar__logo_title {
-  font-size: 18px;
-  font-weight: $font_weight_bold;
-  color: $color_primary_blue;
-}
-
-.navbar__logo_subtitle {
-  font-size: 18px;
-  font-weight: $font_weight_bold;
-  color: $color_dark_navy;
 }
 
 // Top Menu
