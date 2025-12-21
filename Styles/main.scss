@@ -17,6 +17,8 @@
 @import 'pages/sms';
 @import 'pages/security';
 @import 'pages/dashboard';
+@import 'pages/profile';
+@import 'pages/report_details';
 
 // 5. Responsive
 @media (max-width: 640px) {
@@ -24,7 +26,6 @@
   .sms-card,
   .signup-card {
     padding: 32px 24px;
-    border-radius: 20px;
   }
 
   .form-row {

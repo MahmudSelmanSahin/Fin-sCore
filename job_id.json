@@ -1,0 +1,287 @@
+{
+    "success": true,
+    "statusCode": 200,
+    "message": "Meslek listesi başarıyla getirildi.",
+    "value": [
+        {
+            "Id": 3,
+            "OccupationName": "Acil Tip Teknisyeni"
+        },
+        {
+            "Id": 5,
+            "OccupationName": "Doktor"
+        },
+        {
+            "Id": 6,
+            "OccupationName": "Diger"
+        },
+        {
+            "Id": 8,
+            "OccupationName": "Sanatçi/Müzisyen"
+        },
+        {
+            "Id": 10,
+            "OccupationName": "Tahsilat Uzmani"
+        },
+        {
+            "Id": 11,
+            "OccupationName": "Teknisyen"
+        },
+        {
+            "Id": 12,
+            "OccupationName": "Asker"
+        },
+        {
+            "Id": 15,
+            "OccupationName": "Esnaf"
+        },
+        {
+            "Id": 16,
+            "OccupationName": "Teknoloji Personeli"
+        },
+        {
+            "Id": 22,
+            "OccupationName": "Avukat"
+        },
+        {
+            "Id": 23,
+            "OccupationName": "Akademisyen"
+        },
+        {
+            "Id": 25,
+            "OccupationName": "Çiftçi"
+        },
+        {
+            "Id": 30,
+            "OccupationName": "Asçi"
+        },
+        {
+            "Id": 36,
+            "OccupationName": "Gazeteci"
+        },
+        {
+            "Id": 39,
+            "OccupationName": "Kaptan"
+        },
+        {
+            "Id": 40,
+            "OccupationName": "Hemsire"
+        },
+        {
+            "Id": 42,
+            "OccupationName": "Polis"
+        },
+        {
+            "Id": 43,
+            "OccupationName": "Bekçi"
+        },
+        {
+            "Id": 44,
+            "OccupationName": "Isçi"
+        },
+        {
+            "Id": 46,
+            "OccupationName": "Mühendis"
+        },
+        {
+            "Id": 48,
+            "OccupationName": "Danisman"
+        },
+        {
+            "Id": 51,
+            "OccupationName": "Psikolog/Psikiyatr"
+        },
+        {
+            "Id": 56,
+            "OccupationName": "Bankaci/Finansçi"
+        },
+        {
+            "Id": 57,
+            "OccupationName": "Operatör"
+        },
+        {
+            "Id": 59,
+            "OccupationName": "Hesap Uzmani"
+        },
+        {
+            "Id": 65,
+            "OccupationName": "Satis Personeli"
+        },
+        {
+            "Id": 67,
+            "OccupationName": "Gemi Adami"
+        },
+        {
+            "Id": 72,
+            "OccupationName": "Kamu Çalisani"
+        },
+        {
+            "Id": 73,
+            "OccupationName": "Dijital Pazarlama Uzmani"
+        },
+        {
+            "Id": 77,
+            "OccupationName": "Saglik Çalisani"
+        },
+        {
+            "Id": 81,
+            "OccupationName": "Tasarimci"
+        },
+        {
+            "Id": 87,
+            "OccupationName": "Isletme Sahibi"
+        },
+        {
+            "Id": 88,
+            "OccupationName": "Mimar"
+        },
+        {
+            "Id": 89,
+            "OccupationName": "Eczaci"
+        },
+        {
+            "Id": 95,
+            "OccupationName": "Ögretmen"
+        },
+        {
+            "Id": 96,
+            "OccupationName": "Egitmen"
+        },
+        {
+            "Id": 97,
+            "OccupationName": "Memur"
+        },
+        {
+            "Id": 104,
+            "OccupationName": "Gardiyan"
+        },
+        {
+            "Id": 105,
+            "OccupationName": "Garson"
+        },
+        {
+            "Id": 108,
+            "OccupationName": "Grafiker"
+        },
+        {
+            "Id": 110,
+            "OccupationName": "Güvenlik Görevlisi"
+        },
+        {
+            "Id": 114,
+            "OccupationName": "Muhasebeci"
+        },
+        {
+            "Id": 115,
+            "OccupationName": "Havaci"
+        },
+        {
+            "Id": 118,
+            "OccupationName": "Kabin Görevlisi"
+        },
+        {
+            "Id": 120,
+            "OccupationName": "Hukukçu"
+        },
+        {
+            "Id": 124,
+            "OccupationName": "Kalite Kontrol Uzmani"
+        },
+        {
+            "Id": 127,
+            "OccupationName": "Soför"
+        },
+        {
+            "Id": 135,
+            "OccupationName": "Kurye"
+        },
+        {
+            "Id": 137,
+            "OccupationName": "Lojistik Uzmani"
+        },
+        {
+            "Id": 138,
+            "OccupationName": "Madenci"
+        },
+        {
+            "Id": 139,
+            "OccupationName": "Zabita"
+        },
+        {
+            "Id": 140,
+            "OccupationName": "Mali Isler"
+        },
+        {
+            "Id": 142,
+            "OccupationName": "Matbaaci"
+        },
+        {
+            "Id": 144,
+            "OccupationName": "Modaci"
+        },
+        {
+            "Id": 146,
+            "OccupationName": "Muhabir"
+        },
+        {
+            "Id": 149,
+            "OccupationName": "Müfettis"
+        },
+        {
+            "Id": 152,
+            "OccupationName": "Mali Müsavir"
+        },
+        {
+            "Id": 156,
+            "OccupationName": "Pazarlamaci"
+        },
+        {
+            "Id": 158,
+            "OccupationName": "Insan Kaynaklari"
+        },
+        {
+            "Id": 160,
+            "OccupationName": "Pilot"
+        },
+        {
+            "Id": 161,
+            "OccupationName": "Içerik Üreticisi"
+        },
+        {
+            "Id": 164,
+            "OccupationName": "Postaci"
+        },
+        {
+            "Id": 168,
+            "OccupationName": "Reklamci"
+        },
+        {
+            "Id": 171,
+            "OccupationName": "Sekreter"
+        },
+        {
+            "Id": 172,
+            "OccupationName": "Sigortaci"
+        },
+        {
+            "Id": 178,
+            "OccupationName": "Müsteri Temsilcisi"
+        },
+        {
+            "Id": 183,
+            "OccupationName": "Veteriner"
+        },
+        {
+            "Id": 184,
+            "OccupationName": "Hizmetli"
+        },
+        {
+            "Id": 188,
+            "OccupationName": "Ögrenci"
+        },
+        {
+            "Id": 189,
+            "OccupationName": "Itfayeci"
+        }
+    ]
+}

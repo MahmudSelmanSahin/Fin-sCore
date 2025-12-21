@@ -33,30 +33,30 @@
 .sms_card,
 .signup_card,
 .security_card {
-    background: $bg-primary;
-    border-radius: $radius_xl;
-    padding: $spacing_2xl $spacing_xl;
-    box-shadow: $shadow-xl;
+    background: transparent;
+    border-radius: 0;
+    padding: $spacing_2xl;
+    box-shadow: none;
     position: relative;
-    overflow: hidden;
-    transition: transform $transition_slow, box-shadow $transition_slow;
+    overflow: visible;
+    transition: none;
+    border: none;
 
     &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transform: none;
+        box-shadow: none;
     }
 
-    // Üst gradient çizgi
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, $color_primary_blue, $color_success, $color_warning);
-        background-size: 200% 100%;
-        animation: gradientShift 3s ease infinite;
+    // Simple variant - minimal styling
+    &--simple {
+        padding: $spacing_2xl;
+        box-shadow: none;
+        border: none;
+
+        &:hover {
+            transform: none;
+            box-shadow: none;
+        }
     }
 }
 
@@ -76,7 +76,7 @@
 .sms_header,
 .signup_header {
     text-align: center;
-    margin-bottom: $spacing_xl;
+    margin-bottom: $spacing_2xl;
     position: relative;
 }
 
@@ -125,43 +125,45 @@
 .login_title,
 .sms_title,
 .signup_title {
-    font-size: $font_size_h1;
+    font-size: $font_size_h2;
     font-weight: $font_weight_bold;
-    line-height: $line_height_h1;
+    line-height: 1.2;
     color: $color_dark_navy;
-    margin-bottom: $spacing_sm;
+    margin-bottom: $spacing_xs;
+    letter-spacing: -0.02em;
 }
 
 // Legacy class support
 .login-title,
 .sms-title,
 .signup-title {
-    font-size: $font_size_h1;
+    font-size: $font_size_h2;
     font-weight: $font_weight_bold;
-    line-height: $line_height_h1;
+    line-height: 1.2;
     color: $color_dark_navy;
-    margin-bottom: $spacing_sm;
+    margin-bottom: $spacing_xs;
+    letter-spacing: -0.02em;
 }
 
 .login_subtitle,
 .sms_subtitle,
 .signup_subtitle {
-    font-size: $font_size_body;
+    font-size: $font_size_body_mobile;
     font-weight: $font_weight_regular;
-    line-height: $line_height_body;
+    line-height: 1.4;
     color: $text-secondary;
-    margin-top: $spacing_sm;
+    margin-top: $spacing_xs;
 }
 
 // Legacy class support
 .login-subtitle,
 .sms-subtitle,
 .signup-subtitle {
-    font-size: $font_size_body;
+    font-size: $font_size_body_mobile;
     font-weight: $font_weight_regular;
-    line-height: $line_height_body;
+    line-height: 1.4;
     color: $text-secondary;
-    margin-top: $spacing_sm;
+    margin-top: $spacing_xs;
 }
 
 // ============================================
@@ -172,6 +174,15 @@
 .sms_form,
 .signup_form {
     animation: slideIn 0.6s ease-out 0.2s both;
+
+    .input-group,
+    .form_group {
+        margin-bottom: $spacing_md;
+    }
+
+    .kvkk-container {
+        margin-bottom: $spacing_md;
+    }
 }
 
 // Legacy class support
@@ -179,6 +190,15 @@
 .sms-form,
 .signup-form {
     animation: slideIn 0.6s ease-out 0.2s both;
+
+    .input-group,
+    .form_group {
+        margin-bottom: $spacing_md;
+    }
+
+    .kvkk-container {
+        margin-bottom: $spacing_md;
+    }
 }
 
 // ============================================
@@ -355,6 +375,428 @@
 }
 
 // ============================================
+// KVKK MODAL
+// ============================================
+
+.kvkk_modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+
+    &.show {
+        display: block;
+    }
+}
+
+.kvkk_modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.kvkk_modal__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $bg-primary;
+    border-radius: $radius_xl;
+    box-shadow: $shadow-xl;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.3s ease;
+
+    @media (max-width: 640px) {
+        width: 95%;
+        max-height: 95vh;
+    }
+}
+
+.kvkk_modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing_lg $spacing_xl;
+    border-bottom: 1px solid $border-color;
+    flex-shrink: 0;
+}
+
+.kvkk_modal__title {
+    font-size: $font_size_h3;
+    font-weight: $font_weight_bold;
+    color: $color_dark_navy;
+    margin: 0;
+}
+
+.kvkk_modal__close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: $spacing_sm;
+    color: $text-secondary;
+    transition: color $transition_normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    &:hover {
+        color: $color_dark_navy;
+    }
+}
+
+.kvkk_modal__body {
+    padding: $spacing_xl;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $bg-secondary;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $border-color;
+        border-radius: 4px;
+
+        &:hover {
+            background: $text-light;
+        }
+    }
+
+    // Style the KVKK content
+    h3 {
+        font-size: $font_size_h3;
+        font-weight: $font_weight_bold;
+        color: $color_dark_navy;
+        margin-bottom: $spacing_lg;
+        text-align: center;
+    }
+
+    h4 {
+        font-size: $font_size_body;
+        font-weight: $font_weight_bold;
+        color: $color_dark_navy;
+        margin-top: $spacing_lg;
+        margin-bottom: $spacing_sm;
+    }
+
+    p {
+        font-size: $font_size_body_mobile;
+        line-height: $line_height_body;
+        color: $text-primary;
+        margin-bottom: $spacing_md;
+    }
+
+    ul {
+        list-style: disc;
+        padding-left: $spacing_xl;
+        margin-bottom: $spacing_md;
+
+        li {
+            font-size: $font_size_body_mobile;
+            line-height: $line_height_body;
+            color: $text-primary;
+            margin-bottom: $spacing_sm;
+
+            strong {
+                font-weight: $font_weight_semibold;
+                color: $color_dark_navy;
+            }
+        }
+    }
+
+    strong {
+        font-weight: $font_weight_semibold;
+        color: $color_dark_navy;
+    }
+
+    > div {
+        margin-bottom: $spacing_lg;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.kvkk_modal__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing_2xl;
+    gap: $spacing_md;
+    color: $text-secondary;
+}
+
+.kvkk_modal__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: $spacing_lg $spacing_xl;
+    border-top: 1px solid $border-color;
+    gap: $spacing_md;
+    flex-shrink: 0;
+}
+
+.text_error {
+    color: $error;
+    text-align: center;
+    padding: $spacing_xl;
+}
+
+// ============================================
+// SMS VERIFICATION MODAL
+// ============================================
+
+.sms_modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+
+    &.show {
+        display: block;
+    }
+}
+
+.sms_modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.sms_modal__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $bg-primary;
+    border-radius: $radius_xl;
+    box-shadow: $shadow-xl;
+    width: 90%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.3s ease;
+
+    @media (max-width: 640px) {
+        width: 95%;
+    }
+}
+
+.sms_modal__header {
+    text-align: center;
+    padding: $spacing_xl $spacing_xl $spacing_lg;
+    border-bottom: 1px solid $border-color;
+}
+
+.sms_modal__title {
+    font-size: $font_size_h3;
+    font-weight: $font_weight_bold;
+    color: $color_dark_navy;
+    margin: 0 0 $spacing_xs;
+}
+
+.sms_modal__subtitle {
+    font-size: $font_size_body_mobile;
+    color: $text-secondary;
+    margin: 0;
+}
+
+.sms_modal__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing_sm;
+    margin-top: $spacing_md;
+    padding: $spacing_sm $spacing_md;
+    background: $bg-secondary;
+    border-radius: $radius_md;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    color: $color_dark_navy;
+
+    svg {
+        color: $color_primary_blue;
+    }
+}
+
+.sms_modal__body {
+    padding: $spacing_xl;
+}
+
+.sms_modal__alert {
+    padding: $spacing_md;
+    border-radius: $radius_md;
+    margin-bottom: $spacing_lg;
+    font-size: $font_size_body_mobile;
+    text-align: center;
+    transition: all $transition_fast;
+
+    &--hidden {
+        display: none;
+    }
+
+    &--error {
+        background: rgba($error, 0.1);
+        color: $error;
+        border: 1px solid rgba($error, 0.2);
+    }
+
+    &--success {
+        background: rgba($success, 0.1);
+        color: darken($success, 10%);
+        border: 1px solid rgba($success, 0.2);
+    }
+
+    &--warning {
+        background: rgba($warning, 0.1);
+        color: darken($warning, 15%);
+        border: 1px solid rgba($warning, 0.2);
+    }
+}
+
+.sms_modal__input_group {
+    margin-bottom: $spacing_md;
+}
+
+.sms_modal__label {
+    display: block;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    color: $color_dark_navy;
+    margin-bottom: $spacing_sm;
+}
+
+.sms_modal__input {
+    width: 100%;
+    padding: $input_padding_y $input_padding_x;
+    font-size: $font_size_h3;
+    font-weight: $font_weight_bold;
+    text-align: center;
+    letter-spacing: 0.5em;
+    border: $input_border_width solid $border-color;
+    border-radius: $radius_lg;
+    background: $bg-primary;
+    color: $color_dark_navy;
+    transition: all $transition_fast;
+
+    &::placeholder {
+        font-size: $font_size_body_mobile;
+        font-weight: $font_weight_regular;
+        letter-spacing: normal;
+        color: $text-light;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $color_primary_blue;
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+    }
+
+    &.error {
+        border-color: $error;
+        box-shadow: 0 0 0 3px rgba($error, 0.1);
+    }
+}
+
+.sms_modal__error {
+    display: none;
+    font-size: $font_size_small;
+    color: $error;
+    margin-top: $spacing_xs;
+
+    &.show {
+        display: block;
+    }
+}
+
+.sms_modal__info {
+    text-align: center;
+    margin-top: $spacing_md;
+}
+
+.sms_modal__attempts {
+    font-size: $font_size_body_mobile;
+    color: $text-secondary;
+    margin: 0;
+
+    strong {
+        color: $color_dark_navy;
+        font-weight: $font_weight_bold;
+    }
+}
+
+.sms_modal__footer {
+    padding: 0 $spacing_xl $spacing_xl;
+}
+
+.sms_modal__resend {
+    text-align: center;
+    margin-top: $spacing_lg;
+    padding-top: $spacing_lg;
+    border-top: 1px solid $border-color;
+
+    p {
+        font-size: $font_size_body_mobile;
+        color: $text-secondary;
+        margin: 0 0 $spacing_xs;
+    }
+}
+
+.btn_link {
+    background: transparent;
+    border: none;
+    color: $color_primary_blue;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    cursor: pointer;
+    padding: $spacing_xs;
+    transition: color $transition_fast;
+
+    &:hover {
+        color: darken($color_primary_blue, 10%);
+        text-decoration: underline;
+    }
+
+    &:disabled {
+        color: $text-light;
+        cursor: not-allowed;
+        text-decoration: none;
+    }
+}
+
+// ============================================
 // RESPONSIVE
 // ============================================
 
@@ -365,8 +807,8 @@
     .login-card,
     .sms-card,
     .signup-card {
-        padding: $spacing_xl $spacing_lg;
-        border-radius: $radius_xl;
+        padding: $spacing_xl;
+        border-radius: $radius_lg;
     }
 
     .login_title,
@@ -375,6 +817,19 @@
     .login-title,
     .sms-title,
     .signup-title {
-        font-size: $font_size_h1_mobile;
+        font-size: $font_size_h3;
+    }
+
+    .kvkk_modal__header,
+    .kvkk_modal__footer {
+        padding: $spacing_md $spacing_lg;
+    }
+
+    .kvkk_modal__body {
+        padding: $spacing_lg;
+    }
+
+    .kvkk_modal__title {
+        font-size: $font_size_body;
     }
 }

@@ -160,11 +160,69 @@
   }
 }
 
+// Alert Component (for form errors/success messages)
+.alert {
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: $font_size_body_mobile;
+  line-height: $line_height_body;
+  animation: slideDown 0.3s ease;
+
+  &--error {
+    background: rgba($error, 0.1);
+    border: 1px solid rgba($error, 0.3);
+    color: darken($error, 15%);
+  }
+
+  &--success {
+    background: rgba($success, 0.1);
+    border: 1px solid rgba($success, 0.3);
+    color: darken($success, 15%);
+  }
+
+  &--warning {
+    background: rgba($warning, 0.1);
+    border: 1px solid rgba($warning, 0.3);
+    color: darken($warning, 20%);
+  }
+
+  &--info {
+    background: rgba($color_primary_blue, 0.1);
+    border: 1px solid rgba($color_primary_blue, 0.3);
+    color: darken($color_primary_blue, 10%);
+  }
+}
+
+.alert__icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.alert__text {
+  flex: 1;
+  font-weight: $font_weight_medium;
+}
+
 // Animations
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;

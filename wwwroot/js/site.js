@@ -2,7 +2,14 @@
 $(document).ready(function() {
     // Add smooth scroll behavior
     $('a[href^="#"]').on('click', function(e) {
-        const target = $(this.getAttribute('href'));
+        const href = this.getAttribute('href');
+        
+        // Skip if href is just "#" or empty
+        if (!href || href === '#') {
+            return;
+        }
+        
+        const target = $(href);
         if (target.length) {
             e.preventDefault();
             $('html, body').stop().animate({

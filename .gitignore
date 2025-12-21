@@ -52,3 +52,19 @@ yarn-error.log
 .DS_Store
 Thumbs.db
 
+# Secrets - API Keys
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
+wwwroot/js/config/api_config.js
+
+# WebSube-API (Development API Simulator - contains secrets)
+WebSube-API/
+
+# Documentation with secrets (development notes)
+API_FIX_INSTRUCTIONS.md
+AZURE_API_INTEGRATION_TEST.md
+IMPLEMENTATION_SUMMARY.md
+WEBSUBE_START_GUIDE.md
+DASHBOARD_GUIDE.md
+
