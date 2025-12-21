@@ -29,10 +29,18 @@ namespace Fin_sCore.Pages
         // Yardım & Destek Merkezi (CMS JSON'dan gelecek)
         public List<HelpCenterItem> HelpCenterItems { get; set; } = new();
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            // Authentication kontrolü
+            var authToken = HttpContext.Session.GetString("AuthToken");
+            if (string.IsNullOrEmpty(authToken))
+            {
+                return RedirectToPage("/Index");
+            }
+
             LoadUserData();
             LoadHelpCenterData();
+            return Page();
         }
 
         private void LoadUserData()
@@ -43,6 +51,8 @@ namespace Fin_sCore.Pages
                 new ActiveLoanModel
                 {
                     LoanType = "İhtiyaç Kredisi",
+                    BankName = "Garanti BBVA",
+                    BankPaymentUrl = "https://www.garantibbva.com.tr/bireysel/kredi-karti/kredi-karti-odeme",
                     LoanAmount = 25000.00m,
                     RemainingAmount = 18500.00m,
                     MonthlyPayment = 1250.00m,
@@ -53,6 +63,8 @@ namespace Fin_sCore.Pages
                 new ActiveLoanModel
                 {
                     LoanType = "Konut Kredisi",
+                    BankName = "Yapı Kredi",
+                    BankPaymentUrl = "https://www.yapikredi.com.tr/bireysel-bankacilik/krediler",
                     LoanAmount = 20000.00m,
                     RemainingAmount = 15000.00m,
                     MonthlyPayment = 800.00m,
@@ -131,6 +143,8 @@ namespace Fin_sCore.Pages
     public class ActiveLoanModel
     {
         public string LoanType { get; set; } = string.Empty;
+        public string BankName { get; set; } = string.Empty;
+        public string BankPaymentUrl { get; set; } = string.Empty;
         public decimal LoanAmount { get; set; }
         public decimal RemainingAmount { get; set; }
         public decimal MonthlyPayment { get; set; }

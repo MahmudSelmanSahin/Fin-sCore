@@ -9,7 +9,7 @@
   min-height: 100vh;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  background: $bg-secondary;
+  background: $color_white;
 }
 
 // Dashboard Navbar
@@ -20,7 +20,7 @@
   right: 0;
   z-index: 1000;
   padding: 1rem 2rem;
-  background: $bg-secondary;
+  background: $color_white;
   transition: all 0.3s ease;
 
   &.scrolled {
@@ -50,14 +50,14 @@
   max-width: 1600px;
   margin: 0 auto;
   background: $color_white;
-  border-radius: 20px;
+  border-radius: 0;
   padding: 0.75rem 1.5rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: none;
   transition: all 0.3s ease;
 
   @media (max-width: 768px) {
     padding: 0.75rem 1rem;
-    border-radius: 16px;
+    border-radius: 0;
   }
 }
 
@@ -119,14 +119,14 @@
 .credit_card {
   background: $color_white;
   border: none;
-  border-radius: 20px;
+  border-radius: 0;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
+  box-shadow: none;
+  transition: none;
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+    box-shadow: none;
+    transform: none;
   }
 }
 
@@ -274,7 +274,7 @@
 // Quick Actions
 .dashboard__quick_actions {
   padding: 4rem 4rem;
-  background: $color_light_blue;
+  background: $color_white;
 
   @media (max-width: 1200px) {
     padding: 3.5rem 2rem;
@@ -309,22 +309,22 @@
 .quick_action_card {
   background: $color_white;
   border: none;
-  border-radius: 20px;
+  border-radius: 0;
   padding: 2rem;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: none;
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+    box-shadow: none;
+    transform: none;
 
     .quick_action_card__icon {
-      transform: scale(1.05);
+      transform: none;
     }
   }
 }
@@ -397,14 +397,14 @@
 .loan_card {
   background: $color_white;
   border: none;
-  border-radius: 20px;
+  border-radius: 0;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
+  box-shadow: none;
+  transition: none;
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+    box-shadow: none;
+    transform: none;
   }
 }
 
@@ -413,6 +413,12 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1.5rem;
+}
+
+.loan_card__header_info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .loan_card__title {
@@ -425,6 +431,18 @@
   @media (max-width: 768px) {
     font-size: $font_size_h3_mobile;
   }
+}
+
+.loan_card__bank {
+  font-size: $font_size_small;
+  font-weight: $font_weight_medium;
+  color: $color_primary_blue;
+  background: rgba($color_primary_blue, 0.08);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
 }
 
 .loan_card__badge {
@@ -513,6 +531,10 @@
 .loan_card__actions {
   display: flex;
   gap: 0.75rem;
+
+  &--centered {
+    justify-content: center;
+  }
 }
 
 .btn_primary,
@@ -544,6 +566,20 @@
     transform: translateY(-2px);
     box-shadow: $shadow-md;
   }
+
+  &--full {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
+.btn_icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .btn_secondary {
@@ -560,7 +596,7 @@
 // Help Center
 .dashboard__help_center {
   padding: 4rem 4rem;
-  background: $color_light_blue;
+  background: $color_white;
 
   @media (max-width: 1200px) {
     padding: 3.5rem 2rem;
@@ -591,23 +627,23 @@
 .help_center_card {
   background: $color_white;
   border: none;
-  border-radius: 20px;
+  border-radius: 0;
   padding: 2rem;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
+  box-shadow: none;
+  transition: none;
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+    box-shadow: none;
+    transform: none;
 
     .help_center_card__icon {
-      background: $color_primary_blue;
-      color: $color_white;
+      background: rgba($color_primary_blue, 0.08);
+      color: $color_primary_blue;
     }
   }
 }

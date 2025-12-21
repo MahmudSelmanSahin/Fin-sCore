@@ -281,7 +281,8 @@
     margin-top: $spacing_xs;
 }
 
-.input_error {
+.input_error,
+.input-error {
     display: block;
     font-size: $font_size_helper;
     font-weight: $font_weight_regular;

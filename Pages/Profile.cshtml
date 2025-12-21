@@ -18,7 +18,7 @@
                 <div class="navbar__top_menu">
                     <a href="/About" class="navbar__top_link">Biz Kimiz?</a>
                     <a href="/CreditGuide" class="navbar__top_link">Kredi Rehberi</a>
-                    <a href="/Support" class="navbar__top_link">Destek & Yardım</a>
+                    <a href="/Dashboard#help-center" class="navbar__top_link">Destek &amp; Yardım</a>
                 </div>
                 
                 <div class="navbar__actions">
@@ -446,6 +446,46 @@
     <script src="~/js/navbar.js" asp-append-version="true"></script>
     <script>
         $(document).ready(function() {
+            var $citySelect = $('#cityId');
+            var $townSelect = $('#townId');
+            
+            // İl seçilmeden ilçe seçilemez - başlangıçta kontrol
+            if (!$citySelect.val()) {
+                $townSelect.prop('disabled', true);
+            }
+            
+            // İl değiştiğinde ilçeleri yükle
+            $citySelect.on('change', function() {
+                var cityId = $(this).val();
+                
+                // İlçe dropdown'ını temizle ve devre dışı bırak
+                $townSelect.html('<option value="">İlçe yükleniyor...</option>');
+                $townSelect.prop('disabled', true);
+                
+                if (!cityId) {
+                    $townSelect.html('<option value="">Önce İl Seçin</option>');
+                    return;
+                }
+                
+                // AJAX ile ilçeleri yükle
+                $.get('/Profile?handler=Districts&cityId=' + cityId)
+                    .done(function(districts) {
+                        var options = '<option value="">İlçe Seçin</option>';
+                        if (districts && districts.length > 0) {
+                            districts.forEach(function(district) {
+                                options += '<option value="' + district.id + '">' + district.name + '</option>';
+                            });
+                            $townSelect.prop('disabled', false);
+                        } else {
+                            options = '<option value="">İlçe bulunamadı</option>';
+                        }
+                        $townSelect.html(options);
+                    })
+                    .fail(function() {
+                        $townSelect.html('<option value="">İlçeler yüklenemedi</option>');
+                    });
+            });
+            
             // Form submit - double submit prevention
             $('.profile__form').on('submit', function() {
                 var $form = $(this);

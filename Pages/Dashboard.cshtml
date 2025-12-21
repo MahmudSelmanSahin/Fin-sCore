@@ -17,8 +17,9 @@
                 
                 <div class="navbar__top_menu">
                     <a href="/About" class="navbar__top_link">Biz Kimiz?</a>
-                    <a href="/CreditGuide" class="navbar__top_link">Kredi Rehberi</a>
-                    <a href="/Support" class="navbar__top_link">Destek & Yardım</a>
+                    <a href="/Reports" class="navbar__top_link">Raporlar</a>
+                    <a href="/LoanCalculator" class="navbar__top_link">Kredi Hesaplama</a>
+                    <a href="#help-center" class="navbar__top_link">Destek & SSS</a>
                 </div>
                 
                 <div class="navbar__actions">
@@ -29,87 +30,109 @@
                         </svg>
                         <span class="navbar__badge">3</span>
                     </button>
-                    <a href="/Profile" class="navbar__btn_primary">
+                    <a href="/Profile" class="navbar__btn_primary" title="Profil">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <span>Profil</span>
                     </a>
                 </div>
             </div>
-            
-            <!-- Bottom Row -->
-            <div class="navbar__bottom_row">
-                <a href="/CreditReport" class="navbar__menu_link">Kredi Güven Raporu</a>
-                <a href="/VipConsulting" class="navbar__menu_link">VIP Kredi Danışmanlığı</a>
-                <a href="/LoanCalculator" class="navbar__menu_link">Kredi Hesaplama</a>
-                <a href="/CreditCard" class="navbar__menu_link">Kredi Kartı</a>
-            </div>
         </div>
     </nav>
-    
     <!-- Navbar Spacer -->
-    <div class="dashboard__navbar_spacer"></div>
+    <div class="dashboard__navbar_spacer dashboard__navbar_spacer--compact"></div>
     
-    <!-- Welcome Section -->
+    <!-- Welcome Section with Credit Stats -->
     <section class="dashboard__welcome_section">
-        <h1 class="dashboard__title">Hoş Geldiniz, @Model.UserName</h1>
-        <p class="dashboard__subtitle">İnteraktif şubenize hoş geldiniz. Tüm finansal işlemlerinizi buradan yönetebilirsiniz.</p>
+        <div class="dashboard__welcome_wrapper">
+            <div class="dashboard__welcome_card dashboard__welcome_card--contained">
+                <div class="dashboard__welcome_content">
+                    <h1 class="dashboard__title">Hoşgeldin</h1>
+                    <p class="dashboard__subtitle">İnteraktif kredi ile rahat bir <strong>Nefes Alın</strong></p>
+                </div>
+                
+                <!-- Credit Stats Below Text -->
+                <div class="dashboard__credit_stats dashboard__credit_stats--row">
+                    <div class="credit_stat">
+                        <span class="credit_stat__icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M2 10h20" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </span>
+                        <div class="credit_stat__info">
+                            <span class="credit_stat__label">Toplam Kredi Limiti</span>
+                            <span class="credit_stat__value">@Model.TotalCreditLimit.ToString("N0") ₺</span>
+                        </div>
+                    </div>
+                    
+                    <div class="credit_stat">
+                        <span class="credit_stat__icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <div class="credit_stat__info">
+                            <span class="credit_stat__label">Kredi Skoru</span>
+                            <span class="credit_stat__value">@Model.CreditScore</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#active-loans" class="credit_stat credit_stat--clickable">
+                        <span class="credit_stat__icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="currentColor" stroke-width="2"/>
+                                <rect x="8" y="2" width="8" height="4" rx="1" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </span>
+                        <div class="credit_stat__info">
+                            <span class="credit_stat__label">Aktif Kredi</span>
+                            <span class="credit_stat__value">@Model.ActiveLoans.Count Adet</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Credit Summary Cards -->
-    <section class="dashboard__credit_summary">
-        <div class="dashboard__credit_summary_grid">
-        <div class="credit_card">
-            <div class="credit_card__header">
-                <span class="credit_card__icon">
+    <!-- Action Cards Section -->
+    <section class="dashboard__action_cards">
+        <div class="action_cards_grid">
+            <a href="/Reports" class="action_card">
+                <div class="action_card__icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
-                        <path d="M2 10h20" stroke="currentColor" stroke-width="2"/>
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2"/>
                     </svg>
-                </span>
-                <h3 class="credit_card__title">TOPLAM KREDİ LİMİTİNİZ</h3>
-            </div>
-            <div class="credit_card__content">
-                <p class="credit_card__amount">@Model.TotalCreditLimit.ToString("N2") ₺</p>
-                <p class="credit_card__label">Kullanılabilir: <strong>@Model.AvailableCreditLimit.ToString("N2") ₺</strong></p>
-            </div>
-        </div>
-
-        <div class="credit_card">
-            <div class="credit_card__header">
-                <span class="credit_card__icon credit_card__icon--green">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-                <h3 class="credit_card__title">KREDİ SKORUNUZ</h3>
-            </div>
-            <div class="credit_card__content">
-                <p class="credit_card__score">@Model.CreditScore</p>
-                <div class="credit_card__score_bar">
-                    <div class="credit_card__score_fill" data-score="@Model.CreditScore"></div>
                 </div>
-                <p class="credit_card__score_label">Mükemmel Kredi Notu</p>
-            </div>
-        </div>
-
-        <div class="credit_card">
-            <div class="credit_card__header">
-                <span class="credit_card__icon credit_card__icon--yellow">
+                <div class="action_card__content">
+                    <h3 class="action_card__title">Raporlar & Faturalar</h3>
+                    <p class="action_card__description">Kredi raporlarınızı ve faturalarınızı görüntüleyin</p>
+                </div>
+                <div class="action_card__arrow">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="currentColor" stroke-width="2"/>
-                        <rect x="8" y="2" width="8" height="4" rx="1" stroke="currentColor" stroke-width="2"/>
+                        <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                </span>
-                <h3 class="credit_card__title">AKTİF KREDİLERİNİZ</h3>
-            </div>
-            <div class="credit_card__content">
-                <p class="credit_card__count">@Model.ActiveLoans.Count</p>
-                <p class="credit_card__label">Adet aktif krediniz var</p>
-            </div>
-        </div>
+                </div>
+            </a>
+            <a href="/Profile" class="action_card">
+                <div class="action_card__icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="action_card__content">
+                    <h3 class="action_card__title">Profil Yönetimi</h3>
+                    <p class="action_card__description">Hesap bilgilerinizi ve ayarlarınızı yönetin</p>
+                </div>
+                <div class="action_card__arrow">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -166,7 +189,7 @@
     <!-- Active Loans -->
     @if (Model.ActiveLoans.Any())
     {
-        <section class="dashboard__active_loans">
+        <section class="dashboard__active_loans" id="active-loans">
             <div class="section_header">
                 <h2 class="section_title">Aktif Kredileriniz</h2>
                 <a href="/Loans" class="section_link">Tümünü Gör</a>
@@ -176,7 +199,10 @@
                 {
                     <div class="loan_card">
                         <div class="loan_card__header">
-                            <h3 class="loan_card__title">@loan.LoanType</h3>
+                            <div class="loan_card__header_info">
+                                <h3 class="loan_card__title">@loan.LoanType</h3>
+                                <span class="loan_card__bank">@loan.BankName</span>
+                            </div>
                             <span class="loan_card__badge loan_card__badge--active">Aktif</span>
                         </div>
                         <div class="loan_card__content">
@@ -203,9 +229,13 @@
                             </div>
                             <p class="progress_label">@loan.RemainingInstallments / @loan.InstallmentNumber taksit kaldı</p>
                         </div>
-                        <div class="loan_card__actions">
-                            <a href="/Loans/@loan.LoanType" class="btn_secondary btn_secondary--small">Detaylar</a>
-                            <a href="/Payment/@loan.LoanType" class="btn_primary btn_primary--small">Ödeme Yap</a>
+                        <div class="loan_card__actions loan_card__actions--centered">
+                            <a href="@loan.BankPaymentUrl" target="_blank" rel="noopener noreferrer" class="btn_primary btn_primary--small btn_primary--full">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn_icon">
+                                    <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Ödeme Yap
+                            </a>
                         </div>
                     </div>
                 }
@@ -214,7 +244,7 @@
     }
 
     <!-- Help Center (CMS - JSON Data) -->
-    <section class="dashboard__help_center">
+    <section class="dashboard__help_center" id="help-center">
         <div class="section_header">
             <h2 class="section_title">Yardım & Destek Merkezi</h2>
             <a href="/Help" class="section_link">Tümünü Gör</a>
