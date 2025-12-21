@@ -44,6 +44,21 @@ $(document).ready(function () {
     load_invoices_data();
 
     // ==============================================
+    // URL PARAMETER HANDLING
+    // ==============================================
+    var urlParams = new URLSearchParams(window.location.search);
+    var tabParam = urlParams.get('tab');
+    if (tabParam) {
+        var $targetTab = $('.report_tab[data-tab="' + tabParam + '"]');
+        if ($targetTab.length) {
+            // Wait a bit for other inits
+            setTimeout(function() {
+                $targetTab.click();
+            }, 100);
+        }
+    }
+
+    // ==============================================
     // TAB NAVIGATION (Event Delegation)
     // ==============================================
     

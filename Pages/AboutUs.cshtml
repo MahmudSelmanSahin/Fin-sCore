@@ -5,6 +5,54 @@
     ViewData["UseAppContainer"] = false;
 }
 
+    <!-- Navigation Bar -->
+    <nav class="dashboard__navbar" id="mainNavbar">
+        <div class="dashboard__navbar_container">
+            <!-- Top Row -->
+            <div class="navbar__top_row">
+                <a href="/Dashboard" class="navbar__logo">
+                    <img src="~/img/interaktif_kredi_logo.png" alt="İnteraktif Kredi" class="navbar__logo_img" />
+                </a>
+                
+                <div class="navbar__top_menu">
+                    <a href="/AboutUs" class="navbar__top_link navbar__top_link--active">Biz Kimiz?</a>
+                    <a href="/ReportDetails" class="navbar__top_link">Raporlar</a>
+                    <a href="/LoanCalculator" class="navbar__top_link">Kredi Hesaplama</a>
+                    <a href="/Dashboard#help-center" class="navbar__top_link">Destek &amp; SSS</a>
+                </div>
+                
+                <div class="navbar__actions">
+                    <div class="profile_dropdown" id="profileDropdown">
+                        <button type="button" class="navbar__btn_primary" id="profileDropdownBtn" title="Profil">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="profile_dropdown__menu" id="profileDropdownMenu">
+                            <a href="/Profile" class="profile_dropdown__item">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Profil</span>
+                            </a>
+                            <button type="button" class="profile_dropdown__item profile_dropdown__item--logout" id="logoutBtn">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Çıkış Yap</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar Spacer -->
+    <div class="dashboard__navbar_spacer dashboard__navbar_spacer--compact"></div>
+
 <div class="about_us_page">
     <div class="about_us_container">
         <div class="about_us_header">
@@ -167,4 +215,41 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/navbar.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function() {
+            // Profile Dropdown
+            var $profile_dropdown = $('#profileDropdown');
+            var $profile_dropdown_btn = $('#profileDropdownBtn');
+            var $logout_btn = $('#logoutBtn');
+            
+            // Dropdown toggle
+            $profile_dropdown_btn.on('click', function(e) {
+                e.stopPropagation();
+                $profile_dropdown.toggleClass('active');
+            });
+            
+            // Dışarı tıklanınca kapat
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.profile_dropdown').length) {
+                    $profile_dropdown.removeClass('active');
+                }
+            });
+            
+            // ESC tuşu ile kapat
+            $(document).on('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    $profile_dropdown.removeClass('active');
+                }
+            });
+            
+            // Logout işlemi
+            $logout_btn.on('click', function() {
+                window.location.href = '/?action=logout';
+            });
+        });
+    </script>
+}
 
