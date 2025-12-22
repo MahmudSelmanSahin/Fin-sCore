@@ -178,10 +178,28 @@ $(document).ready(function () {
         $btn.prop('disabled', true).text('Yönlendiriliyor...');
         
         // Simulated redirect (in real app, this would be an API call or redirect)
+        // Gerçek banka URL'leri
+        var bank_urls = {
+            'Akbank': 'https://www.akbank.com/tr-tr/urunler/Sayfalar/Kredi-Basvurusu.aspx',
+            'Garanti BBVA': 'https://www.garantibbva.com.tr/krediler/kredi-basvurusu',
+            'Yapı Kredi': 'https://www.yapikredi.com.tr/bireysel/krediler',
+            'İş Bankası': 'https://www.isbank.com.tr/kredi-hesaplama',
+            'Ziraat Bankası': 'https://www.ziraatbank.com.tr/tr/bireysel/krediler',
+            'VakıfBank': 'https://www.vakifbank.com.tr/krediler',
+            'Halkbank': 'https://www.halkbank.com.tr/tr/bireysel/krediler.html',
+            'QNB Finansbank': 'https://www.qnbfinansbank.com/kredi-basvurusu',
+            'DenizBank': 'https://www.denizbank.com/kredi-basvurusu',
+            'TEB': 'https://www.teb.com.tr/ihtiyac-kredisi/'
+        };
+
+        // Banka adına göre URL bul veya varsayılan bir URL kullan
+        var redirect_url = bank_urls[bank_name.trim()] || 'https://www.google.com/search?q=' + encodeURIComponent(bank_name + ' kredi başvurusu');
+
+        // Yönlendirme simülasyonu
         setTimeout(function() {
-            alert('Başvuru: ' + credit_type + '\nBanka: ' + bank_name + '\nFaiz Oranı: ' + rate + '\n\nBanka başvuru sayfasına yönlendiriliyorsunuz...');
             $btn.prop('disabled', false).text('Başvur');
-        }, 500);
+            window.open(redirect_url, '_blank');
+        }, 800);
     });
 
     // ==============================================
