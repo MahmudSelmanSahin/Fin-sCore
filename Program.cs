@@ -28,8 +28,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+// Ngrok browser warning bypass middleware
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("ngrok-skip-browser-warning", "true");
+    await next();
+});
 
 app.UseRouting();
 app.UseSession();
