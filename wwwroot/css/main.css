@@ -3186,7 +3186,7 @@ a:hover {
 
 .quick_actions_grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   max-width: 1600px;
   margin: 0 auto;
@@ -3758,20 +3758,16 @@ a:hover {
 }
 
 .action_cards_grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: center;
   gap: 1.5rem;
   max-width: 1600px;
   margin: 0 auto;
-}
-@media (max-width: 1024px) {
-  .action_cards_grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  flex-wrap: wrap;
 }
 @media (max-width: 768px) {
   .action_cards_grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 1rem;
   }
 }
@@ -3787,6 +3783,9 @@ a:hover {
   text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  flex: 1;
+  max-width: 500px;
+  min-width: 300px;
 }
 .action_card:hover {
   border-color: #2E6DF8;
@@ -3914,14 +3913,14 @@ a:hover {
 .faq_item:hover {
   border-color: rgba(46, 109, 248, 0.3);
 }
-.faq_item.active {
+.faq_item.is-open {
   border-color: #2E6DF8;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
-.faq_item.active .faq_item__icon {
+.faq_item.is-open .faq_item__icon {
   transform: rotate(180deg);
 }
-.faq_item.active .faq_item__content {
+.faq_item.is-open .faq_item__content {
   max-height: 500px;
   padding: 0 1.5rem 1.5rem 1.5rem;
   opacity: 1;
@@ -5812,5 +5811,3 @@ a:hover {
   outline: 2px solid #2E6DF8;
   outline-offset: 2px;
 }
-
-/*# sourceMappingURL=main.css.map */

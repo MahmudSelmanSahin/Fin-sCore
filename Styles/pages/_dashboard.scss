@@ -363,7 +363,7 @@
 
 .quick_actions_grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   max-width: 1600px;
   margin: 0 auto;
@@ -953,18 +953,15 @@
 }
 
 .action_cards_grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: center;
   gap: 1.5rem;
   max-width: 1600px;
   margin: 0 auto;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  flex-wrap: wrap;
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 1rem;
   }
 }
@@ -980,6 +977,9 @@
   text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: $shadow-sm;
+  flex: 1;
+  max-width: 500px; // Maintain readable width
+  min-width: 300px;
 
   &:hover {
     border-color: $color_primary_blue;
@@ -1116,7 +1116,7 @@
     border-color: rgba($color_primary_blue, 0.3);
   }
 
-  &.active {
+  &.is-open {
     border-color: $color_primary_blue;
     box-shadow: $shadow-md;
 
