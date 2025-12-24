@@ -1,0 +1,808 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "İnteraktif Şube Girişi";
+}
+
+<div class="login-container">
+    <div class="login-card login-card--simple">
+        <div class="login-header">
+            <div class="logo-container">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1 class="login-title">Giriş Yap</h1>
+            <p class="login-subtitle">TC Kimlik No ve GSM numaranızla devam edin</p>
+        </div>
+
+        <form id="loginForm" class="login-form" method="post">
+            @Html.AntiForgeryToken()
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert--error">
+                    <span class="alert__icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <span class="alert__text">@Model.ErrorMessage</span>
+                </div>
+            }
+
+            <div class="input-group">
+                <label class="input-label" for="tckn">TC Kimlik No</label>
+                <div class="masked_input_wrapper">
+                    <input type="text" 
+                           id="tckn" 
+                           name="tckn" 
+                           class="form-input masked_input" 
+                           placeholder="11 haneli TC Kimlik No"
+                           autocomplete="off"
+                           maxlength="11"
+                           inputmode="numeric"
+                           required />
+                    <input type="hidden" id="tckn_real" name="tckn_real" />
+                    <button type="button" class="masked_input__toggle" id="tcknToggle" aria-label="Göster/Gizle">
+                        <!-- Açık göz: Değer görünür durumda gösterilir -->
+                        <svg class="eye_icon eye_icon--open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <!-- Çizgili göz: Değer gizli/maskeli durumda gösterilir -->
+                        <svg class="eye_icon eye_icon--slash" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <span class="input-error" id="tcknError"></span>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label" for="gsm">GSM Numarası</label>
+                <div class="masked_input_wrapper">
+                    <input type="text" 
+                           id="gsm" 
+                           name="gsm" 
+                           class="form-input masked_input" 
+                           placeholder="05XX XXX XX XX"
+                           autocomplete="off"
+                           maxlength="11"
+                           inputmode="numeric"
+                           required />
+                    <input type="hidden" id="gsm_real" name="gsm_real" />
+                    <button type="button" class="masked_input__toggle" id="gsmToggle" aria-label="Göster/Gizle">
+                        <!-- Açık göz: Değer görünür durumda gösterilir -->
+                        <svg class="eye_icon eye_icon--open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <!-- Çizgili göz: Değer gizli/maskeli durumda gösterilir -->
+                        <svg class="eye_icon eye_icon--slash" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <span class="input-error" id="gsmError"></span>
+            </div>
+
+            @if (!Model.HasKvkkConsent)
+            {
+                <div class="kvkk-container">
+                    <label class="kvkk-checkbox">
+                        <input type="checkbox" id="kvkkAccept" name="kvkkAccept" value="true" />
+                        <span class="checkmark"></span>
+                        <span class="kvkk-text">
+                            <a href="#" class="kvkk-link" id="kvkkLink">KVKK Aydınlatma Metni</a>'ni okudum, anladım ve kabul ediyorum.
+                        </span>
+                    </label>
+                    <span class="input-error" id="kvkkError"></span>
+                </div>
+            }
+
+            <button type="submit" class="btn btn_primary" id="loginBtn">
+                <span class="btn_text">Devam Et</span>
+                <span class="btn_loader">
+                    <span class="spinner"></span>
+                    <span>Lütfen Bekleyin...</span>
+                </span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- KVKK Modal -->
+<div class="kvkk_modal" id="kvkkModal">
+    <div class="kvkk_modal__overlay" id="kvkkModalOverlay"></div>
+    <div class="kvkk_modal__content">
+        <div class="kvkk_modal__header">
+            <h3 class="kvkk_modal__title" id="kvkkModalTitle">KVKK Aydınlatma Metni</h3>
+            <button type="button" class="kvkk_modal__close" id="kvkkModalClose">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="kvkk_modal__body" id="kvkkModalBody">
+            <div class="kvkk_modal__loading">
+                <span class="spinner"></span>
+                <span>Yükleniyor...</span>
+            </div>
+        </div>
+        <div class="kvkk_modal__footer">
+            <button type="button" class="btn btn_secondary" id="kvkkModalCloseBtn">Kapat</button>
+            <button type="button" class="btn btn_primary" id="kvkkModalAcceptBtn">Okudum ve Kabul Ediyorum</button>
+        </div>
+    </div>
+</div>
+
+<!-- SMS Verification Modal -->
+<div class="sms_modal" id="smsModal">
+    <div class="sms_modal__overlay" id="smsModalOverlay"></div>
+    <div class="sms_modal__content">
+        <div class="sms_modal__header">
+            <h3 class="sms_modal__title">SMS Doğrulama</h3>
+            <p class="sms_modal__subtitle">Doğrulama kodu gönderildi</p>
+            <div class="sms_modal__phone">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                    <path d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7293C21.7209 20.9845 21.5573 21.2136 21.3521 21.4019C21.1468 21.5901 20.9046 21.7335 20.6407 21.8227C20.3769 21.9119 20.0974 21.9451 19.82 21.92C16.7428 21.5856 13.787 20.5341 11.19 18.85C8.77383 17.3147 6.72533 15.2662 5.19 12.85C3.49998 10.2412 2.44824 7.27099 2.12 4.18C2.09501 3.90347 2.12787 3.62476 2.21649 3.36162C2.30512 3.09849 2.44756 2.85669 2.63476 2.65162C2.82196 2.44655 3.0498 2.28271 3.30379 2.17052C3.55777 2.05833 3.83233 2.00026 4.11 2H7.11C7.5953 1.99522 8.06579 2.16708 8.43376 2.48353C8.80173 2.79999 9.04207 3.23945 9.11 3.72C9.23662 4.68007 9.47145 5.62273 9.81 6.53C9.94454 6.88792 9.97366 7.27691 9.89391 7.65088C9.81415 8.02485 9.62886 8.36811 9.36 8.64L8.09 9.91C9.51356 12.4135 11.5865 14.4864 14.09 15.91L15.36 14.64C15.6319 14.3711 15.9751 14.1858 16.3491 14.1061C16.7231 14.0263 17.1121 14.0555 17.47 14.19C18.3773 14.5286 19.3199 14.7634 20.28 14.89C20.7658 14.9585 21.2094 15.2032 21.5265 15.5775C21.8437 15.9518 22.0122 16.4296 22 16.92Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span id="smsModalPhone">+90 5XX *** ** XX</span>
+            </div>
+        </div>
+        
+        <div class="sms_modal__body">
+            <div class="sms_modal__alert sms_modal__alert--hidden" id="smsModalAlert">
+                <span class="sms_modal__alert_text" id="smsModalAlertText"></span>
+            </div>
+            
+            <div class="sms_modal__input_group">
+                <label class="sms_modal__label">Doğrulama Kodu</label>
+                <input type="text" 
+                       id="otpCodeInput" 
+                       class="sms_modal__input" 
+                       placeholder="6 haneli kodu giriniz"
+                       maxlength="6"
+                       autocomplete="one-time-code"
+                       inputmode="numeric"
+                       pattern="[0-9]*" />
+                <span class="sms_modal__error" id="otpCodeError"></span>
+            </div>
+            
+            <!-- CAPTCHA Container - 3 hatalı girişten sonra görünür -->
+            <div class="sms_modal__captcha" id="captchaContainer" style="display: none;">
+                <div class="sms_modal__captcha_notice">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Güvenlik doğrulaması gerekli</span>
+                </div>
+                <div class="sms_modal__captcha_image_wrapper">
+                    <img id="captchaImage" class="sms_modal__captcha_image" src="" alt="CAPTCHA" />
+                    <button type="button" class="sms_modal__captcha_refresh" id="refreshCaptcha" title="Yeni kod">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                            <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14L18.36 18.36A9 9 0 013.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="sms_modal__captcha_input_group">
+                    <input type="text" 
+                           id="captchaInput" 
+                           class="sms_modal__captcha_input" 
+                           placeholder="Yukarıdaki kodu giriniz"
+                           maxlength="5"
+                           autocomplete="off" />
+                </div>
+            </div>
+        </div>
+        
+        <div class="sms_modal__footer">
+            <button type="button" class="btn btn_primary" id="verifyOtpBtn">
+                <span class="btn_text">Doğrula</span>
+                <span class="btn_loader">
+                    <span class="spinner"></span>
+                    <span>Doğrulanıyor...</span>
+                </span>
+            </button>
+            
+            <div class="sms_modal__resend">
+                <p>Kod gelmedi mi?</p>
+                <button type="button" class="btn_link" id="resendOtpBtn">SMS'i Tekrar Gönder</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Login form elements
+            var $tckn_input = $('#tckn');
+            var $gsm_input = $('#gsm');
+            var $tckn_real = $('#tckn_real');
+            var $gsm_real = $('#gsm_real');
+            var $tckn_toggle = $('#tcknToggle');
+            var $gsm_toggle = $('#gsmToggle');
+            var $login_form = $('#loginForm');
+            var $login_btn = $('#loginBtn');
+            var $kvkk_link = $('#kvkkLink');
+            var $kvkk_accept = $('#kvkkAccept');
+            
+            // KVKK Modal elements
+            var $kvkk_modal = $('#kvkkModal');
+            var $kvkk_modal_overlay = $('#kvkkModalOverlay');
+            var $kvkk_modal_close = $('#kvkkModalClose');
+            var $kvkk_modal_close_btn = $('#kvkkModalCloseBtn');
+            var $kvkk_modal_accept_btn = $('#kvkkModalAcceptBtn');
+            var $kvkk_modal_body = $('#kvkkModalBody');
+            var $kvkk_modal_title = $('#kvkkModalTitle');
+            
+            // SMS Modal elements
+            var $sms_modal = $('#smsModal');
+            var $sms_modal_overlay = $('#smsModalOverlay');
+            var $sms_modal_phone = $('#smsModalPhone');
+            var $sms_modal_alert = $('#smsModalAlert');
+            var $sms_modal_alert_text = $('#smsModalAlertText');
+            var $otp_input = $('#otpCodeInput');
+            var $otp_error = $('#otpCodeError');
+            var $verify_btn = $('#verifyOtpBtn');
+            var $resend_btn = $('#resendOtpBtn');
+            var $captcha_container = $('#captchaContainer');
+            var $captcha_image = $('#captchaImage');
+            var $captcha_input = $('#captchaInput');
+            var $refresh_captcha = $('#refreshCaptcha');
+            
+            var resend_cooldown = 0;
+            var resend_timer = null;
+            var require_captcha = false;
+            
+            // Masking state
+            var tckn_visible = false;
+            var gsm_visible = false;
+
+            // ========== MASKED INPUT HELPER FUNCTIONS ==========
+            function mask_value(value) {
+                if (!value || value.length <= 1) return value;
+                var masked = '';
+                for (var i = 0; i < value.length - 1; i++) {
+                    masked += '•';
+                }
+                masked += value.charAt(value.length - 1);
+                return masked;
+            }
+
+            function update_masked_display($input, $real_input, is_visible) {
+                var real_value = $real_input.val();
+                if (is_visible) {
+                    $input.val(real_value);
+                } else {
+                    $input.val(mask_value(real_value));
+                }
+            }
+
+            // ========== MASKED INPUT HANDLER (Keydown tabanlı) ==========
+            function setup_masked_input($input, $real_input, get_visible, validate_fn) {
+                // Keydown event - tam kontrol
+                $input.on('keydown', function(e) {
+                    var key = e.key;
+                    var real_value = $real_input.val();
+                    var is_visible = get_visible();
+                    
+                    // Rakam tuşları (0-9)
+                    if (/^[0-9]$/.test(key)) {
+                        if (real_value.length < 11) {
+                            real_value = real_value + key;
+                            $real_input.val(real_value);
+                            
+                            if (is_visible) {
+                                $input.val(real_value);
+                            } else {
+                                $input.val(mask_value(real_value));
+                            }
+                            
+                            if (validate_fn) validate_fn(real_value);
+                        }
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Backspace
+                    if (key === 'Backspace') {
+                        if (real_value.length > 0) {
+                            real_value = real_value.slice(0, -1);
+                            $real_input.val(real_value);
+                            
+                            if (is_visible) {
+                                $input.val(real_value);
+                            } else {
+                                $input.val(mask_value(real_value));
+                            }
+                            
+                            if (validate_fn && real_value.length > 0) validate_fn(real_value);
+                        }
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Delete tuşu
+                    if (key === 'Delete') {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Tab, Enter gibi navigation tuşlarına izin ver
+                    if (['Tab', 'Enter', 'Escape', 'ArrowLeft', 'ArrowRight'].indexOf(key) !== -1) {
+                        return;
+                    }
+                    
+                    // Diğer tüm tuşları engelle
+                    e.preventDefault();
+                });
+                
+                // Paste event
+                $input.on('paste', function(e) {
+                    e.preventDefault();
+                    var paste_data = (e.originalEvent.clipboardData || window.clipboardData).getData('text');
+                    var only_numbers = paste_data.replace(/\D/g, '');
+                    var real_value = $real_input.val();
+                    var is_visible = get_visible();
+                    
+                    // Mevcut değere ekle, 11 karakteri geçmesin
+                    var new_value = (real_value + only_numbers).substring(0, 11);
+                    $real_input.val(new_value);
+                    
+                    if (is_visible) {
+                        $input.val(new_value);
+                    } else {
+                        $input.val(mask_value(new_value));
+                    }
+                    
+                    if (validate_fn && new_value.length > 0) validate_fn(new_value);
+                });
+            }
+
+            // TCKN için masked input kurulumu
+            setup_masked_input($tckn_input, $tckn_real, function() { return tckn_visible; }, validate_tckn);
+
+            $tckn_toggle.on('click', function() {
+                tckn_visible = !tckn_visible;
+                $(this).toggleClass('masked_input__toggle--visible', tckn_visible);
+                update_masked_display($tckn_input, $tckn_real, tckn_visible);
+                $tckn_input.focus();
+            });
+
+            // GSM için masked input kurulumu
+            setup_masked_input($gsm_input, $gsm_real, function() { return gsm_visible; }, validate_gsm);
+
+            $gsm_toggle.on('click', function() {
+                gsm_visible = !gsm_visible;
+                $(this).toggleClass('masked_input__toggle--visible', gsm_visible);
+                update_masked_display($gsm_input, $gsm_real, gsm_visible);
+                $gsm_input.focus();
+            });
+
+            // ========== OTP INPUT ==========
+            $otp_input.on('input', function() {
+                var value = $(this).val().replace(/\D/g, '');
+                $(this).val(value);
+                clear_otp_error();
+            });
+
+            // Clear errors on focus
+            $tckn_input.on('focus', function() { clear_error('tckn'); });
+            $gsm_input.on('focus', function() { clear_error('gsm'); });
+
+            // ========== KVKK MODAL ==========
+            $kvkk_link.on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                open_kvkk_modal();
+            });
+
+            $kvkk_modal_overlay.on('click', close_kvkk_modal);
+            $kvkk_modal_close.on('click', close_kvkk_modal);
+            $kvkk_modal_close_btn.on('click', close_kvkk_modal);
+
+            function save_kvkk_onay() {
+                $.ajax({
+                    url: '/?handler=KvkkOnay',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ kvkkId: 1, customerId: 0, isOk: true }),
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        console.log('[KVKK] Onay kaydedildi:', response);
+                    },
+                    error: function(err) {
+                        console.error('[KVKK] Onay kaydetme hatası:', err);
+                    }
+                });
+            }
+
+            $kvkk_modal_accept_btn.on('click', function() {
+                save_kvkk_onay();
+                $kvkk_accept.prop('checked', true);
+                clear_error('kvkk');
+                close_kvkk_modal();
+            });
+
+            $kvkk_accept.on('change', function() {
+                if ($(this).is(':checked')) {
+                    save_kvkk_onay();
+                    clear_error('kvkk');
+                }
+            });
+
+            function open_kvkk_modal() {
+                $kvkk_modal.addClass('show');
+                $('body').css('overflow', 'hidden');
+                $kvkk_modal_body.html('<div class="kvkk_modal__loading"><span class="spinner"></span><span>Yükleniyor...</span></div>');
+                
+                $.ajax({
+                    url: '/?handler=KvkkText',
+                    type: 'GET',
+                    data: { kvkkId: 1 },
+                    success: function(response) {
+                        if (response.success && response.data) {
+                            $kvkk_modal_title.text(response.data.name || 'KVKK Aydınlatma Metni');
+                            var cleaned_html = response.data.text.replace(/className=/g, 'class=');
+                            $kvkk_modal_body.html(cleaned_html);
+                        } else {
+                            $kvkk_modal_body.html('<p class="text_error">KVKK metni yüklenemedi.</p>');
+                        }
+                    },
+                    error: function() {
+                        $kvkk_modal_body.html('<p class="text_error">KVKK metni yüklenirken bir hata oluştu.</p>');
+                    }
+                });
+            }
+
+            function close_kvkk_modal() {
+                $kvkk_modal.removeClass('show');
+                $('body').css('overflow', '');
+            }
+
+            // ========== LOGIN FORM SUBMISSION (AJAX) ==========
+            $login_form.on('submit', function(e) {
+                e.preventDefault();
+                
+                // Gerçek (maskesiz) değerleri kullan
+                var tckn = $tckn_real.val();
+                var gsm = $gsm_real.val();
+                var kvkk_checkbox_exists = $kvkk_accept.length > 0;
+                var kvkk_accepted = kvkk_checkbox_exists ? $kvkk_accept.is(':checked') : true;
+
+                var is_valid = true;
+
+                if (!validate_tckn(tckn)) is_valid = false;
+                if (!validate_gsm(gsm)) is_valid = false;
+                if (kvkk_checkbox_exists && !kvkk_accepted) {
+                    show_error('kvkk', 'KVKK metnini kabul etmelisiniz');
+                    is_valid = false;
+                }
+
+                if (!is_valid) return;
+
+                // Show loading state
+                set_login_loading(true);
+
+                // AJAX Login
+                $.ajax({
+                    url: '/?handler=Login',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ 
+                        tckn: tckn, 
+                        gsm: gsm, 
+                        kvkkAccept: kvkk_accepted 
+                    }),
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        set_login_loading(false);
+                        
+                        if (response.success) {
+                            // Open SMS modal
+                            $sms_modal_phone.text(response.maskedGsm || gsm);
+                            open_sms_modal();
+                            start_resend_cooldown();
+                        } else {
+                            show_login_alert(response.message || 'Giriş başarısız');
+                        }
+                    },
+                    error: function(xhr) {
+                        set_login_loading(false);
+                        console.error('[Login] Error:', xhr);
+                        show_login_alert('Bağlantı hatası. Lütfen tekrar deneyin.');
+                    }
+                });
+            });
+
+            function set_login_loading(loading) {
+                if (loading) {
+                    $login_btn.addClass('btn--loading');
+                    $login_btn.find('.btn_text').hide();
+                    $login_btn.find('.btn_loader').css('display', 'flex');
+                    $login_btn.prop('disabled', true);
+                } else {
+                    $login_btn.removeClass('btn--loading');
+                    $login_btn.find('.btn_text').show();
+                    $login_btn.find('.btn_loader').hide();
+                    $login_btn.prop('disabled', false);
+                }
+            }
+
+            function show_login_alert(message) {
+                // Show error in login form
+                var $existing_alert = $login_form.find('.alert--error');
+                if ($existing_alert.length) {
+                    $existing_alert.find('.alert__text').text(message);
+                } else {
+                    var alert_html = '<div class="alert alert--error"><span class="alert__icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="alert__text">' + message + '</span></div>';
+                    $login_form.find('.input-group').first().before(alert_html);
+                }
+            }
+
+            // ========== SMS MODAL ==========
+            function open_sms_modal() {
+                $sms_modal.addClass('show');
+                $('body').css('overflow', 'hidden');
+                $otp_input.val('').focus();
+                hide_sms_alert();
+                clear_otp_error();
+                
+                // Reset CAPTCHA state on new login
+                require_captcha = false;
+                $captcha_container.hide();
+                $captcha_input.val('');
+                $captcha_image.attr('src', '');
+            }
+
+            // Refresh CAPTCHA
+            $refresh_captcha.on('click', function() {
+                load_captcha();
+            });
+
+            function load_captcha() {
+                $.ajax({
+                    url: '/?handler=Captcha',
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.success && response.captchaImage) {
+                            $captcha_image.attr('src', 'data:image/png;base64,' + response.captchaImage);
+                            $captcha_input.val('').focus();
+                        }
+                    }
+                });
+            }
+
+            function close_sms_modal() {
+                $sms_modal.removeClass('show');
+                $('body').css('overflow', '');
+                if (resend_timer) clearInterval(resend_timer);
+            }
+
+            // OTP Verify
+            $verify_btn.on('click', verify_otp);
+            
+            $otp_input.on('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    verify_otp();
+                }
+            });
+
+            function verify_otp() {
+                var otp_code = $otp_input.val();
+                
+                if (!otp_code || otp_code.length !== 6) {
+                    show_otp_error('Lütfen 6 haneli kodu giriniz');
+                    return;
+                }
+
+                // Check CAPTCHA if required
+                if (require_captcha) {
+                    var captcha_code = $captcha_input.val();
+                    if (!captcha_code || captcha_code.length < 4) {
+                        show_otp_error('Lütfen güvenlik kodunu giriniz');
+                        return;
+                    }
+                }
+
+                set_verify_loading(true);
+
+                $.ajax({
+                    url: '/?handler=VerifyOtp',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ 
+                        otpCode: otp_code,
+                        captchaCode: require_captcha ? $captcha_input.val() : null
+                    }),
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        set_verify_loading(false);
+                        
+                        if (response.success) {
+                            show_sms_alert('Giriş başarılı! Yönlendiriliyorsunuz...', 'success');
+                            setTimeout(function() {
+                                window.location.href = response.redirectUrl || '/Dashboard';
+                            }, 1000);
+                        } else {
+                            // Reset CAPTCHA input for next attempt
+                            $captcha_input.val('');
+                            
+                            if (response.requireCaptcha) {
+                                // 3 hatalı giriş - CAPTCHA aktif et
+                                require_captcha = true;
+                                $captcha_container.show();
+                                
+                                // Yeni CAPTCHA görselini yükle
+                                if (response.captchaImage) {
+                                    $captcha_image.attr('src', 'data:image/png;base64,' + response.captchaImage);
+                                }
+                                
+                                show_sms_alert(response.message, 'warning');
+                                $otp_input.val('');
+                            } else {
+                                show_sms_alert(response.message || 'Hatalı kod', 'error');
+                            }
+                        }
+                    },
+                    error: function(xhr) {
+                        set_verify_loading(false);
+                        console.error('[VerifyOtp] Error:', xhr);
+                        show_sms_alert('Bağlantı hatası. Lütfen tekrar deneyin.', 'error');
+                    }
+                });
+            }
+
+            function set_verify_loading(loading) {
+                if (loading) {
+                    $verify_btn.addClass('btn--loading');
+                    $verify_btn.find('.btn_text').hide();
+                    $verify_btn.find('.btn_loader').css('display', 'flex');
+                    $verify_btn.prop('disabled', true);
+                } else {
+                    $verify_btn.removeClass('btn--loading');
+                    $verify_btn.find('.btn_text').show();
+                    $verify_btn.find('.btn_loader').hide();
+                    $verify_btn.prop('disabled', false);
+                }
+            }
+
+            // Resend OTP
+            $resend_btn.on('click', function() {
+                if ($(this).prop('disabled')) return;
+
+                $resend_btn.text('Gönderiliyor...').prop('disabled', true);
+
+                $.ajax({
+                    url: '/?handler=ResendOtp',
+                    type: 'POST',
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            if (require_captcha) {
+                                show_sms_alert('Yeni doğrulama kodu gönderildi. Güvenlik kodunu giriniz.', 'success');
+                                // Yeni CAPTCHA yükle
+                                load_captcha();
+                            } else {
+                                show_sms_alert('Yeni doğrulama kodu gönderildi', 'success');
+                            }
+                            $otp_input.val('').focus();
+                            $captcha_input.val('');
+                            start_resend_cooldown();
+                        } else {
+                            show_sms_alert(response.message || 'Kod gönderilemedi', 'error');
+                            $resend_btn.text("SMS'i Tekrar Gönder").prop('disabled', false);
+                        }
+                    },
+                    error: function() {
+                        show_sms_alert('Bağlantı hatası', 'error');
+                        $resend_btn.text("SMS'i Tekrar Gönder").prop('disabled', false);
+                    }
+                });
+            });
+
+            function start_resend_cooldown() {
+                resend_cooldown = 30;
+                $resend_btn.prop('disabled', true);
+
+                if (resend_timer) clearInterval(resend_timer);
+
+                resend_timer = setInterval(function() {
+                    resend_cooldown--;
+                    if (resend_cooldown > 0) {
+                        $resend_btn.text("SMS'i Tekrar Gönder (" + resend_cooldown + 's)');
+                    } else {
+                        clearInterval(resend_timer);
+                        $resend_btn.prop('disabled', false).text("SMS'i Tekrar Gönder");
+                    }
+                }, 1000);
+            }
+
+            // SMS Alert functions
+            function show_sms_alert(message, type) {
+                $sms_modal_alert.removeClass('sms_modal__alert--hidden sms_modal__alert--error sms_modal__alert--success sms_modal__alert--warning');
+                $sms_modal_alert.addClass('sms_modal__alert--' + type);
+                $sms_modal_alert_text.text(message);
+            }
+
+            function hide_sms_alert() {
+                $sms_modal_alert.addClass('sms_modal__alert--hidden');
+            }
+
+            function show_otp_error(message) {
+                $otp_error.text(message).addClass('show');
+                $otp_input.addClass('error');
+            }
+
+            function clear_otp_error() {
+                $otp_error.text('').removeClass('show');
+                $otp_input.removeClass('error');
+            }
+
+            // ========== ESC KEY HANDLER ==========
+            $(document).on('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if ($sms_modal.hasClass('show')) {
+                        // Don't close SMS modal with ESC (security)
+                    } else if ($kvkk_modal.hasClass('show')) {
+                        close_kvkk_modal();
+                    }
+                }
+            });
+
+            // ========== VALIDATION FUNCTIONS ==========
+            function validate_tckn(value) {
+                if (!value) {
+                    show_error('tckn', 'TC Kimlik No giriniz');
+                    return false;
+                }
+                if (!/^\d{11}$/.test(value)) {
+                    show_error('tckn', 'TC Kimlik No 11 haneli olmalıdır');
+                    return false;
+                }
+                clear_error('tckn');
+                return true;
+            }
+
+            function validate_gsm(value) {
+                if (!value) {
+                    show_error('gsm', 'GSM numarası giriniz');
+                    return false;
+                }
+                if (!/^(05\d{9}|5\d{9})$/.test(value)) {
+                    show_error('gsm', 'Geçerli bir GSM numarası giriniz (05XX XXX XX XX)');
+                    return false;
+                }
+                clear_error('gsm');
+                return true;
+            }
+
+            function show_error(field_id, message) {
+                $('#' + field_id + 'Error').text(message).addClass('show');
+                $('#' + field_id).addClass('error');
+            }
+
+            function clear_error(field_id) {
+                $('#' + field_id + 'Error').text('').removeClass('show');
+                $('#' + field_id).removeClass('error');
+            }
+        });
+    </script>
+}

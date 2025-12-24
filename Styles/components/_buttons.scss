@@ -1,0 +1,320 @@
+// ==============================================
+// FIN-SCORE BUTTON SYSTEM
+// ==============================================
+
+// ============================================
+// BASE BUTTON STYLES
+// ============================================
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing_sm;
+    height: $btn_height;
+    padding: $btn_padding_y $btn_padding_x;
+    font-family: inherit;
+    font-size: $font_size_button;
+    font-weight: $font_weight_semibold;
+    line-height: $line_height_button;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: $radius_pill;
+    cursor: pointer;
+    transition: all $transition_normal;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    // İkon boyutu
+    svg,
+    .btn_icon {
+        width: $btn_icon_size;
+        height: $btn_icon_size;
+        flex-shrink: 0;
+    }
+}
+
+// ============================================
+// PRIMARY BUTTON (Mavi, Dolu)
+// ============================================
+
+.btn_primary {
+    width: 100%;
+    color: $color_white;
+    background-color: $color_primary_blue;
+    box-shadow: $shadow-sm;
+
+    &:hover:not(:disabled) {
+        background-color: $color_dark_blue;
+        box-shadow: $shadow-md;
+        transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: $shadow-sm;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $color_primary_blue;
+        outline-offset: 2px;
+    }
+}
+
+// Legacy class support
+.btn-primary {
+    @extend .btn;
+    @extend .btn_primary;
+}
+
+// ============================================
+// SECONDARY BUTTON (Kenarlıklı)
+// ============================================
+
+.btn_secondary {
+    color: $color_primary_blue;
+    background-color: $color_white;
+    border: $input_border_width solid $color_primary_blue;
+
+    &:hover:not(:disabled) {
+        background-color: $color_light_blue;
+        transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+}
+
+// Legacy class support
+.btn-secondary {
+    @extend .btn;
+    @extend .btn_secondary;
+}
+
+// ============================================
+// GHOST BUTTON (Şeffaf)
+// ============================================
+
+.btn_ghost {
+    color: $color_primary_blue;
+    background-color: transparent;
+
+    &:hover:not(:disabled) {
+        background-color: rgba($color_primary_blue, 0.08);
+    }
+
+    &:active:not(:disabled) {
+        background-color: rgba($color_primary_blue, 0.12);
+    }
+}
+
+// ============================================
+// LINK BUTTON
+// ============================================
+
+.btn_link {
+    height: auto;
+    padding: $spacing_sm;
+    color: $color_primary_blue;
+    background-color: transparent;
+    border-radius: $radius_md;
+
+    &:hover:not(:disabled) {
+        background-color: rgba($color_primary_blue, 0.08);
+        color: $color_dark_blue;
+    }
+}
+
+// Legacy class support
+.btn-link {
+    @extend .btn_link;
+}
+
+// ============================================
+// BUTTON SIZES
+// ============================================
+
+.btn_sm {
+    height: 40px;
+    padding: 10px 16px;
+    font-size: $font_size_body_mobile;
+}
+
+.btn_lg {
+    height: 64px;
+    padding: 20px 32px;
+    font-size: $font_size_h3;
+}
+
+// ============================================
+// LOADING STATE
+// ============================================
+
+.btn--loading {
+    pointer-events: none;
+    position: relative;
+
+    .btn_text {
+        visibility: visible;
+    }
+
+    .btn_loader {
+        display: flex;
+        align-items: center;
+        gap: $spacing_sm;
+    }
+}
+
+.btn_loader {
+    display: none;
+    align-items: center;
+    gap: $spacing_sm;
+
+    .spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba($color_white, 0.3);
+        border-top-color: $color_white;
+        border-radius: $radius_circle;
+        animation: btn_spin 0.8s linear infinite;
+    }
+}
+
+// Loading spinner animasyonu
+@keyframes btn_spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Loading buton örneği (resimde görüldüğü gibi)
+.btn_primary.btn--loading {
+    .spinner {
+        border-color: rgba($color_white, 0.3);
+        border-top-color: $color_white;
+    }
+}
+
+.btn_secondary.btn--loading {
+    .spinner {
+        border-color: rgba($color_primary_blue, 0.3);
+        border-top-color: $color_primary_blue;
+    }
+}
+
+// ============================================
+// ICON ONLY BUTTON
+// ============================================
+
+.btn_icon_only {
+    width: $btn_height;
+    padding: 0;
+    border-radius: $radius_circle;
+}
+
+// ============================================
+// BACK BUTTON
+// ============================================
+
+.back_button {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    padding: $spacing_sm;
+    background: none;
+    border: none;
+    border-radius: $radius_md;
+    color: $text-secondary;
+    cursor: pointer;
+    transition: all $transition_fast;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+    }
+
+    &:hover {
+        background-color: $bg-tertiary;
+        color: $text-primary;
+        transform: translateX(-2px);
+    }
+}
+
+// Legacy class support
+.back-button {
+    @extend .back_button;
+}
+
+// ============================================
+// LINK STYLES
+// ============================================
+
+.link_primary {
+    color: $color_primary_blue;
+    text-decoration: none;
+    font-weight: $font_weight_semibold;
+    transition: color $transition_fast;
+
+    &:hover {
+        color: $color_dark_blue;
+        text-decoration: underline;
+    }
+}
+
+// Legacy class support
+.link-primary {
+    @extend .link_primary;
+}
+
+// ============================================
+// BUTTON GROUP
+// ============================================
+
+.btn_group {
+    display: flex;
+    gap: $spacing_md;
+    width: 100%;
+
+    .btn {
+        flex: 1;
+    }
+}
+
+.btn_group--vertical {
+    flex-direction: column;
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+@media (max-width: 768px) {
+    .btn {
+        height: 52px;
+        font-size: $font_size_button_mobile;
+    }
+
+    .btn_sm {
+        height: 36px;
+        font-size: $font_size_small;
+    }
+
+    .btn_lg {
+        height: 56px;
+        font-size: $font_size_body;
+    }
+}

@@ -1,0 +1,190 @@
+@import '../abstracts/variables';
+
+// Navbar Top Row
+.navbar__top_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid $bg-tertiary;
+
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+
+// Logo
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar__logo_img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+
+  @media (max-width: 768px) {
+    height: 32px;
+  }
+}
+
+// Top Menu
+.navbar__top_menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.navbar__top_link {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_medium;
+  color: $text-secondary;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $color_primary_blue;
+  }
+}
+
+// Navbar Actions
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar__notification {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background: $bg-tertiary;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    color: $text-secondary;
+  }
+
+  &:hover {
+    background: $border-color;
+  }
+}
+
+.navbar__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: $error;
+  color: $color_white;
+  font-size: 11px;
+  font-weight: $font_weight_bold;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid $color_white;
+}
+
+.navbar__btn_primary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: $color_primary_blue;
+  border: none;
+  border-radius: 10px;
+  padding: 0.625rem 1.25rem;
+  color: $color_white;
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_semibold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  span {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  &:hover {
+    background: $color_dark_blue;
+    transform: translateY(-2px);
+  }
+}
+
+// Bottom Row - Main Menu
+.navbar__bottom_row {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding-top: 0.25rem;
+
+  @media (max-width: 1024px) {
+    gap: 1.5rem;
+    overflow-x: auto;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+}
+
+.navbar__menu_link {
+  font-size: $font_size_body_mobile;
+  font-weight: $font_weight_medium;
+  color: $color_dark_navy;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+
+  &:hover {
+    color: $color_primary_blue;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
+}
+
+// Welcome Section
+.dashboard__welcome_section {
+  padding: 3rem 4rem 2rem 4rem;
+  background: $color_white;
+
+  @media (max-width: 1200px) {
+    padding: 2.5rem 2rem 1.5rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem 1.5rem 1rem;
+  }
+}
+

@@ -1,0 +1,329 @@
+// ==============================================
+// FIN-SCORE PROFILE PAGE STYLES
+// ==============================================
+
+// Page Header
+.profile__header {
+    padding: 2rem 4rem;
+    background: $color_white;
+
+    @media (max-width: 1200px) {
+        padding: 1.5rem 2rem;
+    }
+
+    @media (max-width: 768px) {
+        padding: 1.5rem 1rem;
+    }
+}
+
+.profile__header_container {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.profile__back_btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: $bg-tertiary;
+    border: none;
+    border-radius: $radius_lg;
+    color: $text-secondary;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_medium;
+    text-decoration: none;
+    transition: all $transition_fast;
+    flex-shrink: 0;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    &:hover {
+        background: $border-color;
+        color: $text-primary;
+    }
+}
+
+.profile__header_text {
+    flex: 1;
+}
+
+.profile__title {
+    font-size: $font_size_h2;
+    font-weight: $font_weight_bold;
+    line-height: $line_height_h2;
+    color: $color_dark_blue;
+    margin: 0 0 0.25rem 0;
+
+    @media (max-width: 768px) {
+        font-size: $font_size_h2_mobile;
+    }
+}
+
+.profile__subtitle {
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_regular;
+    color: $text-secondary;
+    margin: 0;
+}
+
+// Notifications
+.profile__notification {
+    max-width: 1600px;
+    margin: 0 auto 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: $radius_lg;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_medium;
+    margin-left: 4rem;
+    margin-right: 4rem;
+
+    @media (max-width: 1200px) {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    &--success {
+        background: rgba($success, 0.1);
+        color: $success;
+    }
+
+    &--error {
+        background: rgba($error, 0.1);
+        color: $error;
+    }
+}
+
+// Content Area
+.profile__content {
+    padding: 0 4rem 4rem;
+    background: $color_white;
+
+    @media (max-width: 1200px) {
+        padding: 0 2rem 3rem;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0 1rem 2rem;
+    }
+}
+
+.profile__grid {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Profile Card
+.profile__card {
+    background: $color_white;
+    border-radius: 0;
+    padding: 2rem;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+    }
+}
+
+.profile__card_header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $bg-tertiary;
+}
+
+.profile__card_icon {
+    width: 48px;
+    height: 48px;
+    border-radius: $radius_lg;
+    background: rgba($color_primary_blue, 0.08);
+    color: $color_primary_blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.profile__card_title_group {
+    flex: 1;
+}
+
+.profile__card_title {
+    font-size: $font_size_h3;
+    font-weight: $font_weight_semibold;
+    line-height: $line_height_h3;
+    color: $color_dark_navy;
+    margin: 0 0 0.25rem 0;
+
+    @media (max-width: 768px) {
+        font-size: $font_size_h3_mobile;
+    }
+}
+
+.profile__card_subtitle {
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_regular;
+    color: $text-secondary;
+    margin: 0;
+}
+
+// Form Styles
+.profile__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex: 1;
+}
+
+.profile__form_row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.profile__form_group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.profile__label {
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_medium;
+    color: $text-primary;
+}
+
+.profile__input_wrapper {
+    position: relative;
+}
+
+.profile__input,
+.profile__textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-family: inherit;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_regular;
+    color: $color_dark_navy;
+    background: $bg-secondary;
+    border: 1px solid $border-color;
+    border-radius: $radius_lg;
+    transition: all $transition_fast;
+    outline: none;
+
+    &::placeholder {
+        color: $text-light;
+    }
+
+    &:focus {
+        background: $color_white;
+        border-color: $color_primary_blue;
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+    }
+
+    &:hover:not(:focus) {
+        border-color: $color_gray_300;
+    }
+}
+
+.profile__textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.profile__select_wrapper {
+    position: relative;
+}
+
+.profile__select {
+    width: 100%;
+    padding: 0.875rem 2.5rem 0.875rem 1rem;
+    font-family: inherit;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_regular;
+    color: $color_dark_navy;
+    background: $bg-secondary;
+    border: 1px solid $border-color;
+    border-radius: $radius_lg;
+    appearance: none;
+    cursor: pointer;
+    transition: all $transition_fast;
+    outline: none;
+
+    &:focus {
+        background: $color_white;
+        border-color: $color_primary_blue;
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+    }
+
+    &:hover:not(:focus) {
+        border-color: $color_gray_300;
+    }
+}
+
+.profile__select_icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: $text-secondary;
+    pointer-events: none;
+}
+
+.profile__form_actions {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid $bg-tertiary;
+
+    .btn {
+        width: 100%;
+    }
+}
+
+// Navbar active state
+.navbar__btn_primary--active {
+    background: $color_dark_blue;
+}

@@ -1,0 +1,545 @@
+{
+  "reports": [
+    {
+      "id": "RPT-2024-001",
+      "name": "Kredi Geçmişi Raporu",
+      "type": "Kredi Analizi",
+      "date": "15 Aralık 2024",
+      "createdDate": "2024-12-15",
+      "status": "Tamamlandı",
+      "summary": "Son 12 ay içindeki kredi geçmişinizi içeren detaylı analiz raporu"
+    },
+    {
+      "id": "RPT-2024-002",
+      "name": "Ödeme Performans Raporu",
+      "type": "Ödeme Analizi",
+      "date": "10 Aralık 2024",
+      "createdDate": "2024-12-10",
+      "status": "Tamamlandı",
+      "summary": "Kredi ödemelerinizin zamanında yapılma oranını gösteren performans raporu"
+    },
+    {
+      "id": "RPT-2024-003",
+      "name": "Kredi Skoru Değişim Raporu",
+      "type": "Skor Analizi",
+      "date": "05 Aralık 2024",
+      "createdDate": "2024-12-05",
+      "status": "Tamamlandı",
+      "summary": "Son 6 ayda kredi skorunuzdaki değişimleri gösteren trend analizi"
+    },
+    {
+      "id": "RPT-2024-004",
+      "name": "Borç Özet Raporu",
+      "type": "Borç Analizi",
+      "date": "01 Aralık 2024",
+      "createdDate": "2024-12-01",
+      "status": "Tamamlandı",
+      "summary": "Tüm aktif kredilerinizin borç durumunu gösteren özet rapor"
+    },
+    {
+      "id": "RPT-2024-005",
+      "name": "Aylık Finansal Özet",
+      "type": "Finansal Analiz",
+      "date": "28 Kasım 2024",
+      "createdDate": "2024-11-28",
+      "status": "Tamamlandı",
+      "summary": "Kasım ayı finansal hareketlerinizin detaylı özeti"
+    },
+    {
+      "id": "RPT-2024-006",
+      "name": "Kredi Başvuru Geçmişi",
+      "type": "Başvuru Analizi",
+      "date": "20 Kasım 2024",
+      "createdDate": "2024-11-20",
+      "status": "Tamamlandı",
+      "summary": "Geçmiş kredi başvurularınızın durum ve sonuç analizi"
+    },
+    {
+      "id": "RPT-2024-007",
+      "name": "Risk Analizi Raporu",
+      "type": "Risk Değerlendirme",
+      "date": "15 Kasım 2024",
+      "createdDate": "2024-11-15",
+      "status": "Tamamlandı",
+      "summary": "Kredi risk profilinizi değerlendiren detaylı analiz raporu"
+    },
+    {
+      "id": "RPT-2024-008",
+      "name": "Taksit Ödeme Takvimi",
+      "type": "Ödeme Planı",
+      "date": "10 Kasım 2024",
+      "createdDate": "2024-11-10",
+      "status": "Tamamlandı",
+      "summary": "Gelecek 12 ay için taksit ödeme takviminiz"
+    }
+  ],
+  "details": {
+    "RPT-2024-001": {
+      "id": "RPT-2024-001",
+      "name": "Kredi Geçmişi Raporu",
+      "type": "Kredi Analizi",
+      "date": "15 Aralık 2024",
+      "createdDate": "2024-12-15",
+      "status": "Tamamlandı",
+      "summary": "Son 12 ay içindeki kredi geçmişinizi içeren detaylı analiz raporu",
+      "reportPeriod": "Aralık 2023 - Aralık 2024",
+      "totalCredits": 3,
+      "activeCredits": 2,
+      "completedCredits": 1,
+      "totalBorrowed": 1250000.00,
+      "totalPaid": 450000.00,
+      "remainingDebt": 800000.00,
+      "averageInterestRate": 2.45,
+      "onTimePaymentRate": 98.5,
+      "creditScore": 1450,
+      "creditScoreChange": "+25",
+      "recommendations": [
+        "Ödeme geçmişiniz mükemmel, bu durumu korumaya devam edin",
+        "Kredi limitinizi artırmak için ek gelir belgeleri sunabilirsiniz",
+        "Yeni kredi başvurularında avantajlı faiz oranları alabilirsiniz"
+      ],
+      "creditHistory": [
+        {
+          "creditId": "CRD-001",
+          "bankName": "Akbank",
+          "creditType": "İhtiyaç Kredisi",
+          "amount": 500000.00,
+          "startDate": "2024-01-15",
+          "endDate": "2027-01-15",
+          "monthlyPayment": 15250.00,
+          "remainingInstallments": 24,
+          "status": "Aktif"
+        },
+        {
+          "creditId": "CRD-002",
+          "bankName": "Ziraat Bankası",
+          "creditType": "Konut Kredisi",
+          "amount": 750000.00,
+          "startDate": "2023-06-01",
+          "endDate": "2038-06-01",
+          "monthlyPayment": 8750.00,
+          "remainingInstallments": 168,
+          "status": "Aktif"
+        },
+        {
+          "creditId": "CRD-003",
+          "bankName": "Garanti BBVA",
+          "creditType": "Taşıt Kredisi",
+          "amount": 450000.00,
+          "startDate": "2022-03-10",
+          "endDate": "2024-03-10",
+          "monthlyPayment": 12500.00,
+          "remainingInstallments": 0,
+          "status": "Tamamlandı"
+        }
+      ]
+    },
+    "RPT-2024-002": {
+      "id": "RPT-2024-002",
+      "name": "Ödeme Performans Raporu",
+      "type": "Ödeme Analizi",
+      "date": "10 Aralık 2024",
+      "createdDate": "2024-12-10",
+      "status": "Tamamlandı",
+      "summary": "Kredi ödemelerinizin zamanında yapılma oranını gösteren performans raporu",
+      "reportPeriod": "Ocak 2024 - Aralık 2024",
+      "totalPayments": 24,
+      "onTimePayments": 24,
+      "latePayments": 0,
+      "onTimePaymentRate": 100.0,
+      "averagePaymentDelay": 0,
+      "totalPaidAmount": 576000.00,
+      "paymentTrend": "İyileşiyor",
+      "bestMonth": "Kasım 2024",
+      "worstMonth": "-",
+      "paymentHistory": [
+        {
+          "month": "Aralık 2024",
+          "dueDate": "2024-12-05",
+          "paymentDate": "2024-12-03",
+          "amount": 24000.00,
+          "status": "Zamanında Ödendi",
+          "daysEarly": 2
+        },
+        {
+          "month": "Kasım 2024",
+          "dueDate": "2024-11-05",
+          "paymentDate": "2024-11-02",
+          "amount": 24000.00,
+          "status": "Zamanında Ödendi",
+          "daysEarly": 3
+        },
+        {
+          "month": "Ekim 2024",
+          "dueDate": "2024-10-05",
+          "paymentDate": "2024-10-04",
+          "amount": 24000.00,
+          "status": "Zamanında Ödendi",
+          "daysEarly": 1
+        }
+      ]
+    },
+    "RPT-2024-003": {
+      "id": "RPT-2024-003",
+      "name": "Kredi Skoru Değişim Raporu",
+      "type": "Skor Analizi",
+      "date": "05 Aralık 2024",
+      "createdDate": "2024-12-05",
+      "status": "Tamamlandı",
+      "summary": "Son 6 ayda kredi skorunuzdaki değişimleri gösteren trend analizi",
+      "reportPeriod": "Haziran 2024 - Aralık 2024",
+      "currentScore": 1450,
+      "previousScore": 1425,
+      "scoreChange": 25,
+      "scoreTrend": "Yükseliş",
+      "scoreCategory": "Çok İyi",
+      "scoreHistory": [
+        {
+          "month": "Aralık 2024",
+          "score": 1450,
+          "change": 15
+        },
+        {
+          "month": "Kasım 2024",
+          "score": 1435,
+          "change": 10
+        },
+        {
+          "month": "Ekim 2024",
+          "score": 1425,
+          "change": 5
+        },
+        {
+          "month": "Eylül 2024",
+          "score": 1420,
+          "change": -5
+        },
+        {
+          "month": "Ağustos 2024",
+          "score": 1425,
+          "change": 0
+        },
+        {
+          "month": "Temmuz 2024",
+          "score": 1425,
+          "change": 0
+        }
+      ],
+      "factors": [
+        {
+          "factor": "Zamanında Ödeme",
+          "impact": "Pozitif",
+          "points": 15
+        },
+        {
+          "factor": "Kredi Kullanım Oranı",
+          "impact": "Pozitif",
+          "points": 8
+        },
+        {
+          "factor": "Kredi Geçmişi",
+          "impact": "Pozitif",
+          "points": 2
+        }
+      ]
+    },
+    "RPT-2024-004": {
+      "id": "RPT-2024-004",
+      "name": "Borç Özet Raporu",
+      "type": "Borç Analizi",
+      "date": "01 Aralık 2024",
+      "createdDate": "2024-12-01",
+      "status": "Tamamlandı",
+      "summary": "Tüm aktif kredilerinizin borç durumunu gösteren özet rapor",
+      "totalDebt": 800000.00,
+      "totalMonthlyPayment": 24000.00,
+      "debtToIncomeRatio": 35.5,
+      "totalCredits": 2,
+      "credits": [
+        {
+          "creditId": "CRD-001",
+          "bankName": "Akbank",
+          "creditType": "İhtiyaç Kredisi",
+          "originalAmount": 500000.00,
+          "remainingAmount": 366000.00,
+          "monthlyPayment": 15250.00,
+          "interestRate": 2.89,
+          "remainingMonths": 24,
+          "completionPercentage": 26.8
+        },
+        {
+          "creditId": "CRD-002",
+          "bankName": "Ziraat Bankası",
+          "creditType": "Konut Kredisi",
+          "originalAmount": 750000.00,
+          "remainingAmount": 434000.00,
+          "monthlyPayment": 8750.00,
+          "interestRate": 1.89,
+          "remainingMonths": 168,
+          "completionPercentage": 42.1
+        }
+      ],
+      "paymentSchedule": {
+        "nextPayment": "2025-01-05",
+        "nextPaymentAmount": 24000.00,
+        "upcomingPayments": [
+          {
+            "date": "2025-01-05",
+            "amount": 24000.00
+          },
+          {
+            "date": "2025-02-05",
+            "amount": 24000.00
+          },
+          {
+            "date": "2025-03-05",
+            "amount": 24000.00
+          }
+        ]
+      }
+    },
+    "RPT-2024-005": {
+      "id": "RPT-2024-005",
+      "name": "Aylık Finansal Özet",
+      "type": "Finansal Analiz",
+      "date": "28 Kasım 2024",
+      "createdDate": "2024-11-28",
+      "status": "Tamamlandı",
+      "summary": "Kasım ayı finansal hareketlerinizin detaylı özeti",
+      "month": "Kasım 2024",
+      "totalIncome": 67500.00,
+      "totalExpenses": 48950.00,
+      "savings": 18550.00,
+      "savingsRate": 27.5,
+      "expenseCategories": [
+        {
+          "category": "Kredi Ödemeleri",
+          "amount": 24000.00,
+          "percentage": 49.0
+        },
+        {
+          "category": "Faturalar",
+          "amount": 1250.00,
+          "percentage": 2.6
+        },
+        {
+          "category": "Market & Gıda",
+          "amount": 8500.00,
+          "percentage": 17.4
+        },
+        {
+          "category": "Ulaşım",
+          "amount": 3200.00,
+          "percentage": 6.5
+        },
+        {
+          "category": "Diğer",
+          "amount": 12000.00,
+          "percentage": 24.5
+        }
+      ],
+      "transactions": [
+        {
+          "date": "2024-11-28",
+          "description": "Maaş",
+          "amount": 67500.00,
+          "type": "Gelir"
+        },
+        {
+          "date": "2024-11-05",
+          "description": "Kredi Ödemesi",
+          "amount": -24000.00,
+          "type": "Gider"
+        },
+        {
+          "date": "2024-11-15",
+          "description": "Market Alışverişi",
+          "amount": -3200.00,
+          "type": "Gider"
+        }
+      ]
+    },
+    "RPT-2024-006": {
+      "id": "RPT-2024-006",
+      "name": "Kredi Başvuru Geçmişi",
+      "type": "Başvuru Analizi",
+      "date": "20 Kasım 2024",
+      "createdDate": "2024-11-20",
+      "status": "Tamamlandı",
+      "summary": "Geçmiş kredi başvurularınızın durum ve sonuç analizi",
+      "totalApplications": 5,
+      "approvedApplications": 3,
+      "rejectedApplications": 1,
+      "pendingApplications": 1,
+      "approvalRate": 60.0,
+      "applications": [
+        {
+          "applicationId": "APP-001",
+          "bankName": "Akbank",
+          "creditType": "İhtiyaç Kredisi",
+          "amount": 500000.00,
+          "applicationDate": "2024-01-10",
+          "status": "Onaylandı",
+          "resultDate": "2024-01-12",
+          "interestRate": 2.89
+        },
+        {
+          "applicationId": "APP-002",
+          "bankName": "Ziraat Bankası",
+          "creditType": "Konut Kredisi",
+          "amount": 750000.00,
+          "applicationDate": "2023-05-15",
+          "status": "Onaylandı",
+          "resultDate": "2023-05-20",
+          "interestRate": 1.89
+        },
+        {
+          "applicationId": "APP-003",
+          "bankName": "Garanti BBVA",
+          "creditType": "Taşıt Kredisi",
+          "amount": 450000.00,
+          "applicationDate": "2022-02-20",
+          "status": "Onaylandı",
+          "resultDate": "2022-02-25",
+          "interestRate": 2.49
+        },
+        {
+          "applicationId": "APP-004",
+          "bankName": "İş Bankası",
+          "creditType": "İhtiyaç Kredisi",
+          "amount": 300000.00,
+          "applicationDate": "2024-11-15",
+          "status": "Beklemede",
+          "resultDate": null,
+          "interestRate": null
+        },
+        {
+          "applicationId": "APP-005",
+          "bankName": "Yapı Kredi",
+          "creditType": "İhtiyaç Kredisi",
+          "amount": 400000.00,
+          "applicationDate": "2023-12-10",
+          "status": "Reddedildi",
+          "resultDate": "2023-12-12",
+          "rejectionReason": "Yetersiz gelir belgesi"
+        }
+      ]
+    },
+    "RPT-2024-007": {
+      "id": "RPT-2024-007",
+      "name": "Risk Analizi Raporu",
+      "type": "Risk Değerlendirme",
+      "date": "15 Kasım 2024",
+      "createdDate": "2024-11-15",
+      "status": "Tamamlandı",
+      "summary": "Kredi risk profilinizi değerlendiren detaylı analiz raporu",
+      "riskLevel": "Düşük",
+      "riskScore": 15,
+      "riskCategory": "Güvenli",
+      "riskFactors": [
+        {
+          "factor": "Ödeme Geçmişi",
+          "risk": "Düşük",
+          "score": 2,
+          "description": "Tüm ödemeleriniz zamanında yapılmış"
+        },
+        {
+          "factor": "Gelir Durumu",
+          "risk": "Düşük",
+          "score": 3,
+          "description": "Düzenli ve yeterli gelir seviyesi"
+        },
+        {
+          "factor": "Borç Yükü",
+          "risk": "Orta",
+          "score": 5,
+          "description": "Gelire göre borç oranı kabul edilebilir seviyede"
+        },
+        {
+          "factor": "Kredi Geçmişi",
+          "risk": "Düşük",
+          "score": 2,
+          "description": "Uzun ve olumlu kredi geçmişi"
+        },
+        {
+          "factor": "İstihdam Durumu",
+          "risk": "Düşük",
+          "score": 3,
+          "description": "Stabil istihdam durumu"
+        }
+      ],
+      "recommendations": [
+        "Mevcut ödeme performansınızı koruyun",
+        "Yeni kredi başvurularında dikkatli olun",
+        "Acil durum fonu oluşturmayı düşünün"
+      ]
+    },
+    "RPT-2024-008": {
+      "id": "RPT-2024-008",
+      "name": "Taksit Ödeme Takvimi",
+      "type": "Ödeme Planı",
+      "date": "10 Kasım 2024",
+      "createdDate": "2024-11-10",
+      "status": "Tamamlandı",
+      "summary": "Gelecek 12 ay için taksit ödeme takviminiz",
+      "period": "Aralık 2024 - Kasım 2025",
+      "totalPayments": 12,
+      "totalAmount": 288000.00,
+      "averageMonthlyPayment": 24000.00,
+      "schedule": [
+        {
+          "month": "Aralık 2024",
+          "dueDate": "2024-12-05",
+          "amount": 24000.00,
+          "credits": [
+            {
+              "creditId": "CRD-001",
+              "bankName": "Akbank",
+              "amount": 15250.00
+            },
+            {
+              "creditId": "CRD-002",
+              "bankName": "Ziraat Bankası",
+              "amount": 8750.00
+            }
+          ]
+        },
+        {
+          "month": "Ocak 2025",
+          "dueDate": "2025-01-05",
+          "amount": 24000.00,
+          "credits": [
+            {
+              "creditId": "CRD-001",
+              "bankName": "Akbank",
+              "amount": 15250.00
+            },
+            {
+              "creditId": "CRD-002",
+              "bankName": "Ziraat Bankası",
+              "amount": 8750.00
+            }
+          ]
+        },
+        {
+          "month": "Şubat 2025",
+          "dueDate": "2025-02-05",
+          "amount": 24000.00,
+          "credits": [
+            {
+              "creditId": "CRD-001",
+              "bankName": "Akbank",
+              "amount": 15250.00
+            },
+            {
+              "creditId": "CRD-002",
+              "bankName": "Ziraat Bankası",
+              "amount": 8750.00
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+

@@ -1,0 +1,184 @@
+// ==============================================
+// FIN-SCORE DESIGN SYSTEM - VARIABLES
+// ==============================================
+
+// ============================================
+// 1. COLOR PALETTE (Marka Renkleri)
+// ============================================
+
+// Primary Colors
+$color_white: #FFFFFF;
+$color_dark_navy: #222854;
+$color_primary_blue: #2E6DF8;
+$color_dark_blue: #0056B3;
+$color_light_blue: #E6F7FF;
+
+// Status Colors
+$color_error: #E53935;
+$color_success: #10b981;
+$color_warning: #f59e0b;
+
+// Gray Scale
+$color_gray_50: #f9fafb;
+$color_gray_100: #f3f4f6;
+$color_gray_200: #e5e7eb;
+$color_gray_300: #d1d5db;
+$color_gray_400: #9ca3af;
+$color_gray_500: #6b7280;
+$color_gray_600: #4b5563;
+$color_gray_700: #374151;
+$color_gray_800: #1f2937;
+$color_gray_900: #111827;
+
+// ============================================
+// 2. SEMANTIC COLOR ALIASES
+// ============================================
+
+// Primary Colors (Legacy support)
+$primary: $color_primary_blue;
+$primary-dark: $color_dark_blue;
+$primary-light: $color_light_blue;
+$secondary: $color_success;
+$accent: $color_warning;
+$error: $color_error;
+$success: $color_success;
+$warning: $color_warning;
+
+// Text Colors
+$text-primary: $color_dark_navy;
+$text-secondary: $color_gray_500;
+$text-light: $color_gray_400;
+$text-error: $color_error;
+$text-placeholder: $color_primary_blue;
+
+// Background Colors
+$bg-primary: $color_white;
+$bg-secondary: $color_gray_50;
+$bg-tertiary: $color_gray_100;
+
+// Border Colors
+$border-color: $color_gray_200;
+$border-focus: $color_primary_blue;
+$border-error: $color_error;
+
+// ============================================
+// 3. SHADOWS
+// ============================================
+
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// ============================================
+// 4. TYPOGRAPHY - Font Sizes
+// ============================================
+
+// Desktop Font Sizes
+$font_size_h1: 32px;           // Display / H1
+$font_size_h2: 24px;           // Heading / H2
+$font_size_h3: 18px;           // Heading / H3
+$font_size_body: 16px;         // Body / Regular
+$font_size_small: 12px;        // Caption / Small
+$font_size_button: 16px;       // Button / Label
+
+// Mobile Font Sizes
+$font_size_h1_mobile: 28px;    // Display / H1
+$font_size_h2_mobile: 20px;    // Heading / H2
+$font_size_h3_mobile: 16px;    // Heading / H3
+$font_size_body_mobile: 14px;  // Body / Regular
+$font_size_button_mobile: 14px; // Button / Label
+
+// Input/Form Font Sizes
+$font_size_input: 16px;        // Input değeri
+$font_size_input_label: 12px;  // Floating label (küçültülmüş)
+$font_size_input_placeholder: 16px; // Placeholder
+$font_size_helper: 12px;       // Yardımcı metin / Hata mesajı
+
+// ============================================
+// 5. TYPOGRAPHY - Font Weights
+// ============================================
+
+$font_weight_regular: 400;     // Body text, captions
+$font_weight_medium: 500;      // Card headings (H3)
+$font_weight_semibold: 600;    // Subheadings (H2), buttons
+$font_weight_bold: 700;        // Main headings (H1)
+
+// ============================================
+// 6. TYPOGRAPHY - Line Heights
+// ============================================
+
+$line_height_h1: 120%;         // Ana Başlıklar
+$line_height_h2: 130%;         // Alt Başlıklar
+$line_height_h3: 140%;         // Kart Başlıkları
+$line_height_body: 150%;       // Gövde Metni (Rahat okuma)
+$line_height_small: 140%;      // Küçük Metin
+$line_height_button: 100%;     // Butonlar
+
+// ============================================
+// 7. SPACING
+// ============================================
+
+$spacing_xs: 4px;
+$spacing_sm: 8px;
+$spacing_md: 16px;
+$spacing_lg: 24px;
+$spacing_xl: 32px;
+$spacing_2xl: 48px;
+
+// ============================================
+// 8. BORDER RADIUS
+// ============================================
+
+$radius_sm: 4px;
+$radius_md: 8px;
+$radius_lg: 12px;
+$radius_xl: 16px;
+$radius_pill: 50px;            // Butonlar için pill şekli
+$radius_circle: 50%;           // Radio, Avatar vb.
+
+// ============================================
+// 9. TRANSITIONS
+// ============================================
+
+$transition_fast: 0.15s ease;
+$transition_normal: 0.2s ease;
+$transition_slow: 0.3s ease;
+
+// ============================================
+// 10. Z-INDEX LAYERS
+// ============================================
+
+$z_dropdown: 100;
+$z_modal: 200;
+$z_tooltip: 300;
+$z_toast: 400;
+
+// ============================================
+// 11. INPUT/FORM SPECIFIC
+// ============================================
+
+$input_height: 56px;           // Standart input yüksekliği
+$input_padding_x: 16px;        // Yatay padding
+$input_padding_y: 14px;        // Dikey padding
+$input_border_width: 2px;      // Kenarlık kalınlığı
+$input_icon_size: 20px;        // İkon boyutu
+
+// ============================================
+// 12. BUTTON SPECIFIC
+// ============================================
+
+$btn_height: 56px;             // Standart buton yüksekliği
+$btn_padding_x: 24px;          // Yatay padding
+$btn_padding_y: 16px;          // Dikey padding
+$btn_icon_size: 20px;          // Buton içi ikon boyutu
+
+// ============================================
+// 13. COMPONENT SIZES
+// ============================================
+
+$checkbox_size: 24px;          // Checkbox boyutu
+$radio_size: 24px;             // Radio buton boyutu
+$switch_width: 52px;           // Switch genişliği
+$switch_height: 28px;          // Switch yüksekliği
+$switch_thumb_size: 22px;      // Switch thumb boyutu

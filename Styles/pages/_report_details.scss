@@ -1,0 +1,1447 @@
+// ==============================================
+// REPORT DETAILS PAGE STYLES
+// ==============================================
+
+@import '../abstracts/variables';
+
+// ==============================================
+// CONTAINER
+// ==============================================
+
+.report_details_container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: $spacing_xl;
+    min-height: 100vh;
+    background-color: $bg-secondary;
+}
+
+// ==============================================
+// REPORT PAGE LAYOUT (2/3 - 1/3 Split)
+// ==============================================
+
+.report_page_layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 4rem;
+    min-height: calc(100vh - 130px);
+
+    @media (max-width: 1200px) {
+        grid-template-columns: 1fr;
+        padding: 1.5rem 2rem;
+    }
+
+    @media (max-width: 768px) {
+        padding: 1rem;
+    }
+}
+
+// Full width mode for Credit Offers
+.report_page_layout--full_width {
+    grid-template-columns: 1fr;
+
+    .report_detail_panel {
+        display: none;
+    }
+}
+
+.report_page_content {
+    background: $color_white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+}
+
+.report_page_title {
+    font-size: 28px;
+    font-weight: $font_weight_bold;
+    color: $color_dark_navy;
+    margin: 0 0 0.5rem 0;
+    line-height: $line_height_h1;
+
+    @media (max-width: 768px) {
+        font-size: $font_size_h2_mobile;
+    }
+}
+
+.report_page_subtitle {
+    font-size: $font_size_body;
+    color: $text-secondary;
+    margin: 0 0 2rem 0;
+    line-height: $line_height_body;
+}
+
+// ==============================================
+// TAB CONTENT
+// ==============================================
+
+.report_tab_content {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+
+    &--active {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        height: auto;
+        overflow: visible;
+    }
+}
+
+// ==============================================
+// REPORT TAB STYLING
+// ==============================================
+
+.report_tab {
+    position: relative;
+
+    &--active {
+        color: $color_primary_blue;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: $color_primary_blue;
+            border-radius: 2px;
+        }
+    }
+}
+
+// ==============================================
+// INVOICE INFO BOX
+// ==============================================
+
+.invoice_info_box {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba($color_primary_blue, 0.05);
+    border: 1px solid rgba($color_primary_blue, 0.1);
+    border-radius: 12px;
+    margin-top: 1rem;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        color: $color_primary_blue;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    p {
+        margin: 0;
+        font-size: $font_size_body;
+        color: $text-secondary;
+        line-height: $line_height_body;
+
+        strong {
+            color: $color_primary_blue;
+        }
+    }
+}
+
+// ==============================================
+// INVOICE DROPDOWN
+// ==============================================
+
+.invoice_dropdown {
+    position: relative;
+
+    &:hover .invoice_dropdown__panel {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+.invoice_dropdown__panel {
+    position: absolute;
+    top: 100%;
+    left: -100px;
+    width: 800px;
+    background: $color_white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    padding: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+    margin-top: 0.5rem;
+
+    @media (max-width: 1024px) {
+        left: 0;
+        width: 600px;
+    }
+
+    @media (max-width: 768px) {
+        position: fixed;
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+    }
+}
+
+.invoice_dropdown__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.invoice_dropdown__category {
+    padding: 0;
+}
+
+.invoice_dropdown__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    color: $color_dark_navy;
+    margin: 0 0 0.75rem 0;
+
+    svg {
+        width: 18px;
+        height: 18px;
+        color: $color_primary_blue;
+    }
+}
+
+.invoice_dropdown__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        margin-bottom: 0.25rem;
+    }
+
+    a {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        font-size: $font_size_body_mobile;
+        color: $text-secondary;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: $color_light_blue;
+            color: $color_primary_blue;
+        }
+    }
+}
+
+// ==============================================
+// HEADER
+// ==============================================
+
+.report_details_header {
+    margin-bottom: $spacing_xl;
+}
+
+.report_details_title {
+    color: $color_dark_navy;
+    font-size: $font_size_h1;
+    font-weight: $font_weight_bold;
+    line-height: $line_height_h1;
+    margin: 0;
+    padding: $spacing_md $spacing_lg;
+    background-color: $color_primary_blue;
+    color: $color_white;
+    border-radius: $radius_md;
+    display: inline-block;
+}
+
+// ==============================================
+// GRID LAYOUT
+// ==============================================
+
+.report_details_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing_lg;
+    margin-bottom: $spacing_xl;
+}
+
+// ==============================================
+// REPORT CARD (BEM)
+// ==============================================
+
+.report_card {
+    border-radius: $radius_lg;
+    overflow: hidden;
+    box-shadow: $shadow-md;
+    transition: transform $transition_normal, box-shadow $transition_normal;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+    }
+
+    // Modifiers
+    &--blue {
+        background-color: $color_white;
+        border: 2px solid $color_primary_blue;
+
+        .report_card__header {
+            background-color: $color_primary_blue;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+        }
+
+        .report_card__title {
+            color: $color_white;
+        }
+    }
+
+    &--green {
+        background-color: $color_white;
+        border: 2px solid $color_success;
+
+        .report_card__header {
+            background-color: $color_success;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+        }
+
+        .report_card__title {
+            color: $color_white;
+        }
+    }
+
+    &--full {
+        grid-column: 1 / -1;
+    }
+
+    // Elements
+    &__header {
+        padding: $spacing_md $spacing_lg;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__title {
+        font-size: $font_size_h3;
+        font-weight: $font_weight_semibold;
+        margin: 0;
+        line-height: $line_height_h3;
+    }
+
+    &__badge {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: $color_white;
+        font-size: $font_size_small;
+        font-weight: $font_weight_medium;
+        padding: $spacing_xs $spacing_sm;
+        border-radius: $radius_pill;
+    }
+
+    &__close_btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: $color_white;
+        width: 32px;
+        height: 32px;
+        border-radius: $radius_circle;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background $transition_fast;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    }
+
+    &__body {
+        padding: $spacing_lg;
+        min-height: 200px;
+    }
+
+    &__loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $spacing_sm;
+        color: $text-secondary;
+        padding: $spacing_xl;
+    }
+
+    &__placeholder {
+        color: $text-secondary;
+        text-align: center;
+        padding: $spacing_xl;
+        font-size: $font_size_body;
+    }
+}
+
+// ==============================================
+// REPORT LIST
+// ==============================================
+
+.report_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.report_list__item {
+    padding: $spacing_md;
+    border-bottom: 1px solid $border-color;
+    cursor: pointer;
+    transition: background $transition_fast;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover {
+        background-color: $color_light_blue;
+    }
+
+    &--active {
+        background-color: $color_light_blue;
+        border-left: 3px solid $color_primary_blue;
+    }
+}
+
+.report_list__info {
+    flex: 1;
+}
+
+.report_list__name {
+    font-size: $font_size_body;
+    font-weight: $font_weight_semibold;
+    color: $text-primary;
+    margin: 0 0 $spacing_xs 0;
+}
+
+.report_list__meta {
+    font-size: $font_size_small;
+    color: $text-secondary;
+}
+
+.report_list__arrow {
+    color: $color_primary_blue;
+    font-size: 20px;
+}
+
+// ==============================================
+// REPORT DETAIL SECTION
+// ==============================================
+
+.report_detail_section {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.report_detail_content {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+// ==============================================
+// DETAIL TABLE
+// ==============================================
+
+.detail_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: $spacing_md;
+
+    th,
+    td {
+        padding: $spacing_md;
+        text-align: left;
+        border-bottom: 1px solid $border-color;
+    }
+
+    th {
+        background-color: $bg-secondary;
+        color: $text-primary;
+        font-weight: $font_weight_semibold;
+        font-size: $font_size_small;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    td {
+        color: $text-primary;
+        font-size: $font_size_body;
+    }
+
+    tr:hover td {
+        background-color: $color_light_blue;
+    }
+}
+
+// ==============================================
+// INVOICES CONTENT
+// ==============================================
+
+.invoices_content {
+    .invoice_item {
+        padding: $spacing_md;
+        border: 1px solid $border-color;
+        border-radius: $radius_md;
+        margin-bottom: $spacing_sm;
+        background-color: $bg-secondary;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .invoice_item__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing_xs;
+    }
+
+    .invoice_item__number {
+        font-weight: $font_weight_semibold;
+        color: $text-primary;
+    }
+
+    .invoice_item__amount {
+        font-weight: $font_weight_bold;
+        color: $color_primary_blue;
+    }
+
+    .invoice_item__date {
+        font-size: $font_size_small;
+        color: $text-secondary;
+    }
+}
+
+// ==============================================
+// CREDIT OFFERS CONTENT - ROW BASED LAYOUT
+// ==============================================
+
+.credit_rows_container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+// Credit Row (Accordion Style)
+.credit_row {
+    background: $color_white;
+    border: 1px solid $border-color;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: rgba($color_primary_blue, 0.3);
+    }
+
+    &.collapsed {
+        .credit_row__offers {
+            max-height: 0;
+            padding: 0;
+            opacity: 0;
+        }
+
+        .credit_row__toggle svg {
+            transform: rotate(0deg);
+        }
+    }
+}
+
+.credit_row__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, $bg-secondary 0%, $color_white 100%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: linear-gradient(135deg, $color_light_blue 0%, $color_white 100%);
+    }
+}
+
+.credit_row__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($color_primary_blue, 0.1);
+    color: $color_primary_blue;
+    flex-shrink: 0;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    // Color Modifiers
+    &--orange {
+        background: rgba(#F5A623, 0.1);
+        color: #F5A623;
+    }
+
+    &--green {
+        background: rgba($color_success, 0.1);
+        color: $color_success;
+    }
+
+    &--purple {
+        background: rgba(#8B5CF6, 0.1);
+        color: #8B5CF6;
+    }
+
+    &--pink {
+        background: rgba(#EC4899, 0.1);
+        color: #EC4899;
+    }
+
+    &--teal {
+        background: rgba(#14B8A6, 0.1);
+        color: #14B8A6;
+    }
+}
+
+.credit_row__title_group {
+    flex: 1;
+}
+
+.credit_row__title {
+    font-size: $font_size_h3;
+    font-weight: $font_weight_semibold;
+    color: $color_dark_navy;
+    margin: 0 0 0.25rem 0;
+    line-height: $line_height_h3;
+
+    @media (max-width: 768px) {
+        font-size: $font_size_h3_mobile;
+    }
+}
+
+.credit_row__subtitle {
+    font-size: $font_size_body_mobile;
+    color: $text-secondary;
+    line-height: $line_height_body;
+}
+
+.credit_row__toggle {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    background: rgba($color_primary_blue, 0.08);
+    color: $color_primary_blue;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+
+    svg {
+        width: 20px;
+        height: 20px;
+        transform: rotate(180deg);
+        transition: transform 0.3s ease;
+    }
+
+    &:hover {
+        background: rgba($color_primary_blue, 0.15);
+    }
+}
+
+// Credit Row Offers Grid
+.credit_row__offers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1.5rem;
+    background: $bg-secondary;
+    max-height: 500px;
+    opacity: 1;
+    transition: all 0.4s ease;
+    overflow: hidden;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// ==============================================
+// BANK CARD - Dashboard Style
+// ==============================================
+
+.bank_card {
+    background: $color_white;
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.bank_card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+// Bank Logo Circles
+.bank_logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: $font_weight_bold;
+    color: $color_white;
+
+    &--akbank {
+        background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+    }
+
+    &--ziraat {
+        background: linear-gradient(135deg, #00843D 0%, #006B31 100%);
+    }
+
+    &--garanti {
+        background: linear-gradient(135deg, #00A651 0%, #008C44 100%);
+    }
+
+    &--isbank {
+        background: linear-gradient(135deg, #003E74 0%, #002E59 100%);
+    }
+
+    &--yapi {
+        background: linear-gradient(135deg, #0066B3 0%, #004A8F 100%);
+    }
+
+    &--halk {
+        background: linear-gradient(135deg, #00529B 0%, #003D7A 100%);
+    }
+
+    &--vakif {
+        background: linear-gradient(135deg, #FDB913 0%, #D99E10 100%);
+        color: $color_dark_navy;
+    }
+}
+
+// Bank Card Badges
+.bank_card__badge {
+    font-size: 10px;
+    font-weight: $font_weight_semibold;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+
+    &--recommended {
+        background: rgba($color_primary_blue, 0.1);
+        color: $color_primary_blue;
+    }
+
+    &--low_rate {
+        background: rgba($color_success, 0.1);
+        color: $color_success;
+    }
+
+    &--special {
+        background: rgba(#EC4899, 0.1);
+        color: #EC4899;
+    }
+
+    &--student {
+        background: rgba(#8B5CF6, 0.1);
+        color: #8B5CF6;
+    }
+
+    &--wedding {
+        background: rgba(#EC4899, 0.1);
+        color: #EC4899;
+    }
+
+    &--best {
+        background: rgba(#F5A623, 0.1);
+        color: #F5A623;
+    }
+}
+
+.bank_card__name {
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    color: $color_dark_navy;
+    margin: 0 0 0.5rem 0;
+}
+
+.bank_card__rate {
+    font-size: 28px;
+    font-weight: $font_weight_bold;
+    color: $color_primary_blue;
+    margin-bottom: 1rem;
+    line-height: 1;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+}
+
+.bank_card__details {
+    flex: 1;
+    margin-bottom: 1rem;
+}
+
+.bank_card__detail_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid $bg-tertiary;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    span {
+        font-size: $font_size_small;
+        color: $text-secondary;
+    }
+
+    strong {
+        font-size: $font_size_body_mobile;
+        font-weight: $font_weight_semibold;
+        color: $color_dark_navy;
+    }
+}
+
+.bank_card__free {
+    color: $color_success;
+}
+
+.bank_card__btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: $color_primary_blue;
+    color: $color_white;
+    border: none;
+    border-radius: 10px;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: $color_dark_blue;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba($color_primary_blue, 0.3);
+    }
+
+    &:disabled {
+        background: $color_gray_300;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+// ==============================================
+// REPORT DETAIL PANEL (Right Sidebar)
+// ==============================================
+
+.report_detail_panel {
+    background: $color_white;
+    border-radius: 20px;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    position: sticky;
+    top: 150px;
+    max-height: calc(100vh - 170px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 1200px) {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        width: 400px;
+        max-width: 90vw;
+        border-radius: 20px 0 0 20px;
+        z-index: 1000;
+        transition: right 0.3s ease;
+        box-shadow: -8px 0 32px rgba(0, 0, 0, 0.15);
+
+        &.active {
+            right: 0;
+        }
+    }
+}
+
+.report_detail_panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid $border-color;
+    flex-shrink: 0;
+}
+
+.report_detail_panel__title {
+    font-size: $font_size_h3;
+    font-weight: $font_weight_semibold;
+    color: $color_dark_navy;
+    margin: 0;
+}
+
+.report_detail_panel__close {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: $bg-secondary;
+    color: $text-secondary;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    &:hover {
+        background: $bg-tertiary;
+        color: $color_dark_navy;
+    }
+}
+
+.report_detail_panel__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.report_detail_placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: $text-secondary;
+}
+
+.report_detail_placeholder__icon {
+    width: 64px;
+    height: 64px;
+    color: $color_gray_300;
+    margin-bottom: 1rem;
+}
+
+// ==============================================
+// REPORT LIST CONTAINER
+// ==============================================
+
+.report_list_container {
+    background: $bg-secondary;
+    border-radius: 12px;
+    padding: 0.5rem;
+    min-height: 200px;
+}
+
+.report_loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem;
+    color: $text-secondary;
+    font-size: $font_size_body_mobile;
+}
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid $border-color;
+    border-top-color: $color_primary_blue;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// ==============================================
+// DETAIL SECTION (For Report Detail)
+// ==============================================
+
+.detail_section {
+    margin-bottom: 1.5rem;
+
+    &__title {
+        font-size: $font_size_h3_mobile;
+        font-weight: $font_weight_semibold;
+        color: $color_dark_navy;
+        margin: 0 0 1rem 0;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid $color_primary_blue;
+    }
+}
+
+.detail_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid $bg-tertiary;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &__label {
+        font-size: $font_size_body_mobile;
+        color: $text-secondary;
+    }
+
+    &__value {
+        font-size: $font_size_body_mobile;
+        font-weight: $font_weight_semibold;
+        color: $color_dark_navy;
+        text-align: right;
+    }
+}
+
+// ==============================================
+// LOADING SPINNER
+// ==============================================
+
+.loading_spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid $border-color;
+    border-top-color: $color_primary_blue;
+    border-radius: $radius_circle;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// ==============================================
+// INVOICE SECTION HEADER
+// ==============================================
+
+.invoice_section_header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, $bg-secondary 0%, $color_white 100%);
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+}
+
+.invoice_section_header__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($color_primary_blue, 0.1);
+    color: $color_primary_blue;
+    flex-shrink: 0;
+
+    svg {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.invoice_section_header__info {
+    flex: 1;
+}
+
+.invoice_section_header__title {
+    font-size: $font_size_h3;
+    font-weight: $font_weight_bold;
+    color: $color_dark_navy;
+    margin: 0 0 0.25rem 0;
+    line-height: $line_height_h3;
+}
+
+.invoice_section_header__count {
+    font-size: $font_size_body_mobile;
+    color: $text-secondary;
+}
+
+// ==============================================
+// INVOICE CARDS GRID
+// ==============================================
+
+.invoice_cards_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+// ==============================================
+// INVOICE CARD - NEW DESIGN
+// ==============================================
+
+.invoice_card {
+    background: $color_white;
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s ease;
+    border: 2px solid transparent;
+    overflow: hidden;
+
+    &:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        transform: translateY(-4px);
+    }
+
+    &--pending {
+        border-color: rgba(#f59e0b, 0.3);
+
+        &:hover {
+            border-color: #f59e0b;
+        }
+    }
+
+    &--overdue {
+        border-color: rgba(#ef4444, 0.3);
+
+        &:hover {
+            border-color: #ef4444;
+        }
+
+        .invoice_card__amount {
+            color: #dc2626;
+        }
+
+        .invoice_card__pay_btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+
+            &:hover {
+                background: linear-gradient(135deg, #dc2626, #b91c1c);
+            }
+        }
+    }
+
+    &--paid {
+        opacity: 0.75;
+
+        &:hover {
+            opacity: 1;
+            border-color: rgba($color_success, 0.3);
+        }
+    }
+}
+
+.invoice_card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, $bg-secondary 0%, $color_white 100%);
+    border-bottom: 1px solid $bg-tertiary;
+}
+
+.invoice_card__provider {
+    font-size: $font_size_body;
+    font-weight: $font_weight_bold;
+    color: $color_dark_navy;
+}
+
+.invoice_card__status {
+    font-size: 11px;
+    font-weight: $font_weight_bold;
+    padding: 5px 12px;
+    border-radius: $radius_pill;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+
+    &--pending {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        color: #92400e;
+    }
+
+    &--paid {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        color: #065f46;
+    }
+
+    &--overdue {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        color: #991b1b;
+    }
+}
+
+.invoice_card__body {
+    padding: 1.25rem;
+    text-align: center;
+    background: $color_white;
+}
+
+.invoice_card__amount {
+    font-size: 32px;
+    font-weight: 800;
+    color: $color_dark_navy;
+    margin: 0 0 0.25rem 0;
+    line-height: 1;
+
+    @media (max-width: 768px) {
+        font-size: 26px;
+    }
+}
+
+.invoice_card__period {
+    font-size: $font_size_body_mobile;
+    color: $text-secondary;
+}
+
+.invoice_card__details {
+    padding: 0 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.invoice_card__detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid $bg-tertiary;
+    font-size: $font_size_small;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    span {
+        color: $text-secondary;
+    }
+
+    strong {
+        color: $color_dark_navy;
+        font-weight: $font_weight_semibold;
+    }
+}
+
+.invoice_card__pay_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    background: linear-gradient(135deg, $color_primary_blue, $color_dark_blue);
+    color: $color_white;
+    border: none;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+        background: linear-gradient(135deg, $color_dark_blue, darken($color_dark_blue, 5%));
+    }
+
+    &:disabled {
+        background: $color_gray_300;
+        cursor: not-allowed;
+    }
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+.invoice_card__paid_badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+// ==============================================
+// INVOICE EMPTY STATE & LOADING
+// ==============================================
+
+.invoice_empty_state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3.75rem 1.25rem;
+    text-align: center;
+    background: $bg-secondary;
+    border-radius: 16px;
+    border: 2px dashed $border-color;
+
+    svg {
+        width: 64px;
+        height: 64px;
+        color: $color_gray_300;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: $font_size_body;
+        color: $text-secondary;
+        margin: 0;
+    }
+}
+
+.invoice_loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 3.75rem 1.25rem;
+    color: $text-secondary;
+    font-size: $font_size_body;
+}
+
+.spinner--small {
+    width: 18px;
+    height: 18px;
+    border-width: 2px;
+}
+
+// ==============================================
+// RESPONSIVE
+// ==============================================
+
+@media (max-width: 1024px) {
+    .report_details_grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .report_card--green {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .report_details_container {
+        padding: $spacing_md;
+    }
+
+    .report_details_title {
+        font-size: $font_size_h2;
+        padding: $spacing_sm $spacing_md;
+    }
+
+    .report_details_grid {
+        grid-template-columns: 1fr;
+    }
+
+    .report_card__body {
+        min-height: 150px;
+    }
+}
+

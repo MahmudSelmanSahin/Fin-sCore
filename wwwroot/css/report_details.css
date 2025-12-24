@@ -1,0 +1,1335 @@
+/* ==============================================
+   REPORT DETAILS PAGE - Ana Site Uyumlu
+   ============================================== */
+
+/* ==============================================
+   PAGE LAYOUT
+   ============================================== */
+
+.report_page_layout {
+    display: flex;
+    min-height: calc(100vh - 130px);
+    background: #f9fafb;
+}
+
+/* Left Content Area (2/3) */
+.report_page_content {
+    flex: 2;
+    padding: 2rem 3rem;
+    overflow-y: auto;
+}
+
+/* Right Detail Panel (1/3) */
+.report_detail_panel {
+    flex: 1;
+    background: #FFFFFF;
+    border-left: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 130px;
+    height: calc(100vh - 130px);
+    max-width: 400px;
+    min-width: 350px;
+}
+
+.report_detail_panel__header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+}
+
+.report_detail_panel__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222854;
+    margin: 0;
+}
+
+.report_detail_panel__close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f3f4f6;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    transition: all 0.15s ease;
+}
+
+.report_detail_panel__close:hover {
+    background: #e5e7eb;
+    color: #222854;
+}
+
+.report_detail_panel__close svg {
+    width: 18px;
+    height: 18px;
+}
+
+.report_detail_panel__body {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+/* ==============================================
+   PAGE TITLE
+   ============================================== */
+
+.report_page_title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #222854;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+}
+
+.report_page_subtitle {
+    font-size: 16px;
+    color: #6b7280;
+    margin: 0 0 2rem 0;
+}
+
+/* ==============================================
+   TAB NAVIGATION
+   ============================================== */
+
+.report_tab {
+    position: relative;
+}
+
+.report_tab--active {
+    color: #2E6DF8;
+    font-weight: 600;
+}
+
+.report_tab--active::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #2E6DF8;
+    border-radius: 3px 3px 0 0;
+}
+
+/* ==============================================
+   INVOICE DROPDOWN (Hover Mega Menu)
+   ============================================== */
+
+.invoice_dropdown {
+    position: relative;
+}
+
+.invoice_dropdown__panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 900px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+    z-index: 1000;
+    margin-top: 12px;
+}
+
+/* Ok işareti */
+.invoice_dropdown__panel::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 30px;
+    width: 16px;
+    height: 16px;
+    background: #FFFFFF;
+    transform: rotate(45deg);
+    box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover ile açılma */
+.invoice_dropdown:hover .invoice_dropdown__panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Kategoriler Container */
+.invoice_dropdown__container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+/* Her Kategori */
+.invoice_dropdown__category {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+}
+
+.invoice_dropdown__title {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #222854;
+    margin: 0 0 12px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2E6DF8;
+    min-height: 48px;
+    line-height: 1.4;
+}
+
+.invoice_dropdown__title svg {
+    width: 20px;
+    height: 20px;
+    color: #2E6DF8;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Fatura Listesi */
+.invoice_dropdown__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.invoice_dropdown__list li a {
+    display: block;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #64748b;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+}
+
+.invoice_dropdown__list li a:hover {
+    background: #E6F7FF;
+    color: #2E6DF8;
+    padding-left: 16px;
+}
+
+/* Info Box */
+.invoice_info_box {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    background: #E6F7FF;
+    border-radius: 12px;
+    border-left: 4px solid #2E6DF8;
+}
+
+.invoice_info_box svg {
+    width: 24px;
+    height: 24px;
+    color: #2E6DF8;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.invoice_info_box p {
+    margin: 0;
+    font-size: 15px;
+    color: #222854;
+    line-height: 1.6;
+}
+
+.invoice_info_box strong {
+    color: #2E6DF8;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .invoice_dropdown__panel {
+        width: 750px;
+    }
+
+    .invoice_dropdown__container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .invoice_dropdown__panel {
+        width: calc(100vw - 40px);
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+    }
+
+    .invoice_dropdown:hover .invoice_dropdown__panel {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .invoice_dropdown__panel::before {
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+    }
+
+    .invoice_dropdown__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .invoice_dropdown__panel {
+        padding: 16px;
+    }
+
+    .invoice_dropdown__container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .invoice_dropdown__title {
+        font-size: 12px;
+    }
+
+    .invoice_dropdown__list li a {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+}
+
+/* Tab Content */
+.report_tab_content {
+    display: none;
+}
+
+.report_tab_content--active {
+    display: block;
+}
+
+/* ==============================================
+   REPORT LIST
+   ============================================== */
+
+.report_list_container {
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+.report_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.report_list__item {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #f3f4f6;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.15s ease;
+}
+
+.report_list__item:last-child {
+    border-bottom: none;
+}
+
+.report_list__item:hover {
+    background: #f9fafb;
+}
+
+.report_list__item--active {
+    background: rgba(46, 109, 248, 0.05);
+    border-left: 3px solid #2E6DF8;
+}
+
+.report_list__info {
+    flex: 1;
+}
+
+.report_list__name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222854;
+    margin: 0 0 4px 0;
+}
+
+.report_list__meta {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.report_list__arrow {
+    width: 32px;
+    height: 32px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2E6DF8;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.15s ease;
+}
+
+.report_list__item:hover .report_list__arrow {
+    background: #2E6DF8;
+    color: #FFFFFF;
+}
+
+/* ==============================================
+   LOADING & PLACEHOLDER
+   ============================================== */
+
+.report_loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 3rem;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #e5e7eb;
+    border-top-color: #2E6DF8;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.report_detail_placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #9ca3af;
+    text-align: center;
+    padding: 2rem;
+}
+
+.report_detail_placeholder__icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.report_detail_placeholder p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ==============================================
+   REPORT DETAIL CONTENT
+   ============================================== */
+
+.report_detail_content {
+    display: none;
+}
+
+.report_detail_content.active {
+    display: block;
+}
+
+.detail_section {
+    margin-bottom: 1.5rem;
+}
+
+.detail_section__title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 0.75rem 0;
+}
+
+.detail_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.detail_row:last-child {
+    border-bottom: none;
+}
+
+.detail_row__label {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.detail_row__value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #222854;
+}
+
+.detail_row__value--highlight {
+    color: #2E6DF8;
+}
+
+/* ==============================================
+   INVOICE SECTION HEADER
+   ============================================== */
+
+.invoice_section_header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 16px;
+    margin-bottom: 24px;
+}
+
+.invoice_section_header__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(46, 109, 248, 0.1);
+    color: #2E6DF8;
+    flex-shrink: 0;
+}
+
+.invoice_section_header__icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.invoice_section_header__info {
+    flex: 1;
+}
+
+.invoice_section_header__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222854;
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+}
+
+.invoice_section_header__count {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* ==============================================
+   INVOICE CARDS GRID
+   ============================================== */
+
+.invoice_cards_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .invoice_cards_grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+/* ==============================================
+   INVOICE CARD - NEW DESIGN
+   ============================================== */
+
+.invoice_card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s ease;
+    border: 2px solid transparent;
+    overflow: hidden;
+}
+
+.invoice_card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+}
+
+.invoice_card--pending {
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.invoice_card--pending:hover {
+    border-color: #f59e0b;
+}
+
+.invoice_card--overdue {
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.invoice_card--overdue:hover {
+    border-color: #ef4444;
+}
+
+.invoice_card--paid {
+    opacity: 0.75;
+}
+
+.invoice_card--paid:hover {
+    opacity: 1;
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.invoice_card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.invoice_card__provider {
+    font-size: 15px;
+    font-weight: 700;
+    color: #222854;
+}
+
+.invoice_card__status {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.invoice_card__status--pending {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e;
+}
+
+.invoice_card__status--paid {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+}
+
+.invoice_card__status--overdue {
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    color: #991b1b;
+}
+
+.invoice_card__body {
+    padding: 20px;
+    text-align: center;
+    background: #FFFFFF;
+}
+
+.invoice_card__amount {
+    font-size: 32px;
+    font-weight: 800;
+    color: #222854;
+    margin: 0 0 4px 0;
+    line-height: 1;
+}
+
+.invoice_card--overdue .invoice_card__amount {
+    color: #dc2626;
+}
+
+.invoice_card__period {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.invoice_card__details {
+    padding: 0 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.invoice_card__detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13px;
+}
+
+.invoice_card__detail:last-child {
+    border-bottom: none;
+}
+
+.invoice_card__detail span {
+    color: #6b7280;
+}
+
+.invoice_card__detail strong {
+    color: #222854;
+    font-weight: 600;
+}
+
+.invoice_card__pay_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #2E6DF8, #1E5DD8);
+    color: #FFFFFF;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.invoice_card__pay_btn:hover {
+    background: linear-gradient(135deg, #1E5DD8, #0E4DC8);
+}
+
+.invoice_card__pay_btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+.invoice_card__pay_btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.invoice_card--overdue .invoice_card__pay_btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.invoice_card--overdue .invoice_card__pay_btn:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+.invoice_card__paid_badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.invoice_card__paid_badge svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ==============================================
+   INVOICE EMPTY STATE & LOADING
+   ============================================== */
+
+.invoice_empty_state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    background: #f9fafb;
+    border-radius: 16px;
+    border: 2px dashed #e5e7eb;
+}
+
+.invoice_empty_state svg {
+    width: 64px;
+    height: 64px;
+    color: #9ca3af;
+    margin-bottom: 16px;
+}
+
+.invoice_empty_state p {
+    font-size: 16px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.invoice_loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+.spinner--small {
+    width: 18px;
+    height: 18px;
+    border-width: 2px;
+}
+
+/* ==============================================
+   INVOICE CARD RESPONSIVE
+   ============================================== */
+
+@media (max-width: 600px) {
+    .invoice_section_header {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .invoice_section_header__icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .invoice_section_header__icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .invoice_section_header__title {
+        font-size: 18px;
+    }
+
+    .invoice_card__header {
+        padding: 12px 16px;
+    }
+
+    .invoice_card__body {
+        padding: 16px;
+    }
+
+    .invoice_card__amount {
+        font-size: 26px;
+    }
+
+    .invoice_card__details {
+        padding: 0 16px 12px;
+    }
+
+    .invoice_card__pay_btn,
+    .invoice_card__paid_badge {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+}
+
+/* ==============================================
+   CREDIT ROWS CONTAINER (Satır Bazlı Kredi Teklifleri)
+   ============================================== */
+
+.credit_rows_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ==============================================
+   CREDIT ROW (Her Kredi Türü İçin Satır)
+   ============================================== */
+
+.credit_row {
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.credit_row:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.credit_row.collapsed .credit_row__offers {
+    display: none;
+}
+
+.credit_row.collapsed .credit_row__toggle svg {
+    transform: rotate(-90deg);
+}
+
+/* Credit Row Header */
+.credit_row__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.credit_row__header:hover {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e5e7eb 100%);
+}
+
+.credit_row__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(46, 109, 248, 0.1);
+    color: #2E6DF8;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.credit_row__icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Icon Color Variants */
+.credit_row__icon--orange {
+    background: rgba(249, 115, 22, 0.1);
+    color: #f97316;
+}
+
+.credit_row__icon--green {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.credit_row__icon--purple {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+}
+
+.credit_row__icon--pink {
+    background: rgba(236, 72, 153, 0.1);
+    color: #ec4899;
+}
+
+.credit_row__icon--teal {
+    background: rgba(20, 184, 166, 0.1);
+    color: #14b8a6;
+}
+
+.credit_row__title_group {
+    flex: 1;
+}
+
+.credit_row__title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222854;
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+}
+
+.credit_row__subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    display: block;
+}
+
+.credit_row__toggle {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.credit_row__toggle:hover {
+    background: #2E6DF8;
+    color: #FFFFFF;
+}
+
+.credit_row__toggle svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+/* Credit Row Offers (Banka Kartları) */
+.credit_row__offers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 24px;
+    background: #f9fafb;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==============================================
+   BANK CARD (Yeni Kompakt Banka Kartı)
+   ============================================== */
+
+.bank_card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s ease;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.bank_card:hover {
+    border-color: #2E6DF8;
+    box-shadow: 0 8px 24px rgba(46, 109, 248, 0.15);
+    transform: translateY(-4px);
+}
+
+.bank_card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.bank_card__badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.bank_card__badge--recommended {
+    background: linear-gradient(135deg, #2E6DF8, #1E5DD8);
+    color: #FFFFFF;
+}
+
+.bank_card__badge--low_rate {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #FFFFFF;
+}
+
+.bank_card__badge--special {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: #FFFFFF;
+}
+
+.bank_card__badge--student {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #FFFFFF;
+}
+
+.bank_card__badge--wedding {
+    background: linear-gradient(135deg, #ec4899, #db2777);
+    color: #FFFFFF;
+}
+
+.bank_card__badge--best {
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: #FFFFFF;
+}
+
+.bank_card__name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #222854;
+    margin: 0 0 8px 0;
+}
+
+.bank_card__rate {
+    font-size: 28px;
+    font-weight: 800;
+    color: #2E6DF8;
+    margin-bottom: 16px;
+    line-height: 1;
+}
+
+.bank_card__details {
+    flex: 1;
+    margin-bottom: 16px;
+}
+
+.bank_card__detail_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13px;
+}
+
+.bank_card__detail_row:last-child {
+    border-bottom: none;
+}
+
+.bank_card__detail_row span {
+    color: #6b7280;
+}
+
+.bank_card__detail_row strong {
+    color: #222854;
+    font-weight: 600;
+}
+
+.bank_card__free {
+    color: #10b981;
+}
+
+.bank_card__btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #2E6DF8, #1E5DD8);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.bank_card__btn:hover {
+    background: linear-gradient(135deg, #1E5DD8, #0E4DC8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 109, 248, 0.3);
+}
+
+/* Bank Logo Styles */
+.bank_logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.bank_logo--akbank { background: linear-gradient(135deg, #E31E24, #B71C1C); }
+.bank_logo--ziraat { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
+.bank_logo--garanti { background: linear-gradient(135deg, #00695C, #004D40); }
+.bank_logo--isbank { background: linear-gradient(135deg, #1565C0, #0D47A1); }
+.bank_logo--yapi { background: linear-gradient(135deg, #1976D2, #0D47A1); }
+.bank_logo--halk { background: linear-gradient(135deg, #0288D1, #01579B); }
+.bank_logo--vakif { background: linear-gradient(135deg, #7B1FA2, #4A148C); }
+
+/* ==============================================
+   CREDIT ROWS RESPONSIVE
+   ============================================== */
+
+@media (max-width: 1200px) {
+    .credit_row__offers {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .credit_row__header {
+        padding: 16px 20px;
+    }
+
+    .credit_row__icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .credit_row__icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .credit_row__title {
+        font-size: 18px;
+    }
+
+    .credit_row__subtitle {
+        font-size: 13px;
+    }
+
+    .credit_row__offers {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .bank_card {
+        padding: 16px;
+    }
+
+    .bank_card__rate {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .credit_row__offers {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 16px;
+    }
+
+    .credit_row__header {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .credit_row__icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .credit_row__title {
+        font-size: 16px;
+    }
+
+    .credit_row__subtitle {
+        display: none;
+    }
+
+    .bank_card {
+        padding: 14px;
+    }
+
+    .bank_logo {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .bank_card__name {
+        font-size: 14px;
+    }
+
+    .bank_card__rate {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .bank_card__detail_row {
+        font-size: 11px;
+        padding: 6px 0;
+    }
+
+    .bank_card__btn {
+        padding: 10px 16px;
+        font-size: 12px;
+    }
+
+    .bank_card__badge {
+        font-size: 8px;
+        padding: 3px 6px;
+    }
+}
+
+@media (max-width: 400px) {
+    .credit_row__offers {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==============================================
+   RESPONSIVE
+   ============================================== */
+
+@media (max-width: 1200px) {
+    .report_page_content {
+        padding: 1.5rem 2rem;
+    }
+
+    .report_detail_panel {
+        min-width: 300px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .report_page_layout {
+        flex-direction: column;
+    }
+
+    .report_detail_panel {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        max-width: 400px;
+        height: 100vh;
+        z-index: 1001;
+        transition: right 0.3s ease;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .report_detail_panel.active {
+        right: 0;
+    }
+
+    .report_page_content {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .report_page_title {
+        font-size: 24px;
+    }
+
+    .invoices_list,
+    .credit_offers_list {
+        grid-template-columns: 1fr;
+    }
+}

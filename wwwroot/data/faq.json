@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "question": "İnteraktif Kredi nasıl çalışır?",
+        "answer": "İnteraktif Kredi, kredi başvurularında ve finansal ihtiyaçlara yönelik çözümlerde teknoloji ve yapay zeka destekli bir yaklaşım kullanır. Bu sayede süreçler daha hızlı, kişiselleştirilmiş ve verimli hale gelir. İlk adımda finansal bilgileriniz analiz edilir; yapay zeka kredi geçmişinizi, borçlarınızı ve gelir durumunuzu değerlendirerek en uygun kredi seçeneklerini sunar. Bankaların faiz oranları ve ödeme planları karşılaştırılarak en uygun çözüm belirlenir.",
+        "category": "Genel",
+        "order": 1,
+        "isActive": true
+    },
+    {
+        "id": 2,
+        "question": "Kredi Güven Raporu nedir?",
+        "answer": "Kredi Güven Raporu, kredi alamayan veya düşük limitle karşılaşan kişiler için özel olarak hazırlanmış, Türkiye'nin ilk yapay zeka destekli kredi analiz raporudur. Finansal geçmişiniz, bankaların kredi verme kriterleriyle karşılaştırılır; size en uygun banka ve şube belirlenerek kredi alma şansınız net bir şekilde ortaya konur. Bu rapor sayesinde kredi başvurunuzu daha güvenli ve doğru bir şekilde yapabilir, kredi danışmanınızla süreci kolayca ilerletebilirsiniz.",
+        "category": "Kredi Güven Raporu",
+        "order": 2,
+        "isActive": true
+    },
+    {
+        "id": 3,
+        "question": "Kredi Güven Raporu'nu nasıl satın alabilirim?",
+        "answer": "Kredi Güven Raporu oluşturmak için bilgilerinizi girip ödemeyi tamamlamanız gerekmektedir. Ardından yapay zeka analizi başlar ve sonuçları görüp kredi uzmanıyla görüşebilirsiniz.",
+        "category": "Kredi Güven Raporu",
+        "order": 3,
+        "isActive": true
+    },
+    {
+        "id": 4,
+        "question": "VIP Kredi Danışmanlığı nedir? Nasıl çalışır?",
+        "answer": "VIP Kredi Danışmanlığı, size özel finansal çözümler sunan bir hizmettir ve 3, 6, 9 ve 12 ay sürelerle sunulur. Kredi notunuz, borç durumunuz ve finansal hedefleriniz doğrultusunda kişiye özel analizler yapılır. Bu hizmetle en uygun kredi seçenekleri bulunur, bankalarla iletişime geçilir ve başvuru süreci yönetilir.",
+        "category": "VIP Danışmanlık",
+        "order": 4,
+        "isActive": true
+    },
+    {
+        "id": 5,
+        "question": "Kişisel bilgilerim güvende mi?",
+        "answer": "İnteraktif Kredi, kişisel verilerinizi korumak için yüksek güvenlik standartları uygulamaktadır. Tüm veri akışı, uluslararası güvenlik sertifikalarına sahip sistemler üzerinden şifrelenerek gerçekleştirilir. Bilgileriniz, yalnızca başvuru sürecinizi yönetmek ve size hizmet sunmak amacıyla kullanılır, üçüncü taraflarla izniniz dışında paylaşılmaz.",
+        "category": "Güvenlik",
+        "order": 5,
+        "isActive": true
+    },
+    {
+        "id": 6,
+        "question": "SMS üzerinden kod alamıyorum, ne yapmalıyım?",
+        "answer": "SMS üzerinden kod alamama durumunda İnteraktif Kredi müşteri hizmetleriyle iletişime geçerek durumu bildirebilirsiniz. Müşteri hizmetleri ekibimiz sorununuzu en kısa sürede çözecektir.",
+        "category": "Teknik Destek",
+        "order": 6,
+        "isActive": true
+    },
+    {
+        "id": 7,
+        "question": "Kredi Güven Raporu oluşturulurken Findeks hatası alıyorum, ne yapmalıyım?",
+        "answer": "Öncelikle işlemi bir süre sonra tekrar denemeniz önerilir. Sorun devam ederse Findeks müşteri hizmetleri ile iletişime geçebilirsiniz (Telefon: 444 4 552, E-posta: iletisim@findeks.com, Çalışma Saatleri: Pazartesi–Cuma, 09:00–19:00). Bu yöntemlere rağmen çözüm bulunamazsa destek talebi açarak durumu bildirmeniz istenmektedir.",
+        "category": "Teknik Destek",
+        "order": 7,
+        "isActive": true
+    },
+    {
+        "id": 8,
+        "question": "Kredi Güven Raporu aldıktan sonra aranmazsam ne yapmalıyım?",
+        "answer": "Ödemeniz alındıktan sonra, Kredi Güven Raporu değerlendirme sürecine alınır. Değerlendirme tamamlandığında, kredi uzmanları en kısa sürede sizinle iletişime geçecektir. Ekip hafta içi 09:00-18:00 saatleri arasında çalışmaktadır; hafta sonu yapılan başvurulara, yoğunluğa bağlı olarak, dönüşler hafta başında yapılmaktadır.",
+        "category": "Kredi Güven Raporu",
+        "order": 8,
+        "isActive": true
+    },
+    {
+        "id": 9,
+        "question": "Kredi başvuru sonucumu nasıl öğrenebilirim?",
+        "answer": "Kredi başvuru sonucunuzu İnteraktif Şube üzerinden takip edebilirsiniz. Ayrıca, başvurunuz değerlendirildiğinde size SMS ve e-posta ile bilgilendirme yapılacaktır. Kredi danışmanlarımız da süreç hakkında sizinle iletişime geçecektir.",
+        "category": "Kredi İşlemleri",
+        "order": 9,
+        "isActive": true
+    },
+    {
+        "id": 10,
+        "question": "Çalışma saatleriniz nedir?",
+        "answer": "İnteraktif Kredi müşteri hizmetleri Pazartesi'den Cuma'ya 09:00-18:00 saatleri arasında hizmet vermektedir. Hafta sonu yapılan başvuru ve taleplere, yoğunluğa bağlı olarak hafta başında dönüş yapılmaktadır.",
+        "category": "İletişim",
+        "order": 10,
+        "isActive": true
+    }
+]

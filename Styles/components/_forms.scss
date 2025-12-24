@@ -1,0 +1,798 @@
+// ==============================================
+// FIN-SCORE FORM SYSTEM
+// ==============================================
+
+// ============================================
+// FORM LAYOUT
+// ============================================
+
+.form_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing_md;
+}
+
+.form_group {
+    margin-bottom: $spacing_lg;
+    position: relative;
+}
+
+// Legacy class support
+.form-row {
+    @extend .form_row;
+}
+
+.input-group {
+    @extend .form_group;
+}
+
+// ============================================
+// FLOATING LABEL INPUT
+// ============================================
+
+.input_wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.form_input {
+    width: 100%;
+    height: $input_height;
+    padding: $input_padding_y $input_padding_x;
+    padding-top: 24px;
+    font-family: inherit;
+    font-size: $font_size_input;
+    font-weight: $font_weight_medium;
+    color: $color_dark_navy;
+    background-color: $color_white;
+    border: $input_border_width solid $color_primary_blue;
+    border-radius: $radius_lg;
+    transition: all $transition_fast;
+    outline: none;
+
+    &::placeholder {
+        color: transparent;
+    }
+
+    // Focus durumu
+    &:focus {
+        border-color: $color_primary_blue;
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+    }
+
+    // Hata durumu
+    &.input--error,
+    &.error {
+        border-color: $color_error;
+
+        &:focus {
+            box-shadow: 0 0 0 3px rgba($color_error, 0.1);
+        }
+
+        & + .floating_label {
+            color: $color_error;
+        }
+    }
+
+    // Doluyken veya focustayken label küçülür
+    &:focus + .floating_label,
+    &:not(:placeholder-shown) + .floating_label,
+    &.has_value + .floating_label {
+        top: 8px;
+        font-size: $font_size_input_label;
+        color: $color_primary_blue;
+    }
+
+    &.input--error:focus + .floating_label,
+    &.input--error:not(:placeholder-shown) + .floating_label,
+    &.error + .floating_label {
+        color: $color_error;
+    }
+}
+
+// Legacy class support
+.form-input {
+    @extend .form_input;
+}
+
+// Floating Label
+.floating_label {
+    position: absolute;
+    left: $input_padding_x;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: $font_size_input_placeholder;
+    font-weight: $font_weight_medium;
+    color: $color_primary_blue;
+    pointer-events: none;
+    transition: all $transition_fast;
+    background-color: transparent;
+}
+
+// ============================================
+// INPUT WITH ICON
+// ============================================
+
+.input_with_icon {
+    position: relative;
+
+    .input_icon {
+        position: absolute;
+        left: $input_padding_x;
+        top: 50%;
+        transform: translateY(-50%);
+        width: $input_icon_size;
+        height: $input_icon_size;
+        color: $text-light;
+        pointer-events: none;
+        transition: color $transition_fast;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    }
+
+    .form_input {
+        padding-left: 48px;
+    }
+
+    .floating_label {
+        left: 48px;
+    }
+
+    // Focus durumunda ikon rengi değişir
+    &:focus-within .input_icon {
+        color: $color_primary_blue;
+    }
+
+    &.has_error .input_icon {
+        color: $color_error;
+    }
+}
+
+// Legacy class support
+.input-wrapper {
+    @extend .input_with_icon;
+}
+
+// ============================================
+// PASSWORD INPUT
+// ============================================
+
+.password_wrapper {
+    .form_input {
+        padding-right: 48px;
+    }
+
+    .password_toggle {
+        position: absolute;
+        right: $input_padding_x;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: $text-light;
+        transition: color $transition_fast;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            color: $text-primary;
+        }
+
+        svg,
+        .eye_icon {
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+    }
+}
+
+// Legacy class support
+.password-wrapper {
+    @extend .password_wrapper;
+
+    .password-toggle {
+        @extend .password_toggle;
+    }
+}
+
+// ============================================
+// MASKED INPUT (TC Kimlik, GSM vb.)
+// ============================================
+
+.masked_input_wrapper {
+    position: relative;
+    width: 100%;
+
+    .form_input,
+    .form-input {
+        padding-right: 48px;
+        letter-spacing: 0.05em;
+    }
+}
+
+.masked_input__toggle {
+    position: absolute;
+    right: $input_padding_x;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $text-secondary;
+    transition: color $transition_fast;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius_sm;
+    z-index: 2;
+
+    &:hover {
+        color: $color_primary_blue;
+    }
+
+    &:focus {
+        outline: none;
+        color: $color_primary_blue;
+    }
+
+    .eye_icon {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        min-height: 20px;
+        transition: opacity $transition_fast;
+        flex-shrink: 0;
+
+        // SVG'nin kendisi için stiller
+        path, circle, line {
+            stroke: currentColor;
+        }
+    }
+
+    // Default (masked/gizli): Çizgili göz görünür
+    // eye_icon--open = açık göz (görünür durumu temsil eder)
+    // eye_icon--slash = çizgili göz (gizli durumu temsil eder)
+    .eye_icon--open {
+        display: none;
+    }
+
+    .eye_icon--slash {
+        display: block;
+    }
+
+    // Legacy support
+    .eye_icon--hidden {
+        display: none;
+    }
+
+    .eye_icon--visible {
+        display: block;
+    }
+
+    // Visible state (maskesiz/görünür): Açık göz görünür
+    &.masked_input__toggle--visible {
+        color: $color_primary_blue;
+
+        .eye_icon--open {
+            display: block;
+        }
+
+        .eye_icon--slash {
+            display: none;
+        }
+
+        // Legacy support
+        .eye_icon--hidden {
+            display: block;
+        }
+
+        .eye_icon--visible {
+            display: none;
+        }
+    }
+}
+
+// ============================================
+// SELECT (DROPDOWN)
+// ============================================
+
+.form_select {
+    width: 100%;
+    height: $input_height;
+    padding: $input_padding_y $input_padding_x;
+    padding-top: 24px;
+    padding-right: 48px;
+    font-family: inherit;
+    font-size: $font_size_input;
+    font-weight: $font_weight_medium;
+    color: $color_dark_navy;
+    background-color: $color_white;
+    border: $input_border_width solid $color_primary_blue;
+    border-radius: $radius_lg;
+    cursor: pointer;
+    appearance: none;
+    transition: all $transition_fast;
+    outline: none;
+
+    // Custom dropdown arrow
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%232E6DF8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right $input_padding_x center;
+    background-size: 20px;
+
+    &:focus {
+        border-color: $color_primary_blue;
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+    }
+
+    // Hata durumu
+    &.select--error {
+        border-color: $color_error;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23E53935' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
+
+        &:focus {
+            box-shadow: 0 0 0 3px rgba($color_error, 0.1);
+        }
+
+        & + .floating_label {
+            color: $color_error;
+        }
+    }
+
+    // Değer seçildiğinde label küçülür
+    &:focus + .floating_label,
+    &:not([value=""]):not(:invalid) + .floating_label,
+    &.has_value + .floating_label {
+        top: 8px;
+        font-size: $font_size_input_label;
+    }
+}
+
+.select_wrapper {
+    position: relative;
+    width: 100%;
+}
+
+// ============================================
+// HELPER & ERROR MESSAGES
+// ============================================
+
+.input_helper {
+    display: block;
+    font-size: $font_size_helper;
+    font-weight: $font_weight_regular;
+    color: $text-secondary;
+    margin-top: $spacing_xs;
+}
+
+.input_error,
+.input-error {
+    display: block;
+    font-size: $font_size_helper;
+    font-weight: $font_weight_regular;
+    color: $color_error;
+    margin-top: $spacing_xs;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: all $transition_fast;
+
+    &.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Hata mesajı içindeki vurgulama
+.input_error span,
+.input_error strong {
+    color: $color_error;
+    font-weight: $font_weight_semibold;
+}
+
+// ============================================
+// CHECKBOX
+// ============================================
+
+.checkbox_wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing_sm;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox_input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+
+    // Checkbox seçildiğinde
+    &:checked + .checkbox_box {
+        background-color: $color_primary_blue;
+        border-color: $color_primary_blue;
+
+        &::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    // Focus durumu
+    &:focus + .checkbox_box {
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+    }
+}
+
+.checkbox_box {
+    position: relative;
+    flex-shrink: 0;
+    width: $checkbox_size;
+    height: $checkbox_size;
+    background-color: $color_white;
+    border: $input_border_width solid $color_primary_blue;
+    border-radius: $radius_sm;
+    transition: all $transition_fast;
+
+    // Tik işareti
+    &::after {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 3px;
+        width: 6px;
+        height: 12px;
+        border: solid $color_white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg) scale(0);
+        opacity: 0;
+        transition: all $transition_fast;
+    }
+}
+
+.checkbox_label {
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_regular;
+    color: $text-secondary;
+    line-height: 1.5;
+
+    a {
+        color: $color_primary_blue;
+        font-weight: $font_weight_semibold;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// Legacy KVKK checkbox support
+.kvkk-container {
+    margin-bottom: $spacing_lg;
+}
+
+.kvkk-checkbox {
+    @extend .checkbox_wrapper;
+    position: relative;
+    padding-left: 36px;
+
+    input[type="checkbox"] {
+        @extend .checkbox_input;
+
+        &:checked ~ .checkmark {
+            background-color: $color_primary_blue;
+            border-color: $color_primary_blue;
+
+            &::after {
+                display: block;
+            }
+        }
+
+        &:focus ~ .checkmark {
+            box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+        }
+    }
+
+    .checkmark {
+        position: absolute;
+        left: 0;
+        top: 2px;
+        width: $checkbox_size;
+        height: $checkbox_size;
+        background-color: $color_white;
+        border: $input_border_width solid $color_primary_blue;
+        border-radius: $radius_sm;
+        transition: all $transition_fast;
+
+        &::after {
+            content: '';
+            position: absolute;
+            display: none;
+            left: 7px;
+            top: 3px;
+            width: 6px;
+            height: 12px;
+            border: solid $color_white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+    }
+
+    .kvkk-text {
+        @extend .checkbox_label;
+
+        .kvkk-link {
+            color: $color_primary_blue;
+            text-decoration: none;
+            font-weight: $font_weight_semibold;
+            transition: color $transition_fast;
+
+            &:hover {
+                color: $color_dark_blue;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+// ============================================
+// RADIO BUTTON
+// ============================================
+
+.radio_wrapper {
+    display: flex;
+    align-items: center;
+    gap: $spacing_sm;
+    cursor: pointer;
+    user-select: none;
+}
+
+.radio_input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+
+    // Radio seçildiğinde
+    &:checked + .radio_box {
+        border-color: $color_primary_blue;
+
+        &::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    // Focus durumu
+    &:focus + .radio_box {
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+    }
+
+    // Hata durumu
+    &.radio--error + .radio_box {
+        border-color: $color_error;
+    }
+}
+
+.radio_box {
+    position: relative;
+    flex-shrink: 0;
+    width: $radio_size;
+    height: $radio_size;
+    background-color: $color_white;
+    border: $input_border_width solid $color_primary_blue;
+    border-radius: $radius_circle;
+    transition: all $transition_fast;
+
+    // İç daire (seçili durumda)
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 12px;
+        height: 12px;
+        background-color: $color_primary_blue;
+        border-radius: $radius_circle;
+        opacity: 0;
+        transition: all $transition_fast;
+    }
+}
+
+.radio_label {
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_regular;
+    color: $text-secondary;
+}
+
+// Radio button group
+.radio_group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_md;
+}
+
+.radio_group--horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+// ============================================
+// SWITCH (TOGGLE)
+// ============================================
+
+.switch_wrapper {
+    display: flex;
+    align-items: center;
+    gap: $spacing_sm;
+    cursor: pointer;
+    user-select: none;
+}
+
+.switch_input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+
+    // Switch aktif
+    &:checked + .switch_track {
+        background-color: $color_primary_blue;
+
+        .switch_thumb {
+            transform: translateX(24px);
+        }
+    }
+
+    // Focus durumu
+    &:focus + .switch_track {
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+    }
+}
+
+.switch_track {
+    position: relative;
+    width: $switch_width;
+    height: $switch_height;
+    background-color: $color_gray_300;
+    border-radius: $radius_pill;
+    transition: all $transition_normal;
+    padding: 3px;
+}
+
+.switch_thumb {
+    width: $switch_thumb_size;
+    height: $switch_thumb_size;
+    background-color: $color_white;
+    border-radius: $radius_circle;
+    box-shadow: $shadow-sm;
+    transition: transform $transition_normal;
+}
+
+.switch_label {
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_regular;
+    color: $text-secondary;
+}
+
+// ============================================
+// CODE INPUT (SMS Verification)
+// ============================================
+
+.code_inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: $spacing_md;
+    max-width: 100%;
+}
+
+.code_input {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    text-align: center;
+    font-size: 20px;
+    font-weight: $font_weight_bold;
+    font-family: inherit;
+    color: $text-primary;
+    background-color: $bg-secondary;
+    border: $input_border_width solid $border-color;
+    border-radius: 10px;
+    transition: all $transition_fast;
+    flex-shrink: 0;
+
+    &:focus {
+        outline: none;
+        border-color: $color_primary_blue;
+        background-color: $color_white;
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+        transform: scale(1.05);
+    }
+
+    &.code_input--error,
+    &.error {
+        border-color: $color_error;
+        background-color: rgba($color_error, 0.05);
+        animation: shake 0.4s ease;
+    }
+}
+
+// Legacy class support
+.code-inputs {
+    @extend .code_inputs;
+}
+
+.code-input {
+    @extend .code_input;
+}
+
+// ============================================
+// FORM LABEL (Non-floating)
+// ============================================
+
+.input_label {
+    display: block;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    color: $text-primary;
+    margin-bottom: $spacing_sm;
+}
+
+// Legacy class support
+.input-label {
+    @extend .input_label;
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+@media (max-width: 640px) {
+    .form_row {
+        grid-template-columns: 1fr;
+    }
+
+    .code_inputs {
+        gap: $spacing_sm;
+    }
+
+    .code_input {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+}

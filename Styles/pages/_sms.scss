@@ -1,0 +1,221 @@
+// ==============================================
+// FIN-SCORE SMS VERIFICATION PAGE STYLES
+// ==============================================
+
+// Phone Display
+.sms-phone-display {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: rgba($color_primary_blue, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba($color_primary_blue, 0.15);
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: $color_primary_blue;
+    flex-shrink: 0;
+  }
+
+  .sms-phone-number {
+    font-size: 18px;
+    font-weight: $font_weight_bold;
+    color: $color_dark_navy;
+    letter-spacing: 1px;
+    font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+  }
+}
+
+.sms-code-container {
+  margin-bottom: 32px;
+}
+
+.sms-single-input {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 8px;
+  padding-left: 16px;
+}
+
+
+.sms-alternatives {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.demo-otp-notice {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba($color_primary_blue, 0.05);
+  border: 1px solid rgba($color_primary_blue, 0.2);
+  border-radius: $radius_md;
+  text-align: center;
+  font-size: 14px;
+
+  code {
+    font-family: 'Courier New', monospace;
+    padding: 4px 12px;
+    background: $color_white;
+    border-radius: 4px;
+    font-weight: 700;
+    color: $color_primary_blue;
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+}
+
+// Back button
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: $bg-tertiary;
+  border: none;
+  border-radius: $radius_md;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: all $transition_fast;
+  text-decoration: none;
+  margin-bottom: $spacing_md;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background: $border-color;
+    color: $text-primary;
+  }
+}
+
+// reCAPTCHA Styles
+.recaptcha-container {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: $bg-secondary;
+  border-radius: $radius_lg;
+  border: 1px solid $border-color;
+}
+
+.recaptcha-notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: $text-secondary;
+  font-size: 14px;
+
+  svg {
+    color: $text-primary;
+  }
+}
+
+.recaptcha-checkbox-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.recaptcha-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 12px 20px;
+  background: $color_white;
+  border: 2px solid $border-color;
+  border-radius: $radius_md;
+  transition: all $transition_fast;
+
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked ~ .checkmark {
+      background: $success;
+      border-color: $success;
+
+      &::after {
+        display: block;
+      }
+    }
+
+    &:checked ~ .recaptcha-text {
+      color: $success;
+    }
+  }
+
+  .checkmark {
+    width: 24px;
+    height: 24px;
+    background: $color_white;
+    border: 2px solid $border-color;
+    border-radius: 4px;
+    position: relative;
+    transition: all $transition_fast;
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: none;
+      left: 7px;
+      top: 3px;
+      width: 6px;
+      height: 12px;
+      border: solid $color_white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  .recaptcha-text {
+    font-size: 14px;
+    font-weight: $font_weight_medium;
+    color: $text-primary;
+    transition: color $transition_fast;
+  }
+
+  &:hover {
+    border-color: $color_primary_blue;
+
+    .checkmark {
+      border-color: $color_primary_blue;
+    }
+  }
+}
+
+// Disabled button link
+.btn-link {
+  background: transparent;
+  border: none;
+  color: $color_primary_blue;
+  font-size: 14px;
+  font-weight: $font_weight_medium;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: $radius_sm;
+  transition: all $transition_fast;
+
+  &:hover:not(.disabled) {
+    background: rgba($color_primary_blue, 0.05);
+  }
+
+  &.disabled,
+  &:disabled {
+    color: $text-light;
+    cursor: not-allowed;
+  }
+}

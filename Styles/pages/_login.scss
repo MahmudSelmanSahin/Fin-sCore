@@ -1,0 +1,934 @@
+// ==============================================
+// FIN-SCORE LOGIN PAGE STYLES
+// ==============================================
+
+// ============================================
+// CONTAINERS
+// ============================================
+
+.login_container,
+.sms_container,
+.signup_container,
+.security_container {
+    width: 100%;
+    max-width: 480px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+// Legacy class support
+.login-container,
+.sms-container,
+.signup-container,
+.security-container {
+    width: 100%;
+    max-width: 480px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+// ============================================
+// CARDS
+// ============================================
+
+.login_card,
+.sms_card,
+.signup_card,
+.security_card {
+    background: transparent;
+    border-radius: 0;
+    padding: $spacing_2xl;
+    box-shadow: none;
+    position: relative;
+    overflow: visible;
+    transition: none;
+    border: none;
+
+    &:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    // Simple variant - minimal styling
+    &--simple {
+        padding: $spacing_2xl;
+        box-shadow: none;
+        border: none;
+
+        &:hover {
+            transform: none;
+            box-shadow: none;
+        }
+    }
+}
+
+// Legacy class support
+.login-card,
+.sms-card,
+.signup-card,
+.security-card {
+    @extend .login_card;
+}
+
+// ============================================
+// HEADER
+// ============================================
+
+.login_header,
+.sms_header,
+.signup_header {
+    text-align: center;
+    margin-bottom: $spacing_2xl;
+    position: relative;
+}
+
+// Legacy class support
+.login-header,
+.sms-header,
+.signup-header {
+    text-align: center;
+    margin-bottom: $spacing_xl;
+    position: relative;
+}
+
+// Logo Container
+.logo_container {
+    margin-bottom: $spacing_lg;
+    display: inline-block;
+    animation: fadeIn 0.8s ease-out forwards, float 3s ease-in-out infinite 1s;
+    opacity: 1;
+}
+
+.logo_icon {
+    width: 48px;
+    height: 48px;
+    color: $color_primary_blue;
+    filter: drop-shadow(0 2px 4px rgba($color_primary_blue, 0.2));
+
+    svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+}
+
+// Legacy class support
+.logo-container {
+    @extend .logo_container;
+
+    .logo-icon {
+        @extend .logo_icon;
+    }
+}
+
+// Login card içindeki logo her zaman görünür olsun
+.login_card,
+.login-card {
+    .logo_container,
+    .logo-container {
+        opacity: 1;
+        animation: fadeIn 0.6s ease-out forwards, float 3s ease-in-out infinite 1s;
+    }
+}
+
+// ============================================
+// TITLES
+// ============================================
+
+.login_title,
+.sms_title,
+.signup_title {
+    font-size: $font_size_h2;
+    font-weight: $font_weight_bold;
+    line-height: 1.2;
+    color: $color_dark_navy;
+    margin-bottom: $spacing_xs;
+    letter-spacing: -0.02em;
+}
+
+// Legacy class support
+.login-title,
+.sms-title,
+.signup-title {
+    font-size: $font_size_h2;
+    font-weight: $font_weight_bold;
+    line-height: 1.2;
+    color: $color_dark_navy;
+    margin-bottom: $spacing_xs;
+    letter-spacing: -0.02em;
+}
+
+.login_subtitle,
+.sms_subtitle,
+.signup_subtitle {
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_regular;
+    line-height: 1.4;
+    color: $text-secondary;
+    margin-top: $spacing_xs;
+}
+
+// Legacy class support
+.login-subtitle,
+.sms-subtitle,
+.signup-subtitle {
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_regular;
+    line-height: 1.4;
+    color: $text-secondary;
+    margin-top: $spacing_xs;
+}
+
+// ============================================
+// FORMS
+// ============================================
+
+.login_form,
+.sms_form,
+.signup_form {
+    animation: slideIn 0.6s ease-out 0.2s both;
+
+    .input-group,
+    .form_group {
+        margin-bottom: $spacing_md;
+    }
+
+    .kvkk-container {
+        margin-bottom: $spacing_md;
+    }
+}
+
+// Legacy class support
+.login-form,
+.sms-form,
+.signup-form {
+    animation: slideIn 0.6s ease-out 0.2s both;
+
+    .input-group,
+    .form_group {
+        margin-bottom: $spacing_md;
+    }
+
+    .kvkk-container {
+        margin-bottom: $spacing_md;
+    }
+}
+
+// ============================================
+// FOOTER
+// ============================================
+
+.login_footer,
+.sms_footer,
+.signup_footer,
+.security_footer {
+    text-align: center;
+    margin-top: $spacing_xl;
+    padding-top: $spacing_lg;
+    border-top: 1px solid $border-color;
+    font-size: $font_size_body_mobile;
+    color: $text-secondary;
+}
+
+// Legacy class support
+.login-footer,
+.sms-footer,
+.signup-footer,
+.security-footer {
+    text-align: center;
+    margin-top: $spacing_xl;
+    padding-top: $spacing_lg;
+    border-top: 1px solid $border-color;
+    font-size: $font_size_body_mobile;
+    color: $text-secondary;
+}
+
+// ============================================
+// LOGIN TYPE SELECTOR (Radio Tabs)
+// ============================================
+
+.login_type_selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing_md;
+    margin-bottom: $spacing_lg;
+}
+
+// Legacy class support
+.login-type-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing_md;
+    margin-bottom: $spacing_lg;
+}
+
+.type_option {
+    cursor: pointer;
+    position: relative;
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+
+        &:checked ~ .type_label {
+            background: $color_primary_blue;
+            color: $color_white;
+            border-color: $color_primary_blue;
+            box-shadow: $shadow-md;
+        }
+
+        &:focus ~ .type_label {
+            box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+        }
+    }
+
+    .type_label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $input_padding_y $input_padding_x;
+        background: $bg-secondary;
+        border: $input_border_width solid $border-color;
+        border-radius: $radius_lg;
+        transition: all $transition_fast;
+        font-size: $font_size_body_mobile;
+        font-weight: $font_weight_semibold;
+        color: $text-primary;
+
+        &:hover {
+            border-color: $color_primary_blue;
+            background: rgba($color_primary_blue, 0.05);
+        }
+    }
+}
+
+// Legacy class support
+.type-option {
+    @extend .type_option;
+
+    .type-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $input_padding_y $input_padding_x;
+        background: $bg-secondary;
+        border: $input_border_width solid $border-color;
+        border-radius: $radius_lg;
+        transition: all $transition_fast;
+        font-size: $font_size_body_mobile;
+        font-weight: $font_weight_semibold;
+        color: $text-primary;
+
+        &:hover {
+            border-color: $color_primary_blue;
+            background: rgba($color_primary_blue, 0.05);
+        }
+    }
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+
+        &:checked ~ .type-label {
+            background: $color_primary_blue;
+            color: $color_white;
+            border-color: $color_primary_blue;
+            box-shadow: $shadow-md;
+        }
+    }
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+// ============================================
+// KVKK MODAL
+// ============================================
+
+.kvkk_modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+
+    &.show {
+        display: block;
+    }
+}
+
+.kvkk_modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.kvkk_modal__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $bg-primary;
+    border-radius: $radius_xl;
+    box-shadow: $shadow-xl;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.3s ease;
+
+    @media (max-width: 640px) {
+        width: 95%;
+        max-height: 95vh;
+    }
+}
+
+.kvkk_modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing_lg $spacing_xl;
+    border-bottom: 1px solid $border-color;
+    flex-shrink: 0;
+}
+
+.kvkk_modal__title {
+    font-size: $font_size_h3;
+    font-weight: $font_weight_bold;
+    color: $color_dark_navy;
+    margin: 0;
+}
+
+.kvkk_modal__close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: $spacing_sm;
+    color: $text-secondary;
+    transition: color $transition_normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    &:hover {
+        color: $color_dark_navy;
+    }
+}
+
+.kvkk_modal__body {
+    padding: $spacing_xl;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $bg-secondary;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $border-color;
+        border-radius: 4px;
+
+        &:hover {
+            background: $text-light;
+        }
+    }
+
+    // Style the KVKK content
+    h3 {
+        font-size: $font_size_h3;
+        font-weight: $font_weight_bold;
+        color: $color_dark_navy;
+        margin-bottom: $spacing_lg;
+        text-align: center;
+    }
+
+    h4 {
+        font-size: $font_size_body;
+        font-weight: $font_weight_bold;
+        color: $color_dark_navy;
+        margin-top: $spacing_lg;
+        margin-bottom: $spacing_sm;
+    }
+
+    p {
+        font-size: $font_size_body_mobile;
+        line-height: $line_height_body;
+        color: $text-primary;
+        margin-bottom: $spacing_md;
+    }
+
+    ul {
+        list-style: disc;
+        padding-left: $spacing_xl;
+        margin-bottom: $spacing_md;
+
+        li {
+            font-size: $font_size_body_mobile;
+            line-height: $line_height_body;
+            color: $text-primary;
+            margin-bottom: $spacing_sm;
+
+            strong {
+                font-weight: $font_weight_semibold;
+                color: $color_dark_navy;
+            }
+        }
+    }
+
+    strong {
+        font-weight: $font_weight_semibold;
+        color: $color_dark_navy;
+    }
+
+    > div {
+        margin-bottom: $spacing_lg;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.kvkk_modal__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing_2xl;
+    gap: $spacing_md;
+    color: $text-secondary;
+}
+
+.kvkk_modal__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: $spacing_lg $spacing_xl;
+    border-top: 1px solid $border-color;
+    gap: $spacing_md;
+    flex-shrink: 0;
+}
+
+.text_error {
+    color: $error;
+    text-align: center;
+    padding: $spacing_xl;
+}
+
+// ============================================
+// SMS VERIFICATION MODAL
+// ============================================
+
+.sms_modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+
+    &.show {
+        display: block;
+    }
+}
+
+.sms_modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.sms_modal__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $bg-primary;
+    border-radius: $radius_xl;
+    box-shadow: $shadow-xl;
+    width: 90%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.3s ease;
+
+    @media (max-width: 640px) {
+        width: 95%;
+    }
+}
+
+.sms_modal__header {
+    text-align: center;
+    padding: $spacing_xl $spacing_xl $spacing_lg;
+    border-bottom: 1px solid $border-color;
+}
+
+.sms_modal__title {
+    font-size: $font_size_h3;
+    font-weight: $font_weight_bold;
+    color: $color_dark_navy;
+    margin: 0 0 $spacing_xs;
+}
+
+.sms_modal__subtitle {
+    font-size: $font_size_body_mobile;
+    color: $text-secondary;
+    margin: 0;
+}
+
+.sms_modal__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing_sm;
+    margin-top: $spacing_md;
+    padding: $spacing_sm $spacing_md;
+    background: $bg-secondary;
+    border-radius: $radius_md;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    color: $color_dark_navy;
+
+    svg {
+        color: $color_primary_blue;
+    }
+}
+
+.sms_modal__body {
+    padding: $spacing_xl;
+}
+
+.sms_modal__alert {
+    padding: $spacing_md;
+    border-radius: $radius_md;
+    margin-bottom: $spacing_lg;
+    font-size: $font_size_body_mobile;
+    text-align: center;
+    transition: all $transition_fast;
+
+    &--hidden {
+        display: none;
+    }
+
+    &--error {
+        background: rgba($error, 0.1);
+        color: $error;
+        border: 1px solid rgba($error, 0.2);
+    }
+
+    &--success {
+        background: rgba($success, 0.1);
+        color: darken($success, 10%);
+        border: 1px solid rgba($success, 0.2);
+    }
+
+    &--warning {
+        background: rgba($warning, 0.1);
+        color: darken($warning, 15%);
+        border: 1px solid rgba($warning, 0.2);
+    }
+}
+
+.sms_modal__input_group {
+    margin-bottom: $spacing_md;
+}
+
+.sms_modal__label {
+    display: block;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    color: $color_dark_navy;
+    margin-bottom: $spacing_sm;
+}
+
+.sms_modal__input {
+    width: 100%;
+    padding: $input_padding_y $input_padding_x;
+    font-size: $font_size_h3;
+    font-weight: $font_weight_bold;
+    text-align: center;
+    letter-spacing: 0.5em;
+    border: $input_border_width solid $border-color;
+    border-radius: $radius_lg;
+    background: $bg-primary;
+    color: $color_dark_navy;
+    transition: all $transition_fast;
+
+    &::placeholder {
+        font-size: $font_size_body_mobile;
+        font-weight: $font_weight_regular;
+        letter-spacing: normal;
+        color: $text-light;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $color_primary_blue;
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+    }
+
+    &.error {
+        border-color: $error;
+        box-shadow: 0 0 0 3px rgba($error, 0.1);
+    }
+}
+
+.sms_modal__error {
+    display: none;
+    font-size: $font_size_small;
+    color: $error;
+    margin-top: $spacing_xs;
+
+    &.show {
+        display: block;
+    }
+}
+
+// SMS Modal CAPTCHA
+.sms_modal__captcha {
+    margin-top: $spacing_lg;
+    padding: $spacing_md;
+    background: $bg-secondary;
+    border-radius: $radius_lg;
+    border: 1px solid $border-color;
+}
+
+.sms_modal__captcha_notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing_sm;
+    margin-bottom: $spacing_md;
+    color: $color_primary_blue;
+    font-size: $font_size_body_mobile;
+
+    svg {
+        flex-shrink: 0;
+    }
+
+    span {
+        color: $text-secondary;
+    }
+}
+
+.sms_modal__captcha_image_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing_sm;
+    margin-bottom: $spacing_md;
+}
+
+.sms_modal__captcha_image {
+    display: block;
+    width: 200px;
+    height: 70px;
+    border-radius: $radius_md;
+    border: 2px solid $border-color;
+    background: $color_white;
+}
+
+.sms_modal__captcha_refresh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: $bg-primary;
+    border: 2px solid $border-color;
+    border-radius: $radius_md;
+    color: $text-secondary;
+    cursor: pointer;
+    transition: all $transition_fast;
+
+    &:hover {
+        border-color: $color_primary_blue;
+        color: $color_primary_blue;
+        background: rgba($color_primary_blue, 0.05);
+    }
+
+    &:active {
+        transform: rotate(180deg);
+    }
+}
+
+.sms_modal__captcha_input_group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sms_modal__captcha_input {
+    width: 200px;
+    padding: $spacing_md;
+    font-size: 18px;
+    font-weight: $font_weight_bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    border: 2px solid $border-color;
+    border-radius: $radius_md;
+    background: $bg-primary;
+    color: $color_dark_navy;
+    transition: all $transition_fast;
+
+    &::placeholder {
+        font-size: 14px;
+        font-weight: $font_weight_medium;
+        letter-spacing: normal;
+        text-transform: none;
+        color: $text-secondary;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $color_primary_blue;
+        box-shadow: 0 0 0 3px rgba($color_primary_blue, 0.1);
+    }
+}
+
+.sms_modal__footer {
+    padding: 0 $spacing_xl $spacing_xl;
+}
+
+.sms_modal__resend {
+    text-align: center;
+    margin-top: $spacing_lg;
+    padding-top: $spacing_lg;
+    border-top: 1px solid $border-color;
+
+    p {
+        font-size: $font_size_body_mobile;
+        color: $text-secondary;
+        margin: 0 0 $spacing_xs;
+    }
+}
+
+.btn_link {
+    background: transparent;
+    border: none;
+    color: $color_primary_blue;
+    font-size: $font_size_body_mobile;
+    font-weight: $font_weight_semibold;
+    cursor: pointer;
+    padding: $spacing_xs;
+    transition: color $transition_fast;
+
+    &:hover {
+        color: darken($color_primary_blue, 10%);
+        text-decoration: underline;
+    }
+
+    &:disabled {
+        color: $text-light;
+        cursor: not-allowed;
+        text-decoration: none;
+    }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+@media (max-width: 640px) {
+    .login_card,
+    .sms_card,
+    .signup_card,
+    .login-card,
+    .sms-card,
+    .signup-card {
+        padding: $spacing_xl;
+        border-radius: $radius_lg;
+    }
+
+    .login_title,
+    .sms_title,
+    .signup_title,
+    .login-title,
+    .sms-title,
+    .signup-title {
+        font-size: $font_size_h3;
+    }
+
+    .kvkk_modal__header,
+    .kvkk_modal__footer {
+        padding: $spacing_md $spacing_lg;
+    }
+
+    .kvkk_modal__body {
+        padding: $spacing_lg;
+    }
+
+    .kvkk_modal__title {
+        font-size: $font_size_body;
+    }
+}

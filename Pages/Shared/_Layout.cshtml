@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - İnteraktif Şube</title>
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    @if (ViewData["UseAppContainer"] as bool? ?? true)
+    {
+        <div class="app-container">
+            @RenderBody()
+        </div>
+    }
+    else
+    {
+        @RenderBody()
+    }
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    
+    @{
+        var isAuthenticated = !string.IsNullOrEmpty(Context.Session.GetString("AuthToken"));
+    }
+    @if (isAuthenticated)
+    {
+        <form id="logoutForm" method="post" asp-page="/Index" asp-page-handler="Logout">
+            @Html.AntiForgeryToken()
+        </form>
+        <script src="~/js/idle_timeout.js" asp-append-version="true"></script>
+    }
+</body>
+</html>
+

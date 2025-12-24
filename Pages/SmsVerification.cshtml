@@ -1,0 +1,227 @@
+@page
+@model SmsVerificationModel
+@{
+    ViewData["Title"] = "SMS Doğrulama";
+}
+
+<div class="sms-container">
+    <div class="sms-card">
+        <div class="sms-header">
+            <a href="/" class="back-button">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <h1 class="sms-title">SMS Doğrulama</h1>
+            <p class="sms-subtitle">Doğrulama kodu gönderildi</p>
+            <div class="sms-phone-display">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7293C21.7209 20.9845 21.5573 21.2136 21.3521 21.4019C21.1468 21.5901 20.9046 21.7335 20.6407 21.8227C20.3769 21.9119 20.0974 21.9451 19.82 21.92C16.7428 21.5856 13.787 20.5341 11.19 18.85C8.77383 17.3147 6.72533 15.2662 5.19 12.85C3.49998 10.2412 2.44824 7.27099 2.12 4.18C2.09501 3.90347 2.12787 3.62476 2.21649 3.36162C2.30512 3.09849 2.44756 2.85669 2.63476 2.65162C2.82196 2.44655 3.0498 2.28271 3.30379 2.17052C3.55777 2.05833 3.83233 2.00026 4.11 2H7.11C7.5953 1.99522 8.06579 2.16708 8.43376 2.48353C8.80173 2.79999 9.04207 3.23945 9.11 3.72C9.23662 4.68007 9.47145 5.62273 9.81 6.53C9.94454 6.88792 9.97366 7.27691 9.89391 7.65088C9.81415 8.02485 9.62886 8.36811 9.36 8.64L8.09 9.91C9.51356 12.4135 11.5865 14.4864 14.09 15.91L15.36 14.64C15.6319 14.3711 15.9751 14.1858 16.3491 14.1061C16.7231 14.0263 17.1121 14.0555 17.47 14.19C18.3773 14.5286 19.3199 14.7634 20.28 14.89C20.7658 14.9585 21.2094 15.2032 21.5265 15.5775C21.8437 15.9518 22.0122 16.4296 22 16.92Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="sms-phone-number">@Model.MaskedGsm</span>
+            </div>
+        </div>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert--error">
+                <span class="alert__icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="alert__text">@TempData["Error"]</span>
+            </div>
+        }
+
+        @if (TempData["Warning"] != null)
+        {
+            <div class="alert alert--warning">
+                <span class="alert__icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 9V13M12 17H12.01M5.07183 19H18.9282C20.4678 19 21.4301 17.3333 20.6603 16L13.7321 4C12.9623 2.66667 11.0377 2.66667 10.2679 4L3.33975 16C2.56995 17.3333 3.53223 19 5.07183 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="alert__text">@TempData["Warning"]</span>
+            </div>
+        }
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert--success">
+                <span class="alert__icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.85999" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="alert__text">@TempData["Success"]</span>
+            </div>
+        }
+
+        <form id="smsForm" class="sms-form" method="post">
+            <div class="sms-code-container">
+                <div class="input-group">
+                    <label class="input-label">Doğrulama Kodu</label>
+                    <input type="text" 
+                           id="otpCode" 
+                           name="otpCode" 
+                           class="form-input sms-single-input" 
+                           placeholder="6 haneli kodu giriniz"
+                           maxlength="6"
+                           autocomplete="one-time-code"
+                           inputmode="numeric"
+                           pattern="[0-9]*"
+                           required />
+                    <span class="input-error" id="code_error"></span>
+                </div>
+            </div>
+
+
+            @if (Model.ShowRecaptcha)
+            {
+                <div class="recaptcha-container" id="recaptchaContainer">
+                    <div class="recaptcha-notice">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Her denemede robot doğrulaması gerekli</span>
+                    </div>
+                    <div class="recaptcha-checkbox-wrapper">
+                        <label class="recaptcha-checkbox">
+                            <input type="checkbox" id="recaptchaCheck" name="recaptchaCheck" />
+                            <span class="checkmark"></span>
+                            <span class="recaptcha-text">Robot değilim</span>
+                        </label>
+                        <input type="hidden" id="recaptchaToken" name="recaptchaToken" value="" />
+                    </div>
+                </div>
+            }
+
+            <button type="submit" class="btn btn_primary" id="verifyBtn">
+                <span class="btn_text">Doğrula</span>
+                <span class="btn_loader">
+                    <span class="spinner"></span>
+                    <span>Doğrulanıyor...</span>
+                </span>
+            </button>
+        </form>
+
+        <div class="sms-footer">
+            <p>Kod gelmedi mi?</p>
+            <div class="sms-alternatives">
+                <form method="post" asp-page-handler="ResendOtp" id="resendForm">
+                    <button type="submit" class="btn-link" id="resendLink">SMS'i Tekrar Gönder</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            var $otp_input = $('#otpCode');
+            var $sms_form = $('#smsForm');
+            var $verify_btn = $('#verifyBtn');
+            var $resend_form = $('#resendForm');
+            var $resend_link = $('#resendLink');
+            var $recaptcha_check = $('#recaptchaCheck');
+            var $recaptcha_token = $('#recaptchaToken');
+            
+            var resend_cooldown = 30;
+            var resend_timer = null;
+            var show_recaptcha = @(Model.ShowRecaptcha ? "true" : "false");
+
+            // Focus input
+            $otp_input.focus();
+
+            // Only allow numbers
+            $otp_input.on('input', function() {
+                var value = $(this).val().replace(/\D/g, '');
+                $(this).val(value);
+                
+                if (value.length === 6) {
+                    $('#code_error').text('').removeClass('show');
+                    $otp_input.removeClass('error');
+                }
+            });
+
+            // reCAPTCHA checkbox handler
+            $recaptcha_check.on('change', function() {
+                if ($(this).is(':checked')) {
+                    // In production, use Google reCAPTCHA
+                    // For demo, we'll just set a token
+                    $recaptcha_token.val('demo-recaptcha-token-' + Date.now());
+                } else {
+                    $recaptcha_token.val('');
+                }
+            });
+
+            // Reset reCAPTCHA on page load (for each attempt)
+            if (show_recaptcha) {
+                $recaptcha_check.prop('checked', false);
+                $recaptcha_token.val('');
+            }
+
+            // Form submission
+            $sms_form.on('submit', function(e) {
+                e.preventDefault();
+
+                var code = $otp_input.val();
+
+                if (code.length !== 6) {
+                    $('#code_error').text('Lütfen 6 haneli kodu giriniz').addClass('show');
+                    $otp_input.addClass('error');
+                    return;
+                }
+
+                // Check reCAPTCHA if required
+                if (show_recaptcha && !$recaptcha_check.is(':checked')) {
+                    $('#code_error').text('Lütfen robot olmadığınızı doğrulayın').addClass('show');
+                    return;
+                }
+
+                // Show loading
+                $verify_btn.addClass('btn--loading');
+                $verify_btn.find('.btn_text').hide();
+                $verify_btn.find('.btn_loader').css('display', 'flex');
+                $verify_btn.prop('disabled', true);
+
+                // Submit form
+                $sms_form.off('submit').submit();
+            });
+
+            // Resend cooldown
+            function start_resend_cooldown() {
+                resend_cooldown = 30;
+                $resend_link.prop('disabled', true).addClass('disabled');
+
+                resend_timer = setInterval(function() {
+                    resend_cooldown--;
+                    if (resend_cooldown > 0) {
+                        $resend_link.text('SMS\'i Tekrar Gönder (' + resend_cooldown + 's)');
+                    } else {
+                        clearInterval(resend_timer);
+                        $resend_link.prop('disabled', false).removeClass('disabled').text('SMS\'i Tekrar Gönder');
+                    }
+                }, 1000);
+            }
+
+            // Resend form submission
+            $resend_form.on('submit', function(e) {
+                if ($resend_link.prop('disabled')) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Show loading on resend
+                $resend_link.text('Gönderiliyor...').prop('disabled', true);
+            });
+
+            // Start cooldown on page load
+            start_resend_cooldown();
+        });
+    </script>
+}

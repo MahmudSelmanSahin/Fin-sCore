@@ -1,0 +1,39 @@
+{
+    "success": true,
+    "statusCode": 200,
+    "message": "Tüm JobGroup verileri getirildi.",
+    "value": [
+        {
+            "Id": 1,
+            "JobGroupName": "Kamu Çalışanıyım"
+        },
+        {
+            "Id": 2,
+            "JobGroupName": "Özel Sektör Çalışanıyım"
+        },
+        {
+            "Id": 3,
+            "JobGroupName": "İşyerim var /Ortağım"
+        },
+        {
+            "Id": 4,
+            "JobGroupName": "Emekliyim"
+        },
+        {
+            "Id": 5,
+            "JobGroupName": "Emekliyim ve Çalışıyorum"
+        },
+        {
+            "Id": 6,
+            "JobGroupName": "Çiftçiyim"
+        },
+        {
+            "Id": 7,
+            "JobGroupName": "Çalışmıyorum"
+        },
+        {
+            "Id": 8,
+            "JobGroupName": "Freelancer Olarak Çalışıyorum"
+        }
+    ]
+}

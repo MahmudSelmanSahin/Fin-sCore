@@ -1,0 +1,556 @@
+@page
+@model ProfileModel
+@{
+    ViewData["Title"] = "Profil & Hesap Ayarları";
+    ViewData["UseAppContainer"] = false;
+}
+
+<div class="dashboard">
+    <!-- Navigation Bar -->
+    <nav class="dashboard__navbar" id="mainNavbar">
+        <div class="dashboard__navbar_container">
+            <!-- Top Row -->
+            <div class="navbar__top_row">
+                <a href="/Dashboard" class="navbar__logo">
+                    <img src="~/img/interaktif_kredi_logo.png" alt="İnteraktif Kredi" class="navbar__logo_img" />
+                </a>
+                
+                <div class="navbar__top_menu">
+                    <a href="/AboutUs" class="navbar__top_link">Biz Kimiz?</a>
+                    <a href="/ReportDetails" class="navbar__top_link">Raporlar</a>
+                    <a href="/LoanCalculator" class="navbar__top_link">Kredi Hesaplama</a>
+                    <a href="/Dashboard#help-center" class="navbar__top_link">Destek &amp; SSS</a>
+                </div>
+                
+                <div class="navbar__actions">
+                    <div class="profile_dropdown" id="profileDropdown">
+                        <button type="button" class="navbar__btn_primary navbar__btn_primary--active" id="profileDropdownBtn" title="Profil">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="profile_dropdown__menu" id="profileDropdownMenu">
+                            <a href="/Profile" class="profile_dropdown__item">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Profil</span>
+                            </a>
+                            <button type="button" class="profile_dropdown__item profile_dropdown__item--logout" id="logoutBtn">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Çıkış Yap</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Navbar Spacer -->
+    <div class="dashboard__navbar_spacer dashboard__navbar_spacer--compact"></div>
+
+    <!-- Page Header -->
+    <section class="profile__header">
+        <div class="profile__header_container">
+            <div class="profile__header_text">
+                <h1 class="profile__title">Profil & Hesap Ayarları</h1>
+                <p class="profile__subtitle">Kişisel bilgilerinizi görüntüleyin ve güncelleyin</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notifications -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="profile__notification profile__notification--success">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span>@TempData["SuccessMessage"]</span>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="profile__notification profile__notification--error">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>@TempData["ErrorMessage"]</span>
+        </div>
+    }
+
+    <!-- Profile Content -->
+    <section class="profile__content">
+        <div class="profile__grid">
+            <!-- Address / Contact Info Card -->
+            <div class="profile__card">
+                <div class="profile__card_header">
+                    <div class="profile__card_icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="profile__card_title_group">
+                        <h2 class="profile__card_title">Adres / İletişim Bilgileri</h2>
+                        <p class="profile__card_subtitle">İkamet ve iletişim bilgileriniz</p>
+                    </div>
+                </div>
+
+                <form method="post" asp-page-handler="UpdateAddress" class="profile__form">
+                    <!-- Name / Surname Row -->
+                    <div class="profile__form_row">
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="firstName">Ad</label>
+                            <div class="profile__input_wrapper">
+                                <input type="text" id="firstName" class="profile__input" placeholder="Adınız" value="Mahmud Selman" />
+                            </div>
+                        </div>
+
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="lastName">Soyad</label>
+                            <div class="profile__input_wrapper">
+                                <input type="text" id="lastName" class="profile__input" placeholder="Soyadınız" value="Şahin" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="profile__form_group">
+                        <label class="profile__label" for="phoneNumber">Telefon Numarası</label>
+                        <div class="profile__input_wrapper">
+                            <input type="tel" id="phoneNumber" class="profile__input" placeholder="05XX XXX XX XX" value="0532 123 45 67" />
+                        </div>
+                    </div>
+                    <div class="profile__form_group">
+                        <label class="profile__label" for="address">Adres</label>
+                        <div class="profile__input_wrapper">
+                            <textarea id="address" 
+                                      name="AddressForm.Adress" 
+                                      class="profile__textarea" 
+                                      rows="3" 
+                                      placeholder="Adres bilginizi girin">@Model.AddressForm.Adress</textarea>
+                        </div>
+                    </div>
+
+                    <div class="profile__form_row">
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="cityId">İl</label>
+                            <div class="profile__select_wrapper">
+                                <select id="cityId" name="AddressForm.CityId" class="profile__select">
+                                    <option value="">İl Seçin</option>
+                                    @foreach (var city in Model.Cities)
+                                    {
+                                        <option value="@city.Id" selected="@(Model.AddressForm.CityId == city.Id)">@city.Name</option>
+                                    }
+                                </select>
+                                <svg class="profile__select_icon" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="townId">İlçe</label>
+                            <div class="profile__select_wrapper">
+                                <select id="townId" name="AddressForm.TownId" class="profile__select">
+                                    <option value="">İlçe Seçin</option>
+                                    @foreach (var town in Model.Towns)
+                                    {
+                                        <option value="@town.Id" selected="@(Model.AddressForm.TownId == town.Id)">@town.Name</option>
+                                    }
+                                </select>
+                                <svg class="profile__select_icon" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile__form_actions">
+                        <button type="submit" class="btn btn_primary">
+                            <span class="btn_text">Kaydet</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Job / Income Info Card -->
+            <div class="profile__card">
+                <div class="profile__card_header">
+                    <div class="profile__card_icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="profile__card_title_group">
+                        <h2 class="profile__card_title">Meslek & Gelir Bilgileri</h2>
+                        <p class="profile__card_subtitle">Çalışma ve gelir durumunuz</p>
+                    </div>
+                </div>
+
+                <form method="post" asp-page-handler="UpdateJob" class="profile__form">
+                    <div class="profile__form_row">
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="customerWork">Çalışma Durumu</label>
+                            <div class="profile__select_wrapper">
+                                <select id="customerWork" name="JobForm.CustomerWork" class="profile__select">
+                                    <option value="">Seçin</option>
+                                    @foreach (var work in Model.WorkTypes)
+                                    {
+                                        <option value="@work.Id" selected="@(Model.JobForm.CustomerWork == work.Id)">@work.Name</option>
+                                    }
+                                </select>
+                                <svg class="profile__select_icon" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="jobGroupId">Sektör</label>
+                            <div class="profile__select_wrapper">
+                                <select id="jobGroupId" name="JobForm.JobGroupId" class="profile__select">
+                                    <option value="">Sektör Seçin</option>
+                                    @foreach (var group in Model.JobGroups)
+                                    {
+                                        <option value="@group.Id" selected="@(Model.JobForm.JobGroupId == group.Id)">@group.Name</option>
+                                    }
+                                </select>
+                                <svg class="profile__select_icon" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile__form_group">
+                        <label class="profile__label" for="titleCompany">Şirket Adı</label>
+                        <div class="profile__input_wrapper">
+                            <input type="text" 
+                                   id="titleCompany" 
+                                   name="JobForm.TitleCompany" 
+                                   class="profile__input" 
+                                   value="@Model.JobForm.TitleCompany"
+                                   placeholder="Çalıştığınız şirket adı" />
+                        </div>
+                    </div>
+
+                    <div class="profile__form_group">
+                        <label class="profile__label" for="companyPosition">Pozisyon</label>
+                        <div class="profile__input_wrapper">
+                            <input type="text" 
+                                   id="companyPosition" 
+                                   name="JobForm.CompanyPosition" 
+                                   class="profile__input" 
+                                   value="@Model.JobForm.CompanyPosition"
+                                   placeholder="Göreviniz / Pozisyonunuz" />
+                        </div>
+                    </div>
+
+                    <div class="profile__form_row">
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="workingYears">Çalışma Süresi (Yıl)</label>
+                            <div class="profile__input_wrapper">
+                                <input type="number" 
+                                       id="workingYears" 
+                                       name="JobForm.WorkingYears" 
+                                       class="profile__input" 
+                                       value="@Model.JobForm.WorkingYears"
+                                       min="0" 
+                                       max="50"
+                                       placeholder="Yıl" />
+                            </div>
+                        </div>
+
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="workingMonth">Çalışma Süresi (Ay)</label>
+                            <div class="profile__input_wrapper">
+                                <input type="number" 
+                                       id="workingMonth" 
+                                       name="JobForm.WorkingMonth" 
+                                       class="profile__input" 
+                                       value="@Model.JobForm.WorkingMonth"
+                                       min="0" 
+                                       max="11"
+                                       placeholder="Ay" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile__form_actions">
+                        <button type="submit" class="btn btn_primary">
+                            <span class="btn_text">Kaydet</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Wife / Spouse Info Card -->
+            <div class="profile__card">
+                <div class="profile__card_header">
+                    <div class="profile__card_icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="profile__card_title_group">
+                        <h2 class="profile__card_title">Eş Gelir & Çalışma Bilgileri</h2>
+                        <p class="profile__card_subtitle">Medeni durum ve eş gelir bilgileriniz</p>
+                    </div>
+                </div>
+
+                <form method="post" asp-page-handler="UpdateWife" class="profile__form">
+                    <div class="profile__form_group">
+                        <label class="profile__label" for="maritalStatus">Medeni Durum</label>
+                        <div class="profile__select_wrapper">
+                            <select id="maritalStatus" name="WifeForm.MaritalStatus" class="profile__select">
+                                <option value="true" selected="@Model.WifeForm.MaritalStatus">Evli</option>
+                                <option value="false" selected="@(!Model.WifeForm.MaritalStatus)">Bekar</option>
+                            </select>
+                            <svg class="profile__select_icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="profile__form_group">
+                        <label class="profile__label" for="workWife">Eş Çalışma Durumu</label>
+                        <div class="profile__select_wrapper">
+                            <select id="workWife" name="WifeForm.WorkWife" class="profile__select">
+                                <option value="true" selected="@Model.WifeForm.WorkWife">Çalışıyor</option>
+                                <option value="false" selected="@(!Model.WifeForm.WorkWife)">Çalışmıyor</option>
+                            </select>
+                            <svg class="profile__select_icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="profile__form_group">
+                        <label class="profile__label" for="wifeSalaryAmount">Eş Maaş Tutarı</label>
+                        <div class="profile__input_wrapper">
+                            <input type="number" 
+                                   id="wifeSalaryAmount" 
+                                   name="WifeForm.WifeSalaryAmount" 
+                                   class="profile__input" 
+                                   value="@Model.WifeForm.WifeSalaryAmount"
+                                   min="0"
+                                   step="100"
+                                   placeholder="Aylık net maaş tutarı" />
+                        </div>
+                    </div>
+
+                    <div class="profile__form_actions">
+                        <button type="submit" class="btn btn_primary">
+                            <span class="btn_text">Kaydet</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Finance / Assets Info Card -->
+            <div class="profile__card">
+                <div class="profile__card_header">
+                    <div class="profile__card_icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="profile__card_title_group">
+                        <h2 class="profile__card_title">Finansal Bilgiler</h2>
+                        <p class="profile__card_subtitle">Maaş ve varlık bilgileriniz</p>
+                    </div>
+                </div>
+
+                <form method="post" asp-page-handler="UpdateFinance" class="profile__form">
+                    <div class="profile__form_row">
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="workSector">Çalışma Sektörü</label>
+                            <div class="profile__select_wrapper">
+                                <select id="workSector" name="FinanceForm.WorkSector" class="profile__select">
+                                    <option value="">Seçin</option>
+                                    @foreach (var sector in Model.WorkSectors)
+                                    {
+                                        <option value="@sector.Id" selected="@(Model.FinanceForm.WorkSector == sector.Id)">@sector.Name</option>
+                                    }
+                                </select>
+                                <svg class="profile__select_icon" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="salaryBank">Maaş Bankası</label>
+                            <div class="profile__select_wrapper">
+                                <select id="salaryBank" name="FinanceForm.SalaryBank" class="profile__select">
+                                    <option value="">Banka Seçin</option>
+                                    @foreach (var bank in Model.Banks)
+                                    {
+                                        <option value="@bank" selected="@(Model.FinanceForm.SalaryBank == bank)">@bank</option>
+                                    }
+                                </select>
+                                <svg class="profile__select_icon" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile__form_group">
+                        <label class="profile__label" for="salaryAmount">Aylık Maaş Tutarı</label>
+                        <div class="profile__input_wrapper">
+                            <input type="number" 
+                                   id="salaryAmount" 
+                                   name="FinanceForm.SalaryAmount" 
+                                   class="profile__input" 
+                                   value="@Model.FinanceForm.SalaryAmount"
+                                   min="0"
+                                   step="100"
+                                   placeholder="Aylık net maaş tutarı" />
+                        </div>
+                    </div>
+
+                    <div class="profile__form_row">
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="carStatus">Araç Durumu</label>
+                            <div class="profile__select_wrapper">
+                                <select id="carStatus" name="FinanceForm.CarStatus" class="profile__select">
+                                    <option value="true" selected="@Model.FinanceForm.CarStatus">Araç Sahibiyim</option>
+                                    <option value="false" selected="@(!Model.FinanceForm.CarStatus)">Araç Sahibi Değilim</option>
+                                </select>
+                                <svg class="profile__select_icon" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="profile__form_group">
+                            <label class="profile__label" for="houseStatus">Ev Durumu</label>
+                            <div class="profile__select_wrapper">
+                                <select id="houseStatus" name="FinanceForm.HouseStatus" class="profile__select">
+                                    <option value="true" selected="@Model.FinanceForm.HouseStatus">Ev Sahibiyim</option>
+                                    <option value="false" selected="@(!Model.FinanceForm.HouseStatus)">Ev Sahibi Değilim</option>
+                                </select>
+                                <svg class="profile__select_icon" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile__form_actions">
+                        <button type="submit" class="btn btn_primary">
+                            <span class="btn_text">Kaydet</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/js/navbar.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function() {
+            var $citySelect = $('#cityId');
+            var $townSelect = $('#townId');
+            
+            // İl seçilmeden ilçe seçilemez - başlangıçta kontrol
+            if (!$citySelect.val()) {
+                $townSelect.prop('disabled', true);
+            }
+            
+            // İl değiştiğinde ilçeleri yükle
+            $citySelect.on('change', function() {
+                var cityId = $(this).val();
+                
+                // İlçe dropdown'ını temizle ve devre dışı bırak
+                $townSelect.html('<option value="">İlçe yükleniyor...</option>');
+                $townSelect.prop('disabled', true);
+                
+                if (!cityId) {
+                    $townSelect.html('<option value="">Önce İl Seçin</option>');
+                    return;
+                }
+                
+                // AJAX ile ilçeleri yükle
+                $.get('/Profile?handler=Districts&cityId=' + cityId)
+                    .done(function(districts) {
+                        var options = '<option value="">İlçe Seçin</option>';
+                        if (districts && districts.length > 0) {
+                            districts.forEach(function(district) {
+                                options += '<option value="' + district.id + '">' + district.name + '</option>';
+                            });
+                            $townSelect.prop('disabled', false);
+                        } else {
+                            options = '<option value="">İlçe bulunamadı</option>';
+                        }
+                        $townSelect.html(options);
+                    })
+                    .fail(function() {
+                        $townSelect.html('<option value="">İlçeler yüklenemedi</option>');
+                    });
+            });
+            
+            // Form submit - double submit prevention
+            $('.profile__form').on('submit', function() {
+                var $form = $(this);
+                var $btn = $form.find('button[type="submit"]');
+                
+                $btn.prop('disabled', true);
+                $btn.find('.btn_text').text('Kaydediliyor...');
+            });
+
+            // Auto-hide notifications after 5 seconds
+            setTimeout(function() {
+                $('.profile__notification').fadeOut(300);
+            }, 5000);
+            
+            // Profile Dropdown
+            var $profile_dropdown = $('#profileDropdown');
+            var $profile_dropdown_btn = $('#profileDropdownBtn');
+            var $logout_btn = $('#logoutBtn');
+            
+            // Dropdown toggle
+            $profile_dropdown_btn.on('click', function(e) {
+                e.stopPropagation();
+                $profile_dropdown.toggleClass('active');
+            });
+            
+            // Dışarı tıklanınca kapat
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.profile_dropdown').length) {
+                    $profile_dropdown.removeClass('active');
+                }
+            });
+            
+            // ESC tuşu ile kapat
+            $(document).on('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    $profile_dropdown.removeClass('active');
+                }
+            });
+            
+            // Logout işlemi
+            $logout_btn.on('click', function() {
+                window.location.href = '/?action=logout';
+            });
+        });
+    </script>
+}
+
